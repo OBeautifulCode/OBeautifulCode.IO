@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DirectoryHelper.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FileMergeHeaderTreatment.cs" />
     <Compile Include="FileMergeMethod.cs" />
