@@ -55,7 +55,7 @@ namespace OBeautifulCode.Libs.IO
         /// </param>        
         /// <exception cref="ArgumentNullException">rootFolder is null.</exception>
         /// <exception cref="ArgumentException">rootFolder is whitespace or a relative path couldn't be made absolute.</exception>
-        /// <exception cref="ArgumentException">minutesToKeep is &lt;=0</exception>        
+        /// <exception cref="ArgumentOutOfRangeException">minutesToKeep is &lt;=0</exception>        
         /// <exception cref="DirectoryNotFoundException">The directory doesn't exist or disappears during the process.</exception>
         /// <exception cref="UnauthorizedAccessException">method can't access the directory</exception>
         /// <exception cref="IOException">rootFolder is in the application's current working directory.</exception>
@@ -63,7 +63,7 @@ namespace OBeautifulCode.Libs.IO
         public static void ClearTemporaryFolders(string rootFolder, int minutesToKeep)
         {
             // check arguments
-            Condition.Requires(rootFolder, "rootFolder").IsNullOrWhiteSpace();
+            Condition.Requires(rootFolder, "rootFolder").IsNotNullOrWhiteSpace();
             Condition.Requires(minutesToKeep, "minutesToKeep").IsGreaterThan(0);
             if (!Directory.Exists(rootFolder))
             {
@@ -120,7 +120,7 @@ namespace OBeautifulCode.Libs.IO
                     // ReSharper restore RedundantJumpStatement
                 } // enough time has passed?
             } // for each subfolder
-        } // ClearTemporaryFolders()
+        }
 
         /// <summary>
         /// Creates a temporary folder in the windows temporary folder.
@@ -193,22 +193,7 @@ namespace OBeautifulCode.Libs.IO
                 throw new IOException("Couldn't create temporary folder.");
             } // lock _createTemporaryResourceLock
         }
-
-        /// <summary>
-        /// Deletes a folder and all contents.  Calls the DeleteFolder method with recreateFolder = false
-        /// </summary>
-        /// <param name="folder">folder to delete.</param>       
-        /// <exception cref="IOException">The directory is the application's current working directory OR the directory couldn't be deleted OR the directory couldn't be recreated.</exception>
-        /// <exception cref="ArgumentException">folder is null or empty, contains illegal characters, has only whitespace, or has a relative path that couldn't be made absolute.</exception>
-        /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters and file names must be less than 260 characters.</exception>
-        /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
-        /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:").</exception>              
-        public static void DeleteFolder(string folder)
-        {
-            DeleteFolder(folder, false);
-        }
-
+        
         /// <summary>
         /// Deletes a folder and all contents of that folder.
         /// </summary>
@@ -221,7 +206,7 @@ namespace OBeautifulCode.Libs.IO
         /// <exception cref="UnauthorizedAccessException">The caller does not have permission to recreate the folder when recreate = true.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>       
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:")</exception>
-        public static void DeleteFolder(string folder, bool recreate)
+        public static void DeleteFolder(string folder, bool recreate = false)
         {
             // check arguments
             Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
