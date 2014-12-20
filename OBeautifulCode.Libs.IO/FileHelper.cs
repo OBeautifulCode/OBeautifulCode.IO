@@ -733,6 +733,40 @@ namespace OBeautifulCode.Libs.IO
         #region Extract Data
 
         /// <summary>
+        /// Counts the number of lines in a file
+        /// </summary>
+        /// <remarks>
+        /// A line is considered one of the following:
+        /// - some or no text followed by a newline
+        /// - some text that does not end in a newline
+        /// A zero byte file is considered 0 lines.
+        /// A file with just a newline is considered 1 line (1 instance of no text followed by a newline)
+        /// A file with some text and a newline is considered 1 line (1 instance of text followed by a newline)
+        /// </remarks>
+        /// <param name="filePath">file to count lines</param>
+        /// <returns>number of lines in the file</returns>
+        /// <exception cref="ArgumentNullException">filePath is null</exception>
+        /// <exception cref="ArgumentException">filePath is empty, not in legal form, has illegal characters in path, or points to a Win32 device.</exception>
+        /// <exception cref="FileNotFoundException">file wasn't found on disk.</exception>
+        /// <exception cref="DirectoryNotFoundException">filePath path is invalid.</exception>
+        /// <exception cref="PathTooLongException">filepath was too long.</exception>
+        /// <exception cref="NotSupportedException">The filePath's format is not supported</exception>
+        /// <exception cref="IOException">There's an IO error accessing file.</exception>
+        public static long CountLines(string filePath)
+        {
+            long count = 0;
+            using (var reader = new StreamReader(filePath))
+            {
+                while (reader.ReadLine() != null)
+                {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        /// <summary>
         /// Counts the number of non-blank lines in a file
         /// </summary>
         /// <param name="filePath">file to count lines</param>
