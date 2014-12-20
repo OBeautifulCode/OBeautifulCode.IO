@@ -1554,6 +1554,196 @@ namespace OBeautifulCode.Libs.IO.Test
         #region Extract Data
 
         /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_FilePathIsNull_ThrowsArgumentNullException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<ArgumentNullException>(() => FileHelper.CountLines(null));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_FilePathIsWhitespace_ThrowsArgumentException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<ArgumentException>(() => FileHelper.CountLines(string.Empty));
+            Assert.Throws<ArgumentException>(() => FileHelper.CountLines("    "));
+            Assert.Throws<ArgumentException>(() => FileHelper.CountLines("  \r\n  "));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_FilePathIsInvalid_ThrowsArgumentException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<ArgumentException>(() => FileHelper.CountLines(@"c:\test<\file.txt"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CountLines("con:"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_FileDoesNotExist_ThrowsFileNotFoundException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<FileNotFoundException>(() => FileHelper.CountLines(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadAllNonBlankLines.txt"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_DirectoryDoesNotExist_ThrowsDirectoryNotFoundException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CountLines(@"c:\directorythatdoesntexistReadLastLineTest\test.txt"));
+            Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CountLines(Path.GetTempPath().AppendMissing(@"\")));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_FilePathIsTooLong_ThrowsPathTooLongException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<PathTooLongException>(() => FileHelper.CountLines(@"c:\thisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpath\file.txt"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_FilePathFormatIsNotSupported_ThrowsNotSupportedException()
+        {
+            // Arrange, Act, Assert
+            Assert.Throws<NotSupportedException>(() => FileHelper.CountLines(@"c:\pip:es.txt"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_ZeroByteFile_Returns0()
+        {
+            // Arrange, 
+            string tempFile = Path.GetTempFileName();
+
+            // Act, 
+            long lines = FileHelper.CountLines(tempFile);
+
+            // Assert
+            Assert.Equal(0, lines);
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_OneChunkOfTextWithNoNewLines_Returns1()
+        {
+            // Arrange, 
+            string tempFile1 = Path.GetTempFileName();
+            File.WriteAllText(tempFile1, "a");
+
+            string tempFile2 = Path.GetTempFileName();
+            File.WriteAllText(tempFile2, "This is the first line");
+
+            // Act, 
+            long lines1 = FileHelper.CountLines(tempFile1);
+            long lines2 = FileHelper.CountLines(tempFile2);
+
+            // Assert
+            Assert.Equal(1, lines1);
+            Assert.Equal(1, lines2);
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_OneChunkOfTextEndingInNewline_Returns1()
+        {
+            // Arrange, 
+            string tempFile2 = Path.GetTempFileName();
+            File.WriteAllText(tempFile2, "This is the first line" + Environment.NewLine);
+
+            // Act, 
+            long lines2 = FileHelper.CountLines(tempFile2);
+
+            // Assert
+            Assert.Equal(1, lines2);
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_NewLineFollowedByOneChunkOfText_Returns2()
+        {
+            // Arrange, 
+            string tempFile1 = Path.GetTempFileName();
+            File.WriteAllText(tempFile1, Environment.NewLine + "a");
+            
+            // Act, 
+            long lines1 = FileHelper.CountLines(tempFile1);
+            
+            // Assert
+            Assert.Equal(2, lines1);            
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_NewLineFollowedByOneChunkOfTextFollowedByNewline_Returns2()
+        {
+            // Arrange, 
+            string tempFile1 = Path.GetTempFileName();
+            File.WriteAllText(tempFile1, Environment.NewLine + "a" + Environment.NewLine);
+
+            // Act, 
+            long lines1 = FileHelper.CountLines(tempFile1);
+
+            // Assert
+            Assert.Equal(2, lines1);
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CountLines_MultipleLinesSomeAreNewLine_ReturnsOneLinePerTextNewlinePairOrTextNotEndingInNewline()
+        {
+            // Arrange, 
+            string tempFile1 = Path.GetTempFileName();
+            File.WriteAllText(tempFile1, Environment.NewLine + Environment.NewLine + Environment.NewLine);
+
+            string tempFile2 = Path.GetTempFileName();
+            File.WriteAllText(tempFile2, "This is the first line" + Environment.NewLine + "this is the second line" + Environment.NewLine);
+
+            string tempFile3 = Path.GetTempFileName();
+            File.WriteAllText(tempFile3, "This is the first line" + Environment.NewLine + "this is the second line" + Environment.NewLine + "this is the third line");
+
+            // Act, 
+            long lines1 = FileHelper.CountLines(tempFile1);
+            long lines2 = FileHelper.CountLines(tempFile2);
+            long lines3 = FileHelper.CountLines(tempFile3);
+
+            // Assert
+            Assert.Equal(3, lines1);
+            Assert.Equal(2, lines2);
+            Assert.Equal(3, lines3);
+        }
+        
+        /// <summary>
         /// Tests the CountNonBlankLinesInFile methods.
         /// </summary>
         [Fact]
