@@ -382,39 +382,30 @@ namespace OBeautifulCode.Libs.IO
         /// <summary>
         /// Creates a temporary file in a specified folder.
         /// </summary>
-        /// <param name="rootFolder">folder in which to create the temporary file.</param>
+        /// <param name="rootDirectory">directory in which to create the temporary file.</param>
         /// <returns>
         /// Returns the path to the temporary file that was created.
         /// </returns>
-        /// <exception cref="ArgumentNullException">rootFolder is null.</exception>
-        /// <exception cref="ArgumentException">rootFolder is whitespace or contains illegal characters.</exception>
-        /// <exception cref="DirectoryNotFoundException">The rootFolder doesn't exist or disappears during the process.</exception>
-        /// <exception cref="UnauthorizedAccessException">method can't access rootFolder to clear out older temporary files, or when the system doesn't have access permission to write the zero-byte file to rootFolder.</exception>
-        /// <exception cref="PathTooLongException">rootFolder is greater than 248 characters or if the temporary file would exceed the character limit.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permission to create a zero-byte file in the rootFolder.</exception>
+        /// <exception cref="ArgumentNullException">rootDirectory is null.</exception>
+        /// <exception cref="ArgumentException">rootDirectory is whitespace or contains illegal characters.</exception>
+        /// <exception cref="DirectoryNotFoundException">The rootDirectory doesn't exist or disappears during the process.</exception>
+        /// <exception cref="UnauthorizedAccessException">method can't access rootDirectory to clear out older temporary files, or when the system doesn't have access permission to write the zero-byte file to rootDirectory.</exception>
+        /// <exception cref="PathTooLongException">rootDirectory is greater than 248 characters or if the temporary file would exceed the character limit.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission to create a zero-byte file in the rootDirectory.</exception>
         /// <exception cref="IOException">Could't create a temporary file.</exception>
-        public static string CreateTemporaryFile(string rootFolder)
+        public static string CreateTemporaryFile(string rootDirectory)
         {
             lock (CreateTemporaryResourceLock)
             {
-                Condition.Requires(rootFolder, "rootFolder").IsNotNullOrWhiteSpace();
-                if (string.IsNullOrEmpty(rootFolder.Trim()))
-                {
-                    throw new ArgumentException("rootFolder contains only whitespace.");
-                }
-
+                Condition.Requires(rootDirectory, "rootDirectory").IsNotNullOrWhiteSpace();
                 int attempt = 0;
                 do
                 {
-                    string tempfilePath = rootFolder.AppendMissing(@"\") + MathHelper.RandomNumber(int.MaxValue).ToString(CultureInfo.CurrentCulture) + ".tmp";
+                    string tempfilePath = rootDirectory.AppendMissing(@"\") + MathHelper.RandomNumber(int.MaxValue).ToString(CultureInfo.CurrentCulture) + ".tmp";
 
                     if (File.Exists(tempfilePath))
                     {
-                        attempt++;
-                        if (attempt == 25)
-                        {
-                            ClearTemporaryFiles(rootFolder, 3);
-                        }
+                        attempt++;                        
                     }
                     else
                     {
@@ -429,6 +420,65 @@ namespace OBeautifulCode.Libs.IO
                 while (attempt < 50);
                 throw new IOException("Couldn't create zero byte file");
             } // lock _createTemporaryResourceLock
+        }
+
+        /// <summary>
+        /// Creates a zero-byte file in a given directory using a timestamp <code>(yyyy-MM-ddTHH.mm.ss)</code>
+        /// </summary>
+        /// <param name="rootDirectory">The directory in which to create the file.  If null, the working directory is used.</param>
+        /// <param name="prefix">An optional prefix to apply to the file name.</param>
+        /// <param name="suffix">An optional suffix to apply to the file name.</param>
+        /// <param name="extension">File extension without leading period.  Default is <code>'tmp'</code>.  Use null for no extension.</param>
+        /// <returns>
+        /// Returns the path to a zero-byte file where the file name is in the following format:
+        /// [rootDirectory]\[prefix][timestamp][suffix].[extension].
+        /// For example:  <code>c:\my\root\dir\MyPrefix23-43-01.029MySuffix.tmp</code>
+        /// </returns>
+        /// <exception cref="ArgumentException">The parameters supplied result in an invalid file path.</exception>
+        /// <exception cref="IOException">An I/O error occurs, such as attempting to write a file that already exists.</exception>
+        /// <exception cref="DirectoryNotFoundException">The rootDirectory does not exist.</exception>
+        /// <exception cref="UnauthorizedAccessException">User doesn't have the proper access permissions.</exception>        
+        public static string CreateFileNamedByTimestamp(string rootDirectory = null, string prefix = null, string suffix = null, string extension = "tmp")
+        {
+            // determine file name
+            DateTime timeStamp = DateTime.Now;
+            string fileName = string.Concat(prefix, timeStamp.ToString("yyyy-MM-ddTHH.mm.ss"), suffix);
+            if (!string.IsNullOrWhiteSpace(extension))
+            {
+                fileName = string.Concat(fileName, ".", extension);
+            }
+
+            fileName = fileName.Trim();
+
+            // assign rootDirectory to working directory if not specified
+            if (string.IsNullOrWhiteSpace(rootDirectory))
+            {
+                rootDirectory = Directory.GetCurrentDirectory();
+            }
+
+            // construct path & validate
+            string filePath;
+            try
+            {
+                filePath = Path.Combine(rootDirectory.Trim(), fileName);
+            }
+            catch (ArgumentException)
+            {
+                throw new ArgumentException(string.Format("The parameters supplied result in an invalid file path.\r\nroot directory: {0}\r\nfile name: {1}", rootDirectory, fileName));
+            }
+
+            if (!IsValidFilePath(filePath))
+            {
+                throw new ArgumentException("The parameters supplied result in an invalid file path: " + filePath);
+            }
+
+            // create file
+            if (CreateZeroByteFile(filePath))
+            {
+                return filePath;
+            }
+
+            throw new IOException("Could not create a zero byte file here: " + filePath);
         }
 
         #endregion
@@ -1339,11 +1389,11 @@ namespace OBeautifulCode.Libs.IO
 
             path = path.ToUpper(CultureInfo.CurrentCulture);
 
-            // get all terms that are separated by backslash
-            string[] directories = path.Split(new[] { '\\' });
+            // get all terms that are separated by slash
+            string[] directories = path.Split(new[] { '\\', '/' });
 
             // ensure each term isn't restricted by checking the first substring when splitting on the period character
-            // this will work for both files and folders            
+            // this will work for both files and folders
             return directories
                 .Select(directory => directory.Split(".".ToCharArray(), 2))
                 .Select(dotSeparated => dotSeparated[0])

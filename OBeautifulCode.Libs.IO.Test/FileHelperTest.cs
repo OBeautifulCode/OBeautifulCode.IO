@@ -680,6 +680,298 @@ namespace OBeautifulCode.Libs.IO.Test
             DirectoryHelper.DeleteFolder(tempFolder);
         }
 
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_RootDirectoryIsInvalid_ThrowsArgumentException()
+        {
+            // Act, Assert            
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\baddir>s\"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\badd:irs"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\badd:irs"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"con:"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_RootDirectoryDoesNotExist_ThrowsDirectoryNotFoundException()
+        {
+            // Arrange, Act
+            Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\doesnotexist\"));
+            Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CreateFileNamedByTimestamp(@"z:\"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhitespace_ReturnsPathToFileInWorkingDirectory()
+        {
+            // Arrange
+            string workingDirectory = Directory.GetCurrentDirectory();
+
+            // Act
+            // ReSharper disable RedundantArgumentDefaultValue
+            string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
+            Thread.Sleep(1000);
+            // ReSharper restore RedundantArgumentDefaultValue
+            string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
+            Thread.Sleep(1000);
+            string tempFilePath3 = FileHelper.CreateFileNamedByTimestamp("    ");
+            Thread.Sleep(1000);
+            string tempFilePath4 = FileHelper.CreateFileNamedByTimestamp("  \r\n  ");
+
+            // Assert
+            Assert.Equal(workingDirectory, Path.GetDirectoryName(tempFilePath1));
+            Assert.Equal(workingDirectory, Path.GetDirectoryName(tempFilePath2));
+            Assert.Equal(workingDirectory, Path.GetDirectoryName(tempFilePath3));
+            Assert.Equal(workingDirectory, Path.GetDirectoryName(tempFilePath4));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhitespace_CreatesFile()
+        {
+            // Arrange, Act
+            // ReSharper disable once RedundantArgumentDefaultValue
+            string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
+            // ReSharper restore once RedundantArgumentDefaultValue
+            Thread.Sleep(1000);
+            string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
+            Thread.Sleep(1000);
+            string tempFilePath3 = FileHelper.CreateFileNamedByTimestamp("    ");
+            Thread.Sleep(1000);
+            string tempFilePath4 = FileHelper.CreateFileNamedByTimestamp("  \r\n  ");
+
+            // Assert
+            Assert.True(File.Exists(tempFilePath1));
+            Assert.True(File.Exists(tempFilePath2));
+            Assert.True(File.Exists(tempFilePath3));
+            Assert.True(File.Exists(tempFilePath4));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_RootDirectoryIsPathRelativeToWorkingDirectory_CreatesFileInSpecifiedDirectory()
+        {
+            // Arrange
+            string workingDirectory = Directory.GetCurrentDirectory();
+            string tempDirectory = Path.Combine(workingDirectory, "DeleteMe\\");
+            Directory.CreateDirectory(tempDirectory);
+
+            // Act
+            string tempFile = FileHelper.CreateFileNamedByTimestamp(tempDirectory);
+
+            // Assert
+            Assert.True(File.Exists(tempFile));
+            Assert.Equal(tempDirectory.AppendMissing(@"\"), Path.GetDirectoryName(tempFile).AppendMissing(@"\"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_RootDirectoryExists_CreatesFileInRootDirectory()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+
+            // Act
+            string tempFile = FileHelper.CreateFileNamedByTimestamp(tempDirectory);
+
+            // Assert
+            Assert.True(File.Exists(tempFile));
+            Assert.Equal(tempDirectory.AppendMissing(@"\"), Path.GetDirectoryName(tempFile).AppendMissing(@"\"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_CalledTwiceWithOneSecondPause_CreatesFilesWithDifferentNames()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+
+            // Act
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory);
+            Thread.Sleep(1000);
+            string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory);
+
+            // Assert
+            Assert.NotEqual(tempFile1, tempFile2);
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_WithInvalidPrefix_ThrowsArgumentException()
+        {
+            // Act, Assert            
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"sadf:9234"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"abc?def"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"<test>"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"c:\badd:irs"));            
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_PrefixSpecified_CreatesFileWithSpecifiedPrefix()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+            const string Prefix1 = "pre";
+            const string Prefix2 = "pre ";
+
+            // Act
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, Prefix1);
+            Thread.Sleep(1000);
+            string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, Prefix2);
+
+            // Assert
+            // ReSharper disable PossibleNullReferenceException
+            Assert.True(Path.GetFileName(tempFile1).StartsWith(Prefix1));            
+            Assert.True(Path.GetFileName(tempFile2).StartsWith(Prefix2));
+            // ReSharper restore PossibleNullReferenceException
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_WithInvalidSuffix_ThrowsArgumentException()
+        {
+            // Act, Assert            
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"sadf:9234"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"abc?def"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"<test>"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"c:\badd:irs"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_SuffixSpecified_CreatesFileWithSpecifiedSuffix()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+            const string Suffix1 = "suffix";
+            const string Suffix2 = " suffix";
+
+            // Act
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix1);
+            Thread.Sleep(1000);
+            string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix2);
+
+            // Assert
+            // ReSharper disable PossibleNullReferenceException
+            Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix1 + ".tmp"));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix2 + ".tmp"));
+            // ReSharper restore PossibleNullReferenceException
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_WithInvalidExtension_ThrowsArgumentException()
+        {
+            // Act, Assert            
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"sadf:9234"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"abc?def"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"<test>"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"c:\badd:irs"));
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_ExtensionNotSpecified_CreatesFileWithTmpExtension()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+            
+            // Act
+            // ReSharper disable RedundantArgumentDefaultValue
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);            
+            Thread.Sleep(1000);
+            string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);
+            // ReSharper restore RedundantArgumentDefaultValue
+
+            // Assert
+            // ReSharper disable PossibleNullReferenceException
+            Assert.True(Path.GetFileName(tempFile1).EndsWith(".tmp"));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith(".tmp"));
+            // ReSharper restore PossibleNullReferenceException
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_NonDefaultExtensionSpecified_CreatesFileWithSpecifiedExtension()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+            const string Ext1 = "test";
+            const string Ext2 = " test";
+
+            // Act
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null, Ext1);
+            Thread.Sleep(1000);
+            string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null, Ext2);
+
+            // Assert
+            // ReSharper disable PossibleNullReferenceException
+            Assert.True(Path.GetFileName(tempFile1).EndsWith("." + Ext1));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith("." + Ext2));
+            // ReSharper restore PossibleNullReferenceException
+        }
+
+        /// <summary>
+        /// Test method.
+        /// </summary>
+        [Fact]
+        public static void CreateFileNamedByTimestamp_ExtensionIsNullOrWhitespace_NoExtensionApplied()
+        {
+            // Arrange
+            string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
+            const string Suffix = "ENDING";
+            
+            // Act
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, null);
+            Thread.Sleep(1000);
+            string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, string.Empty);
+            Thread.Sleep(1000);
+            string tempFile3 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, "   ");
+            Thread.Sleep(1000);
+            string tempFile4 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, "   \r\n  ");
+
+            // Assert
+            // ReSharper disable PossibleNullReferenceException
+            Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix));
+            Assert.True(Path.GetFileName(tempFile3).EndsWith(Suffix));
+            Assert.True(Path.GetFileName(tempFile4).EndsWith(Suffix));
+            // ReSharper restore PossibleNullReferenceException
+        }
+
         #endregion
 
         #region Compression
@@ -2314,6 +2606,10 @@ namespace OBeautifulCode.Libs.IO.Test
 
             Assert.False(FileHelper.IsValidFilePath(@"con:"));
 
+            Assert.True(FileHelper.IsValidFilePath(@"con:suraj.txt"));
+
+            Assert.True(FileHelper.IsValidFilePath(@"c:on\suraj.txt"));
+
             // restricted os files
             Assert.False(FileHelper.IsValidFilePath("lpt1.txt"));
             Assert.False(FileHelper.IsValidFilePath(@"c:\folder\con.txt"));
@@ -2331,6 +2627,8 @@ namespace OBeautifulCode.Libs.IO.Test
         {
             Assert.True(FileHelper.IsOsRestrictedPath("con.whatever.i.want.txt"));
             Assert.False(FileHelper.IsOsRestrictedPath("whtever.con.i.want.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath("nUL"));
+            
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:\mydir\my.long.dir\lpt1.aux"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:\mydir\my.long.dir\whatever.aux"));
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:\mydir\prn.long.dir\"));
@@ -2344,7 +2642,29 @@ namespace OBeautifulCode.Libs.IO.Test
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:\good\great\whatever.lpt2\"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:\"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"\"));
+            
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir/my.long.dir/lpt1.aux"));
+            Assert.False(FileHelper.IsOsRestrictedPath(@"c:/mydir/my.long.dir/whatever.aux"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir/prn.long.dir/"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir/prn.long.dir"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/NUl"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/NUl/whatever.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/con/whatever.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/LPT1.0/whatever.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/good/great/lPT2.whatever/"));
+            Assert.False(FileHelper.IsOsRestrictedPath(@"c:/good/great/whatever.lpt2/"));
+            Assert.False(FileHelper.IsOsRestrictedPath(@"c:/"));
+            Assert.False(FileHelper.IsOsRestrictedPath(@"/"));
 
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir\my.long.dir/lpt1.aux"));
+            Assert.False(FileHelper.IsOsRestrictedPath(@"c:/mydir\my.long.dir\whatever.aux"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:\mydir/prn.long.dir\"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir\prn.long.dir"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:\NUl/whatever.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:\con/whatever.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/LPT1.0\whatever.txt"));
+            Assert.True(FileHelper.IsOsRestrictedPath(@"c:/good\great/lPT2.whatever/"));
+            
             Assert.Throws<ArgumentException>(() => FileHelper.IsOsRestrictedPath(string.Empty));
             Assert.Throws<ArgumentNullException>(() => FileHelper.IsOsRestrictedPath(null));
 
