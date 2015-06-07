@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO
+namespace OBeautifulCode.IO
 {
     /// <summary>
     /// Determines what to do with the header line of the bottom file when merging two files.

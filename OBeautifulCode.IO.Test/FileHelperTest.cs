@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO.Test
+namespace OBeautifulCode.IO.Test
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace OBeautifulCode.Libs.IO.Test
 
     using Ionic.Zip;
 
-    using OBeautifulCode.Libs.IO;
+    using OBeautifulCode.IO;
     using OBeautifulCode.Libs.Math;
     using OBeautifulCode.Libs.Reflection;
     using OBeautifulCode.Libs.String;

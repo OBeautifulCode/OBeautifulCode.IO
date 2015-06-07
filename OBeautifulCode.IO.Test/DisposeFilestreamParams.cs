@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO.Test
+namespace OBeautifulCode.IO.Test
 {
     using System.IO;
 

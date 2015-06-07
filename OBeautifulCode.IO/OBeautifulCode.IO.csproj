@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AD93CFFE-15C9-460C-841F-D107DC5ED536}</ProjectGuid>
+    <ProjectGuid>{A33F158C-8DF9-4AE6-A357-E88DD3DE90BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OBeautifulCode.Libs.IO.Test</RootNamespace>
-    <AssemblyName>OBeautifulCode.Libs.IO.Test</AssemblyName>
+    <RootNamespace>OBeautifulCode.IO</RootNamespace>
+    <AssemblyName>OBeautifulCode.IO</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\OBeautifulCode.Libs.IO.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\OBeautifulCode.IO.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\OBeautifulCode.Libs.IO.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\OBeautifulCode.IO.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CuttingEdge.Conditions">
@@ -44,9 +44,6 @@
     <Reference Include="OBeautifulCode.Libs.Math">
       <HintPath>..\packages\OBeautifulCode.Libs.Math.1.0.1\lib\45\OBeautifulCode.Libs.Math.dll</HintPath>
     </Reference>
-    <Reference Include="OBeautifulCode.Libs.Reflection">
-      <HintPath>..\packages\OBeautifulCode.Libs.Reflection.1.0.5\lib\45\OBeautifulCode.Libs.Reflection.dll</HintPath>
-    </Reference>
     <Reference Include="OBeautifulCode.Libs.String">
       <HintPath>..\packages\OBeautifulCode.Libs.String.1.0.5\lib\45\OBeautifulCode.Libs.String.dll</HintPath>
     </Reference>
@@ -57,27 +54,17 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.2\lib\net20\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DirectoryHelperTest.cs" />
-    <Compile Include="DisposeFilestreamParams.cs" />
-    <Compile Include="FileHelperTest.cs" />
+    <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="FileHelper.cs" />
+    <Compile Include="FileMergeHeaderTreatment.cs" />
+    <Compile Include="FileMergeMethod.cs" />
+    <Compile Include="FileToZip.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OBeautifulCode.Libs.IO\OBeautifulCode.Libs.IO.csproj">
-      <Project>{a33f158c-8df9-4ae6-a357-e88dd3de90bb}</Project>
-      <Name>OBeautifulCode.Libs.IO</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Malformed.zip" />
-    <EmbeddedResource Include="MultiFile.zip" />
     <None Include="packages.config" />
-    <EmbeddedResource Include="SingleFile.zip" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
