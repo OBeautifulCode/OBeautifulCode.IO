@@ -1,13 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DirectoryHelper.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Provides various convenience methods for dealing with directories.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO
+namespace OBeautifulCode.IO
 {
     using System;
     using System.Diagnostics;
@@ -15,34 +12,20 @@ namespace OBeautifulCode.Libs.IO
     using System.IO;
     using System.Security;
 
-    using CuttingEdge.Conditions;
+    using Conditions;
 
-    using OBeautifulCode.Libs.Math;
-    using OBeautifulCode.Libs.String;
+    using OBeautifulCode.Math;
+    using OBeautifulCode.String;
 
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
     /// </summary>
     public class DirectoryHelper
     {
-        #region Fields (Private)
-
         /// <summary>
         /// Lock object for creating temporary resources.
         /// </summary>
         private static readonly object CreateTemporaryResourceLock = new object();
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
 
         /// <summary>
         /// Deletes all subfolders of a specified folder that were last accessed to prior
@@ -264,10 +247,6 @@ namespace OBeautifulCode.Libs.IO
             return false;
         }
 
-        #endregion
-
-        #region Internal Methods
-
         /// <summary>
         /// Deletes a folder, including all subfolders and files, using a Windows command-line command.
         /// </summary>
@@ -320,15 +299,5 @@ namespace OBeautifulCode.Libs.IO
 
             return false;
         }
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
     }
 }

@@ -1,13 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DirectoryHelperTest.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Tests the <see cref="DirectoryHelper"/> class.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO.Test
+namespace OBeautifulCode.IO.Test
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +12,7 @@ namespace OBeautifulCode.Libs.IO.Test
     using System.IO;
     using System.Linq;
 
-    using OBeautifulCode.Libs.String;
+    using OBeautifulCode.String;
 
     using Xunit;
 
@@ -30,20 +27,6 @@ namespace OBeautifulCode.Libs.IO.Test
     /// </remarks>
     public class DirectoryHelperTest
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// Tests the ClearTemporaryFolders method
         /// </summary>
@@ -144,9 +127,6 @@ namespace OBeautifulCode.Libs.IO.Test
             Assert.False(Directory.Exists(tempFolderFileLock));
         }
 
-        /// <summary>
-        /// Tests the CreateTemporaryFolder method
-        /// </summary>
         [Fact]
         public static void CreateTemporaryFolderTest()
         {
@@ -206,9 +186,6 @@ namespace OBeautifulCode.Libs.IO.Test
             DirectoryHelper.DeleteFolder(tempFolderRoot);
         }
 
-        /// <summary>
-        /// Tests the DeleteFolder method (all overloads)
-        /// </summary>
         [Fact]
         public static void DeleteFolderTest()
         {
@@ -310,9 +287,6 @@ namespace OBeautifulCode.Libs.IO.Test
             // anyway to get folder to delete but not recreate (resulting in IOException)?
         }
 
-        /// <summary>
-        /// Tests the DeleteFolderDos method
-        /// </summary>
         [Fact]
         public static void DeleteFolderDosTest()
         {
@@ -369,9 +343,6 @@ namespace OBeautifulCode.Libs.IO.Test
             Assert.False(Directory.Exists(tempFolder));
         }
 
-        /// <summary>
-        /// Tests the IsFolderInWorkingDirectory method
-        /// </summary>
         [Fact]
         public static void IsFolderInWorkingDirectoryTest()
         {
@@ -402,9 +373,6 @@ namespace OBeautifulCode.Libs.IO.Test
             // <exception cref="SecurityException">The caller does not have the required permissions.</exception>              
         }
 
-        /// <summary>
-        /// Tests the IsValidPath method
-        /// </summary>
         [Fact]
         public static void IsValidDirectoryPathTest()
         {
@@ -439,20 +407,6 @@ namespace OBeautifulCode.Libs.IO.Test
             Assert.False(DirectoryHelper.IsValidDirectoryPath(@"c:\folder\otherfolder\con\"));
 
             // how about directories with leading or training spaces?  are those just ignored by the OS? (i.e. they OK)
-        }
-
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
+        }        
     }
 }

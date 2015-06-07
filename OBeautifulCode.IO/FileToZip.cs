@@ -1,25 +1,16 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileToZip.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Represents a file that needs to be compressed
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO
+namespace OBeautifulCode.IO
 {
     /// <summary>
     /// Represents a file that needs to be compressed
     /// </summary>
     public class FileToZip
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FileToZip"/> class.
         /// </summary>
@@ -31,10 +22,6 @@ namespace OBeautifulCode.Libs.IO
             this.Path = path;
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
         /// Gets the name of the file in the zip.
         /// </summary>
@@ -43,24 +30,6 @@ namespace OBeautifulCode.Libs.IO
         /// <summary>
         /// Gets the path to the file on disk.
         /// </summary>
-        public string Path { get; private set; }
-
-        #endregion
-
-        #region Public Methods
-
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
+        public string Path { get; private set; }        
     }
 }

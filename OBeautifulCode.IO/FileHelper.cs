@@ -1,13 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileHelper.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Provides various convenience methods for dealing with files.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO
+namespace OBeautifulCode.IO
 {
     using System;
     using System.Collections.Generic;
@@ -23,20 +20,18 @@ namespace OBeautifulCode.Libs.IO
     using System.Text.RegularExpressions;
     using System.Threading;
 
-    using CuttingEdge.Conditions;
+    using Conditions;
 
     using Ionic.Zip;
 
-    using OBeautifulCode.Libs.Math;
-    using OBeautifulCode.Libs.String;
+    using OBeautifulCode.Math;
+    using OBeautifulCode.String;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
     /// </summary>
     public static class FileHelper
     {
-        #region Fields (Private)
-
         /// <summary>
         /// Lock object for creating temporary resources.
         /// </summary>
@@ -46,18 +41,6 @@ namespace OBeautifulCode.Libs.IO
         /// Tokens that are restricted from being included in files.
         /// </summary>
         private static readonly HashSet<string> RestrictedFileNameTokens = new HashSet<string> { "CON", "PRN", "AUX", "CLOCK$", "NUL", "COM0", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT0", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9" };
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
 
         #region Alter and Write to Files
 
@@ -1339,10 +1322,6 @@ namespace OBeautifulCode.Libs.IO
 
         #endregion
 
-        #endregion
-
-        #region Internal Methods
-
         /// <summary>
         /// Deletes a file using DOS
         /// </summary>
@@ -1474,15 +1453,5 @@ namespace OBeautifulCode.Libs.IO
 
             return output.ToString().ToUpper(CultureInfo.CurrentCulture);
         }
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
     }
 }

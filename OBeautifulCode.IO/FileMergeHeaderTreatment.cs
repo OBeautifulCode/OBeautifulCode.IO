@@ -1,13 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileMergeHeaderTreatment.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Determines what to do with the header line of the bottom file when merging two files.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.Libs.IO
+namespace OBeautifulCode.IO
 {
     /// <summary>
     /// Determines what to do with the header line of the bottom file when merging two files.

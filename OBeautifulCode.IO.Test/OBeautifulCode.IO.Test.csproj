@@ -7,8 +7,8 @@
     <ProjectGuid>{AD93CFFE-15C9-460C-841F-D107DC5ED536}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OBeautifulCode.Libs.IO.Test</RootNamespace>
-    <AssemblyName>OBeautifulCode.Libs.IO.Test</AssemblyName>
+    <RootNamespace>OBeautifulCode.IO.Test</RootNamespace>
+    <AssemblyName>OBeautifulCode.IO.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Debug\OBeautifulCode.Libs.IO.Test.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,23 +33,28 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <DocumentationFile>bin\Release\OBeautifulCode.Libs.IO.Test.XML</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CuttingEdge.Conditions">
-      <HintPath>..\packages\CuttingEdge.Conditions.1.2.0.0\lib\NET35\CuttingEdge.Conditions.dll</HintPath>
+    <Reference Include="Conditions, Version=2.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Conditions.2.0.0\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\Conditions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="OBeautifulCode.Libs.Math">
-      <HintPath>..\packages\OBeautifulCode.Libs.Math.1.0.1\lib\45\OBeautifulCode.Libs.Math.dll</HintPath>
+    <Reference Include="OBeautifulCode.Math, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OBeautifulCode.Math.1.0.5\lib\45\OBeautifulCode.Math.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="OBeautifulCode.Libs.Reflection">
-      <HintPath>..\packages\OBeautifulCode.Libs.Reflection.1.0.5\lib\45\OBeautifulCode.Libs.Reflection.dll</HintPath>
+    <Reference Include="OBeautifulCode.Reflection, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OBeautifulCode.Reflection.1.0.2\lib\45\OBeautifulCode.Reflection.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="OBeautifulCode.Libs.String">
-      <HintPath>..\packages\OBeautifulCode.Libs.String.1.0.5\lib\45\OBeautifulCode.Libs.String.dll</HintPath>
+    <Reference Include="OBeautifulCode.String, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OBeautifulCode.String.1.0.4\lib\45\OBeautifulCode.String.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -68,9 +74,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OBeautifulCode.Libs.IO\OBeautifulCode.Libs.IO.csproj">
+    <ProjectReference Include="..\OBeautifulCode.IO\OBeautifulCode.IO.csproj">
       <Project>{a33f158c-8df9-4ae6-a357-e88dd3de90bb}</Project>
-      <Name>OBeautifulCode.Libs.IO</Name>
+      <Name>OBeautifulCode.IO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

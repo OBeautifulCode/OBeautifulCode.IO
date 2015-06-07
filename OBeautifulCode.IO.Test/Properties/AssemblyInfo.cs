@@ -1,24 +1,21 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyInfo.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   AssemblyInfo.cs
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OBeautifulCode.Libs.IO")]
+[assembly: AssemblyTitle("OBeautifulCode.IO.Test")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("OBeautifulCode.Libs.IO")]
+[assembly: AssemblyProduct("OBeautifulCode.IO.Test")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -29,7 +26,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("32569bec-eac1-4da2-88be-9e88ba2e75c5")]
+[assembly: Guid("ac4d46a0-fc25-4ace-b418-af6333b2937d")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -43,4 +40,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: InternalsVisibleTo("OBeautifulCode.Libs.IO.Test")]
+[assembly: CLSCompliant(true)]

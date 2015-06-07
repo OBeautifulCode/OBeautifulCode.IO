@@ -1,4 +1,4 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/cuods2rksskt0g5e?svg=true)](https://ci.appveyor.com/project/OBeautifulCode/obeautifulcode-libs-io)
+[![Build status](https://ci.appveyor.com/api/projects/status/9qgkwxrk6sw8ui1i?svg=true)](https://ci.appveyor.com/project/SurajGupta/obeautifulcode-io)
 
 IO Helpers
 ==========
