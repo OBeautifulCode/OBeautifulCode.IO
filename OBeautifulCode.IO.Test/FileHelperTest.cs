@@ -21,9 +21,9 @@ namespace OBeautifulCode.IO.Test
     using Ionic.Zip;
 
     using OBeautifulCode.IO;
-    using OBeautifulCode.Libs.Math;
-    using OBeautifulCode.Libs.Reflection;
-    using OBeautifulCode.Libs.String;
+    using OBeautifulCode.Math;
+    using OBeautifulCode.Reflection;
+    using OBeautifulCode.String;
 
     using Xunit;
 

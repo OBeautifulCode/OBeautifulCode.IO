@@ -15,10 +15,10 @@ namespace OBeautifulCode.IO
     using System.IO;
     using System.Security;
 
-    using CuttingEdge.Conditions;
+    using Conditions;
 
-    using OBeautifulCode.Libs.Math;
-    using OBeautifulCode.Libs.String;
+    using OBeautifulCode.Math;
+    using OBeautifulCode.String;
 
     /// <summary>
     /// Provides various convenience methods for dealing with directories.

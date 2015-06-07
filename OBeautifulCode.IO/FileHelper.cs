@@ -23,12 +23,12 @@ namespace OBeautifulCode.IO
     using System.Text.RegularExpressions;
     using System.Threading;
 
-    using CuttingEdge.Conditions;
+    using Conditions;
 
     using Ionic.Zip;
 
-    using OBeautifulCode.Libs.Math;
-    using OBeautifulCode.Libs.String;
+    using OBeautifulCode.Math;
+    using OBeautifulCode.String;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
