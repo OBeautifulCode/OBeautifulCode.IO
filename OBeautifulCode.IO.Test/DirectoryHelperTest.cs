@@ -130,9 +130,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(Directory.Exists(tempFolderFileLock));
         }
 
-        /// <summary>
-        /// Tests the CreateTemporaryFolder method
-        /// </summary>
         [Fact]
         public static void CreateTemporaryFolderTest()
         {
@@ -192,9 +189,6 @@ namespace OBeautifulCode.IO.Test
             DirectoryHelper.DeleteFolder(tempFolderRoot);
         }
 
-        /// <summary>
-        /// Tests the DeleteFolder method (all overloads)
-        /// </summary>
         [Fact]
         public static void DeleteFolderTest()
         {
@@ -296,9 +290,6 @@ namespace OBeautifulCode.IO.Test
             // anyway to get folder to delete but not recreate (resulting in IOException)?
         }
 
-        /// <summary>
-        /// Tests the DeleteFolderDos method
-        /// </summary>
         [Fact]
         public static void DeleteFolderDosTest()
         {
@@ -355,9 +346,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(Directory.Exists(tempFolder));
         }
 
-        /// <summary>
-        /// Tests the IsFolderInWorkingDirectory method
-        /// </summary>
         [Fact]
         public static void IsFolderInWorkingDirectoryTest()
         {
@@ -388,9 +376,6 @@ namespace OBeautifulCode.IO.Test
             // <exception cref="SecurityException">The caller does not have the required permissions.</exception>              
         }
 
-        /// <summary>
-        /// Tests the IsValidPath method
-        /// </summary>
         [Fact]
         public static void IsValidDirectoryPathTest()
         {

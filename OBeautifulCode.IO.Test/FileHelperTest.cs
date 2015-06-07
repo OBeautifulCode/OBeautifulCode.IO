@@ -41,9 +41,6 @@ namespace OBeautifulCode.IO.Test
         // ReSharper disable InconsistentNaming
         #region Alter and Write to Files
 
-        /// <summary>
-        /// Tests the MergeFiles method
-        /// </summary>
         [Fact]
         public static void MergeFilesTest()
         {
@@ -305,9 +302,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("header" + Environment.NewLine + topFileRandomText + "header" + Environment.NewLine + bottomFileRandomText, File.ReadAllText(newFile));
         }
 
-        /// <summary>
-        /// Tests the ReplaceHeader method
-        /// </summary>
         [Fact]
         public static void ReplaceHeaderTest()
         {
@@ -409,9 +403,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("this header is longer than first line" + Environment.NewLine + "second line", File.ReadAllText(tempFile));
         }
 
-        /// <summary>
-        /// Test SaveStreamToFile method
-        /// </summary>
         [Fact]
         public static void SaveStreamToFileTest()
         {
@@ -463,9 +454,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Temporary Resources
 
-        /// <summary>
-        /// Tests the CreateTemporaryFile method
-        /// </summary>
         [Fact]
         public static void ClearTemporaryFilesWindowsTempFolderTest()
         {
@@ -521,9 +509,6 @@ namespace OBeautifulCode.IO.Test
             Assert.True(File.Exists(tempFilepath));
         }
 
-        /// <summary>
-        /// Tests the CreateTemporaryFile method
-        /// </summary>
         [Fact]
         public static void ClearTemporaryFilesSpecifiedTempFolderTest()
         {
@@ -598,9 +583,6 @@ namespace OBeautifulCode.IO.Test
             DirectoryHelper.DeleteFolder(tempFolder);
         }
 
-        /// <summary>
-        /// Tests the CreateTemporaryFile method
-        /// </summary>
         [Fact]
         public static void CreateTemporaryFileTest()
         {
@@ -614,9 +596,6 @@ namespace OBeautifulCode.IO.Test
             // <exception cref="IOException">Thrown when there are no temporary file names available, even after old files have been cleared.</exception>
         }
 
-        /// <summary>
-        /// Tests the CreateTemporaryFile overloaded method
-        /// </summary>
         [Fact]
         public static void CreateTemporaryFileTest2()
         {
@@ -666,9 +645,6 @@ namespace OBeautifulCode.IO.Test
             DirectoryHelper.DeleteFolder(tempFolder);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryIsInvalid_ThrowsArgumentException()
         {
@@ -680,9 +656,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"con:"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryDoesNotExist_ThrowsDirectoryNotFoundException()
         {
@@ -691,9 +664,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CreateFileNamedByTimestamp(@"z:\"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhitespace_ReturnsPathToFileInWorkingDirectory()
         {
@@ -718,9 +688,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(workingDirectory, Path.GetDirectoryName(tempFilePath4));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhitespace_CreatesFile()
         {
@@ -742,9 +709,6 @@ namespace OBeautifulCode.IO.Test
             Assert.True(File.Exists(tempFilePath4));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryIsPathRelativeToWorkingDirectory_CreatesFileInSpecifiedDirectory()
         {
@@ -761,9 +725,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(tempDirectory.AppendMissing(@"\"), Path.GetDirectoryName(tempFile).AppendMissing(@"\"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryExists_CreatesFileInRootDirectory()
         {
@@ -778,9 +739,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(tempDirectory.AppendMissing(@"\"), Path.GetDirectoryName(tempFile).AppendMissing(@"\"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_CalledTwiceWithOneSecondPause_CreatesFilesWithDifferentNames()
         {
@@ -796,9 +754,6 @@ namespace OBeautifulCode.IO.Test
             Assert.NotEqual(tempFile1, tempFile2);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_WithInvalidPrefix_ThrowsArgumentException()
         {
@@ -810,9 +765,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"c:\badd:irs"));            
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_PrefixSpecified_CreatesFileWithSpecifiedPrefix()
         {
@@ -833,9 +785,6 @@ namespace OBeautifulCode.IO.Test
             // ReSharper restore PossibleNullReferenceException
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_WithInvalidSuffix_ThrowsArgumentException()
         {
@@ -847,9 +796,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"c:\badd:irs"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_SuffixSpecified_CreatesFileWithSpecifiedSuffix()
         {
@@ -870,9 +816,6 @@ namespace OBeautifulCode.IO.Test
             // ReSharper restore PossibleNullReferenceException
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_WithInvalidExtension_ThrowsArgumentException()
         {
@@ -884,9 +827,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"c:\badd:irs"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_ExtensionNotSpecified_CreatesFileWithTmpExtension()
         {
@@ -907,9 +847,6 @@ namespace OBeautifulCode.IO.Test
             // ReSharper restore PossibleNullReferenceException
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_NonDefaultExtensionSpecified_CreatesFileWithSpecifiedExtension()
         {
@@ -930,9 +867,6 @@ namespace OBeautifulCode.IO.Test
             // ReSharper restore PossibleNullReferenceException
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CreateFileNamedByTimestamp_ExtensionIsNullOrWhitespace_NoExtensionApplied()
         {
@@ -962,9 +896,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Compression
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ParameterSourceFilePathIsNullOrWhiteSpace_ThrowsArgumentException()
         {
@@ -978,9 +909,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFile("    \r\n    ", zipFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ParameterZipFilePathIsNullOrWhiteSpace_ThrowsArgumentException()
         {
@@ -994,9 +922,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFile(sourceFilePath, "    \r\n     "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_SourceFileDoesNotExistOnDisk_ThrowsFileNotFoundException()
         {
@@ -1009,9 +934,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<FileNotFoundException>(() => FileHelper.CompressFile(sourceFilePath, zipFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ParameterSourceFileIsAnInvalidFilePath_ThrowsFileNotFoundException()
         {
@@ -1023,9 +945,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<FileNotFoundException>(() => FileHelper.CompressFile(sourceFilePath, zipFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ParameterZipFileIsAnInvalidFilePath_ThrowsArgumentException()
         {
@@ -1037,9 +956,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFile(sourceFilePath, zipFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_SourceFileIsLocked_ThrowsIOExceptionAndZipFileNotWritten()
         {
@@ -1056,9 +972,6 @@ namespace OBeautifulCode.IO.Test
             sourceStream.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ZipFileIsLocked_ThrowsInvalidOperationException()
         {
@@ -1074,9 +987,6 @@ namespace OBeautifulCode.IO.Test
             zipStream.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ZipFileAlreadyExists_ThrowsInvalidOperationException()
         {
@@ -1090,9 +1000,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<InvalidOperationException>(() => FileHelper.CompressFile(sourceFilePath, zipFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFile_ValidSourceFile_CanBeDecompressedAndContainsOriginalSourceFileNameAndContents()
         {
@@ -1112,9 +1019,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("thisisthesourcefile", File.ReadAllText(expectedUncompressedFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_ParameterFilesIsNull_ThrowsArgumentNullException()
         {
@@ -1122,9 +1026,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.CompressFilesToMemory(null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_ParameterFilesIsEmpty_ThrowsArgumentException()
         {
@@ -1132,9 +1033,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFilesToMemory(new List<FileToZip>()));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_ParameterFilesContainsInvalidFileName_ThrowsArgumentException()
         {
@@ -1150,9 +1048,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFilesToMemory(filesToCompress2));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_ParameterFilesContainsFileMissingFromDisk_ThrowsArgumentException()
         {
@@ -1166,9 +1061,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFilesToMemory(filesToCompress));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_SameFileNameSpecifiedTwice_ThrowsArgumentException()
         {
@@ -1182,9 +1074,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFilesToMemory(filesToCompress));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_AFileToCompressIsLocked_ThrowsIOException()
         {
@@ -1201,9 +1090,6 @@ namespace OBeautifulCode.IO.Test
             }
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CompressFilesToMemory_ReturnsByteArrayThatCanBeDecompressed()
         {
@@ -1232,9 +1118,6 @@ namespace OBeautifulCode.IO.Test
             // ReSharper restore AssignNullToNotNullAttribute
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ParameterZipFilePathIsNull_ThrowsArgumentNullException()
         {
@@ -1245,9 +1128,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.DecompressFile(null, tempFolder));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ParameterZipFilePathIsWhiteSpace_ThrowsArgumentException()
         {
@@ -1260,9 +1140,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile("  \r\n       ", tempFolder));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ParameterTargetDirectoryIsNull_ThrowsArgumentNullException()
         {
@@ -1274,9 +1151,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.DecompressFile(zipFilePath, null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ParameterTargetDirectoryIsWhiteSpace_ThrowsArgumentException()
         {
@@ -1290,9 +1164,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile(zipFilePath, "   \r\n  "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ZipFileDoesNotExistOnDisk_ThrowsFileNotFoundException()
         {
@@ -1303,9 +1174,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<FileNotFoundException>(() => FileHelper.DecompressFile(zipFilePath, Path.GetTempPath()));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_TargetDirectoryDoesNotExist_ThrowsDirectoryNotFoundException()
         {
@@ -1320,9 +1188,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.DecompressFile(zipFilePath, nonExistingFolder2));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ZipFileIsLocked_ThrowsIOException()
         {
@@ -1338,9 +1203,6 @@ namespace OBeautifulCode.IO.Test
             zipFileStream.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_ZipFileIsMalformed_ThrowsZipException()
         {
@@ -1356,9 +1218,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ZipException>(() => FileHelper.DecompressFile(malformedZipFilePath2, Path.GetTempPath()));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_SingleFileInZip_DecompressesFileMaintainingFileNameAndContents()
         {
@@ -1377,9 +1236,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("this is the first file", File.ReadAllText(expectedFilePath));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_MultipleFilesInZipWithEmbeddedFolderStructure_DecompressesFilesMaintainingFileNamesAndContent()
         {
@@ -1407,9 +1263,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("this is the fourth file.", File.ReadAllText(expectedFilePath4));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_TargetFilePathIsLocked_ThrowsIOException()
         {
@@ -1427,9 +1280,6 @@ namespace OBeautifulCode.IO.Test
             expectedFileStream.Dispose();
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFile_OverwritesExistingFileWithSameTargetFilePath()
         {
@@ -1453,9 +1303,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("testfile", File.ReadAllText(expectedFilePath2));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFilesFromMemory_ParameterZipIsNull_ThrowsArgumentNullException()
         {
@@ -1466,9 +1313,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.DecompressFilesFromMemory(null, decompressFolder));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFilesFromMemory_ParameterOutputFolderIsNullOrWhiteSpace_ThrowsArgumentException()
         {
@@ -1493,9 +1337,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFilesFromMemory(zip, "\r\n"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFilesFromMemory_ParameterOutputFolderDoesNotExist_ThrowsDirectoryNotFoundException()
         {
@@ -1519,9 +1360,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.DecompressFilesFromMemory(zip, Path.Combine(decompressFolder, "missing")));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void DecompressFilesFromMemory_ZipIsMalformed_ThrowsZipException()
         {
@@ -1532,9 +1370,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ZipException>(() => FileHelper.DecompressFilesFromMemory(new byte[] { 23, 43, 23 }, decompressFolder));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact(Skip = "Tested in CompressFilesToMemory_ReturnsByteArrayThatCanBeDecompressed")]
         public static void DecompressFilesFromMemory_DecompressesFilesToDisk()
         {
@@ -1544,9 +1379,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Delete Files
 
-        /// <summary>
-        /// Tests the DeleteFile method.
-        /// </summary>
         [Fact]
         public static void DeleteFileTest()
         {
@@ -1625,9 +1457,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(File.Exists(tempFile));
         }
 
-        /// <summary>
-        /// Tests the DeleteAllFiles method
-        /// </summary>
         [Fact]
         public static void DeleteAllFilesTest()
         {
@@ -1677,9 +1506,6 @@ namespace OBeautifulCode.IO.Test
             // all other cases are covered in DeleteFile - read-only and locked files
         }
 
-        /// <summary>
-        /// Tests the DeleteFiles method with searchPattern
-        /// </summary>
         [Fact]
         public static void DeleteFilesTest()
         {
@@ -1787,9 +1613,6 @@ namespace OBeautifulCode.IO.Test
             // all other cases are covered in DeleteFile - read-only and locked files
         }
 
-        /// <summary>
-        /// Tests the DeleteFileDos method.
-        /// </summary>
         [Fact]
         public static void DeleteFileDosTest()
         {
@@ -1831,9 +1654,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Extract Data
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_FilePathIsNull_ThrowsArgumentNullException()
         {
@@ -1841,9 +1661,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.CountLines(null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_FilePathIsWhitespace_ThrowsArgumentException()
         {
@@ -1853,9 +1670,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CountLines("  \r\n  "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_FilePathIsInvalid_ThrowsArgumentException()
         {
@@ -1864,9 +1678,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CountLines("con:"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_FileDoesNotExist_ThrowsFileNotFoundException()
         {
@@ -1874,9 +1685,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<FileNotFoundException>(() => FileHelper.CountLines(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadAllNonBlankLines.txt"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_DirectoryDoesNotExist_ThrowsDirectoryNotFoundException()
         {
@@ -1885,9 +1693,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CountLines(Path.GetTempPath().AppendMissing(@"\")));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_FilePathIsTooLong_ThrowsPathTooLongException()
         {
@@ -1895,9 +1700,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<PathTooLongException>(() => FileHelper.CountLines(@"c:\thisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpath\file.txt"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_FilePathFormatIsNotSupported_ThrowsNotSupportedException()
         {
@@ -1905,9 +1707,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<NotSupportedException>(() => FileHelper.CountLines(@"c:\pip:es.txt"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_ZeroByteFile_Returns0()
         {
@@ -1921,9 +1720,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(0, lines);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_OneChunkOfTextWithNoNewLines_Returns1()
         {
@@ -1943,9 +1739,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(1, lines2);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_OneChunkOfTextEndingInNewline_Returns1()
         {
@@ -1960,9 +1753,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(1, lines2);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_NewLineFollowedByOneChunkOfText_Returns2()
         {
@@ -1977,9 +1767,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(2, lines1);            
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_NewLineFollowedByOneChunkOfTextFollowedByNewline_Returns2()
         {
@@ -1994,9 +1781,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(2, lines1);
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void CountLines_MultipleLinesSomeAreNewLine_ReturnsOneLinePerTextNewlinePairOrTextNotEndingInNewline()
         {
@@ -2021,9 +1805,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(3, lines3);
         }
         
-        /// <summary>
-        /// Tests the CountNonBlankLinesInFile methods.
-        /// </summary>
         [Fact]
         public static void CountNonblankLinesTest()
         {
@@ -2114,9 +1895,6 @@ namespace OBeautifulCode.IO.Test
             }
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void Md5Test()
         {
@@ -2154,9 +1932,6 @@ namespace OBeautifulCode.IO.Test
             }
         }
 
-        /// <summary>
-        /// Tests the ToHexString method.
-        /// </summary>
         [Fact]
         public static void ToHexStringTest()
         {
@@ -2171,9 +1946,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("7B6502FF00", FileHelper.ToHexString(input2));
         }
 
-        /// <summary>
-        /// Tests the ReadAllNonBlankLines method.
-        /// </summary>
         [Fact]
         public static void ReadAllNonblankLinesTest()
         {
@@ -2249,9 +2021,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal("This is the third line", results[2]);
         }
 
-        /// <summary>
-        /// Tests the ReadFirstNonHeaderLine method.
-        /// </summary>
         [Fact]
         public static void ReadFirstNonHeaderLineTest()
         {
@@ -2318,9 +2087,6 @@ namespace OBeautifulCode.IO.Test
             }
         }
 
-        /// <summary>
-        /// Tests the ReadHeaderLine method.
-        /// </summary>
         [Fact]
         public static void ReadHeaderLineTest()
         {
@@ -2377,9 +2143,6 @@ namespace OBeautifulCode.IO.Test
             }
         }
 
-        /// <summary>
-        /// Tests the ReadLastLine and ReadLastLineNonblank methods.
-        /// </summary>
         [Fact]
         public static void ReadLastLineTest()
         {
@@ -2501,9 +2264,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Legal and Illegal Files
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void IsValidFileName_ParameterFileNameIsNull_ThrowsNullArgumentException()
         {
@@ -2511,9 +2271,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.IsValidFileName(null));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void IsValidFileName_ParameterFileNameIsWhiteSpace_ThrowsArgumentException()
         {
@@ -2523,9 +2280,6 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<ArgumentException>(() => FileHelper.IsValidFileName("  \r\n   "));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void IsValidFileName_InvalidFileName_ReturnsFalse()
         {
@@ -2537,9 +2291,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(FileHelper.IsValidFileName("CON.txt"));
         }
 
-        /// <summary>
-        /// Test method.
-        /// </summary>
         [Fact]
         public static void IsValidFileName_ValidFileName_ReturnsTrue()
         {
@@ -2552,9 +2303,6 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.IsValidFileName("test.txt .rstudio.R"));
         }
 
-        /// <summary>
-        /// Tests the IsValidPath method
-        /// </summary>
         [Fact]
         public static void IsValidFilePathTest()
         {
@@ -2605,9 +2353,6 @@ namespace OBeautifulCode.IO.Test
             // how about directories with leading or training spaces?  are those just ignored by the OS? (i.e. they OK)
         }
 
-        /// <summary>
-        /// Tests the IsOSRestrictedPath method
-        /// </summary>
         [Fact]
         public static void IsOsRestrictedPathTest()
         {
@@ -2660,9 +2405,6 @@ namespace OBeautifulCode.IO.Test
             // Assert.Throws<ArgumentException>( () => FileHelper.IsOSRestrictedPath( @"c:\someillegalchars\con.<txt" ) );            
         }
 
-        /// <summary>
-        /// Tests the MakeLegalFilename method
-        /// </summary>
         [Fact]
         public static void MakeLegalFileNameTest()
         {
@@ -2683,9 +2425,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Locking and Writeability
 
-        /// <summary>
-        /// Tests the CanWriteToFile method
-        /// </summary>
         [Fact]
         public static void CanWriteToFileTest()
         {
@@ -2743,9 +2482,6 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.CanWriteToFile(tempFile));
         }
 
-        /// <summary>
-        /// Tests the IsFileInUse method
-        /// </summary>
         [Fact]
         public static void IsFileInUseTest()
         {
@@ -2798,9 +2534,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(FileHelper.IsFileInUse(tempFile));
         }
 
-        /// <summary>
-        /// Tests the WaitForUnlock method
-        /// </summary>
         [Fact]
         public static void WaitForUnlockTest()
         {
@@ -2869,9 +2602,6 @@ namespace OBeautifulCode.IO.Test
             File.Delete(tempFile);
         }
 
-        /// <summary>
-        /// Tests the WaitUntilFileIsWritable method
-        /// </summary>
         [Fact]
         public static void WaitUntilFileIsWritableTest()
         {
@@ -2958,9 +2688,6 @@ namespace OBeautifulCode.IO.Test
 
         #region Zero Byte Files
 
-        /// <summary>
-        /// Tests the CreateZeroByteFile method
-        /// </summary>
         [Fact]
         public static void CreateZeroByteFileTest()
         {
@@ -3008,9 +2735,6 @@ namespace OBeautifulCode.IO.Test
             // <exception cref="UnauthorizedAccessException">Thrown when method can't access rootFolder to clear out older temporary files, or when the system doesn't have permission to write the zero-byte file to rootFolder.</exception>            
         }
 
-        /// <summary>
-        /// Tests the IsFileSizeZero method
-        /// </summary>
         [Fact]
         public static void IsFileSizeZeroTest()
         {
