@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileToZip.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Represents a file that needs to be compressed
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OBeautifulCode.IO

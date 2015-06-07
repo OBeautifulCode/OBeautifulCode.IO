@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileHelper.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Provides various convenience methods for dealing with files.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OBeautifulCode.IO

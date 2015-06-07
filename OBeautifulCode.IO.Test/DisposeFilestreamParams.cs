@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DisposeFilestreamParams.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   A wrapper for a filestream for testing purposes.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OBeautifulCode.IO.Test

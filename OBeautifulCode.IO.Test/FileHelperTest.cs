@@ -1,10 +1,7 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileHelperTest.cs" company="OBeautifulCode">
-//   Copyright 2014 OBeautifulCode
+//   Copyright 2015 OBeautifulCode
 // </copyright>
-// <summary>
-//   Tests the <see cref="FileHelper"/> class.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OBeautifulCode.IO.Test
