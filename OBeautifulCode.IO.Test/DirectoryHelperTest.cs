@@ -30,20 +30,6 @@ namespace OBeautifulCode.IO.Test
     /// </remarks>
     public class DirectoryHelperTest
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
-
         /// <summary>
         /// Tests the ClearTemporaryFolders method
         /// </summary>
@@ -439,20 +425,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(DirectoryHelper.IsValidDirectoryPath(@"c:\folder\otherfolder\con\"));
 
             // how about directories with leading or training spaces?  are those just ignored by the OS? (i.e. they OK)
-        }
-
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
+        }        
     }
 }

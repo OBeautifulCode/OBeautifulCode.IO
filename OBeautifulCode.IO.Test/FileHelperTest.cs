@@ -38,20 +38,6 @@ namespace OBeautifulCode.IO.Test
     /// </remarks>
     public class FileHelperTest
     {
-        #region Fields (Private)
-
-        #endregion
-
-        #region Constructors
-
-        #endregion
-
-        #region Properties
-
-        #endregion
-
-        #region Public Methods
-
         // ReSharper disable InconsistentNaming
         #region Alter and Write to Files
 
@@ -3066,18 +3052,6 @@ namespace OBeautifulCode.IO.Test
         // ReSharper restore InconsistentNaming
         #endregion
 
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
         /// <summary>
         /// disposes a file stream after a wait period
         /// </summary>
@@ -3115,7 +3089,5 @@ namespace OBeautifulCode.IO.Test
 
             return builder.ToString();
         }
-
-        #endregion
     }
 }

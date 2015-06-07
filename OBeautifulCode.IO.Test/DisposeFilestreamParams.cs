@@ -16,12 +16,6 @@ namespace OBeautifulCode.IO.Test
     /// </summary>
     public class DisposeFilestreamParams
     {
-        #region Fields (Private)
-        
-        #endregion
-
-        #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DisposeFilestreamParams"/> class.
         /// </summary>
@@ -33,10 +27,6 @@ namespace OBeautifulCode.IO.Test
             this.WaitSeconds = waitSeconds;
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
         /// Gets the file stream.
         /// </summary>
@@ -45,24 +35,6 @@ namespace OBeautifulCode.IO.Test
         /// <summary>
         /// Gets the number of seconds to wait.
         /// </summary>
-        public int WaitSeconds { get; private set; }
-
-        #endregion
-
-        #region Public Methods
-
-        #endregion
-
-        #region Internal Methods
-
-        #endregion
-
-        #region Protected Methods
-
-        #endregion
-
-        #region Private Methods
-
-        #endregion
+        public int WaitSeconds { get; private set; }        
     }
 }
