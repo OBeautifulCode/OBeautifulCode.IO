@@ -82,8 +82,8 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<UnauthorizedAccessException>(() => FileHelper.MergeFiles(topFile, Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, newFile));
             Assert.Throws<UnauthorizedAccessException>(() => FileHelper.MergeFiles(topFile, Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoNewFile, newFile));
             Assert.Throws<UnauthorizedAccessException>(() => FileHelper.MergeFiles(topFile, Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoNewFile, Path.GetTempFileName()));
-            Assert.DoesNotThrow(() => FileHelper.MergeFiles(Path.GetTempFileName(), bottomFile, FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoNewFile, Path.GetTempFileName()));
-            Assert.DoesNotThrow(() => FileHelper.MergeFiles(Path.GetTempFileName(), bottomFile, FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, Path.GetTempFileName()));
+            Assert.Null(Record.Exception(() => FileHelper.MergeFiles(Path.GetTempFileName(), bottomFile, FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoNewFile, Path.GetTempFileName())));
+            Assert.Null(Record.Exception(() => FileHelper.MergeFiles(Path.GetTempFileName(), bottomFile, FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, Path.GetTempFileName())));
 
             newFile = Path.GetTempFileName();
             topFile = Path.GetTempFileName();
@@ -517,7 +517,7 @@ namespace OBeautifulCode.IO.Test
             File.SetLastAccessTime(tempFilepath, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
             using (new FileStream(tempFilepath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
-                Assert.DoesNotThrow(() => FileHelper.ClearTemporaryFiles(98 * 24 * 60));
+                Assert.Null(Record.Exception(() => FileHelper.ClearTemporaryFiles(98 * 24 * 60)));
             }
 
             Assert.True(File.Exists(tempFilepath));
@@ -588,7 +588,7 @@ namespace OBeautifulCode.IO.Test
             File.SetLastAccessTime(tempFilepath, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
             using (new FileStream(tempFilepath, FileMode.Open, FileAccess.Read, FileShare.None))
             {
-                Assert.DoesNotThrow(() => FileHelper.ClearTemporaryFiles(tempFolder, 98 * 24 * 60));
+                Assert.Null(Record.Exception(() => FileHelper.ClearTemporaryFiles(tempFolder, 98 * 24 * 60)));
             }
 
             Assert.True(File.Exists(tempFilepath));
@@ -627,7 +627,7 @@ namespace OBeautifulCode.IO.Test
             // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly };
             // ReSharper restore ObjectCreationAsStatement
-            Assert.DoesNotThrow(() => FileHelper.CreateTemporaryFile(tempFolder));
+            Assert.Null(Record.Exception(() => FileHelper.CreateTemporaryFile(tempFolder)));
 
             // how do we reproduce these?
             // <exception cref="SecurityException">The caller does not have the required permission to create a zero-byte file in the rootFolder.</exception>
@@ -1405,8 +1405,8 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<UnauthorizedAccessException>(() => FileHelper.DeleteFile(Path.GetTempPath().AppendMissing(@"\")));
 
             // path too long or directory not found, does not throw
-            Assert.DoesNotThrow(() => FileHelper.DeleteFile(@"c:\ThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolong.txt"));
-            Assert.DoesNotThrow(() => FileHelper.DeleteFile(@"c:\thisfolderdoesntexist\file.txt"));
+            Assert.Null(Record.Exception(() => FileHelper.DeleteFile(@"c:\ThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolongThisisapaththatstoolong.txt")));
+            Assert.Null(Record.Exception(() => FileHelper.DeleteFile(@"c:\thisfolderdoesntexist\file.txt")));
 
             // how to replicate other causes of UnauthorizedAccessException?
 
@@ -1514,7 +1514,7 @@ namespace OBeautifulCode.IO.Test
             Assert.False(File.Exists(tempFile3));
 
             // delete all files in an empty folder - shouldn't cause a problem
-            Assert.DoesNotThrow(() => FileHelper.DeleteFiles(tempFolder));
+            Assert.Null(Record.Exception(() => FileHelper.DeleteFiles(tempFolder)));
             Directory.Delete(tempFolder);
 
             // all other cases are covered in DeleteFile - read-only and locked files
@@ -1609,10 +1609,10 @@ namespace OBeautifulCode.IO.Test
             Assert.True(File.Exists(tempFile7));
 
             // delete all files in an empty folder - shouldn't cause a problem
-            Assert.DoesNotThrow(() => FileHelper.DeleteFiles(subFolder1, "*.*", SearchOption.TopDirectoryOnly));
+            Assert.Null(Record.Exception(() => FileHelper.DeleteFiles(subFolder1, "*.*", SearchOption.TopDirectoryOnly)));
 
             // delete everything
-            Assert.DoesNotThrow(() => FileHelper.DeleteFiles(tempFolder, "*.*", SearchOption.AllDirectories));
+            Assert.Null(Record.Exception(() => FileHelper.DeleteFiles(tempFolder, "*.*", SearchOption.AllDirectories)));
             Assert.False(File.Exists(tempFile1));
             Assert.False(File.Exists(tempFile2));
             Assert.False(File.Exists(tempFile3));
@@ -1977,7 +1977,7 @@ namespace OBeautifulCode.IO.Test
 
             string tempFile = Path.GetTempFileName();
             File.SetAttributes(tempFile, FileAttributes.ReadOnly);
-            Assert.DoesNotThrow(() => FileHelper.ReadAllNonblankLines(tempFile));
+            Assert.Null(Record.Exception(() => FileHelper.ReadAllNonblankLines(tempFile)));
 
             tempFile = Path.GetTempFileName();
             using (new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.None))
