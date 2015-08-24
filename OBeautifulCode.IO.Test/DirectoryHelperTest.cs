@@ -98,7 +98,7 @@ namespace OBeautifulCode.IO.Test
             Directory.SetCreationTime(tempFolderAttributes, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
             Directory.SetLastWriteTime(tempFolderAttributes, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
             Directory.SetLastAccessTime(tempFolderAttributes, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
-            Assert.DoesNotThrow(() => DirectoryHelper.ClearTemporaryFolders(Path.GetTempPath(), 99 * 24 * 60));  // folders are old enough to delete
+            Assert.Null(Record.Exception(() => DirectoryHelper.ClearTemporaryFolders(Path.GetTempPath(), 99 * 24 * 60)));  // folders are old enough to delete
             Assert.False(Directory.Exists(tempFolderAttributes));
 
             // make folder with file in use (if file is in use, won't the last access be something recent?)
@@ -115,7 +115,7 @@ namespace OBeautifulCode.IO.Test
                 Directory.SetLastWriteTime(tempFolderFileLock, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
                 Directory.SetLastAccessTime(tempFolderFileLock, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
 
-                Assert.DoesNotThrow(() => DirectoryHelper.ClearTemporaryFolders(Path.GetTempPath(), 99 * 24 * 60));
+                Assert.Null(Record.Exception(() => DirectoryHelper.ClearTemporaryFolders(Path.GetTempPath(), 99 * 24 * 60)));
                 Assert.True(Directory.Exists(tempFolderFileLock));
             }
 
@@ -352,10 +352,10 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<NotSupportedException>(() => DirectoryHelper.IsFolderInWorkingDirectory(@"lpt:"));
             Assert.Throws<PathTooLongException>(() => DirectoryHelper.IsFolderInWorkingDirectory(@"C:\pathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolongpathtoolong\"));
 
-            Assert.DoesNotThrow(() => DirectoryHelper.IsFolderInWorkingDirectory(@"whatever"));
-            Assert.DoesNotThrow(() => DirectoryHelper.IsFolderInWorkingDirectory(@"c:\directorythatdoesntexistIsFolderInWorkingDirectoryTest"));
-            Assert.DoesNotThrow(() => DirectoryHelper.IsFolderInWorkingDirectory(@"c:\wierd\path\.\..\that\may\not\.\.\notexist\"));
-            Assert.DoesNotThrow(() => DirectoryHelper.IsFolderInWorkingDirectory(@"c:\anotherwierdpath.\"));
+            Assert.Null(Record.Exception(() => DirectoryHelper.IsFolderInWorkingDirectory(@"whatever")));
+            Assert.Null(Record.Exception(() => DirectoryHelper.IsFolderInWorkingDirectory(@"c:\directorythatdoesntexistIsFolderInWorkingDirectoryTest")));
+            Assert.Null(Record.Exception(() => DirectoryHelper.IsFolderInWorkingDirectory(@"c:\wierd\path\.\..\that\may\not\.\.\notexist\")));
+            Assert.Null(Record.Exception(() => DirectoryHelper.IsFolderInWorkingDirectory(@"c:\anotherwierdpath.\")));
 
             Assert.True(DirectoryHelper.IsFolderInWorkingDirectory(Path.GetPathRoot(Directory.GetCurrentDirectory())));
             Assert.False(DirectoryHelper.IsFolderInWorkingDirectory(@"c:\SomeOutsideDirectory"));
