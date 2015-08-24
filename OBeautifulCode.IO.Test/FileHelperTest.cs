@@ -447,6 +447,23 @@ namespace OBeautifulCode.IO.Test
             }
         }
 
+        [Fact]
+        public static void SaveStreamToFile_ReturnsInputtedStream()
+        {
+            // Arrange
+            string filePathToSaveTo = Path.GetTempFileName();
+            var expectedStream = new MemoryStream();
+            
+            // Act
+            var actualStream = expectedStream.SaveStreamToFile(filePathToSaveTo);
+
+            // Assert
+            Assert.Equal(expectedStream, actualStream);
+            
+            // Cleanup
+            expectedStream.Dispose();
+        }
+
         #endregion
 
         #region Temporary Resources

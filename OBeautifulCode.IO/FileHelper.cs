@@ -224,7 +224,10 @@ namespace OBeautifulCode.IO
         /// <remarks>
         /// If filePath already exists, it will be overwritten.
         /// </remarks>
-        public static void SaveStreamToFile(this Stream stream, string filePath)
+        /// <returns>
+        /// Returns the inputted stream.
+        /// </returns>
+        public static Stream SaveStreamToFile(this Stream stream, string filePath)
         {
             Condition.Requires(stream, "stream").IsNotNull();
             Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
@@ -244,6 +247,8 @@ namespace OBeautifulCode.IO
             {
                 stream.CopyTo(fileStream);
             }
+
+            return stream;
         }
 
         #endregion
