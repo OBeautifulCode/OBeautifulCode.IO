@@ -277,9 +277,9 @@ namespace OBeautifulCode.IO.Test
             {
                 for (int y = 0; y < 100; y++)
                 {
-                    topFileRandomText.Append(MathHelper.RandomNumber(int.MaxValue));
+                    topFileRandomText.Append(ThreadSafeRandom.Next(0, int.MaxValue));
                     topFileRandomText.Append(",");
-                    bottomFileRandomText.Append(MathHelper.RandomNumber(int.MinValue, int.MaxValue));
+                    bottomFileRandomText.Append(ThreadSafeRandom.Next(int.MinValue, int.MaxValue));
                     bottomFileRandomText.Append(",");
                 }
 
