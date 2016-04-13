@@ -156,7 +156,7 @@ namespace OBeautifulCode.IO
                 int attempt = 0;
                 do
                 {
-                    string tempFolder = rootFolder + MathHelper.RandomNumber(int.MaxValue).ToString(CultureInfo.CurrentCulture).AppendMissing(@"\");
+                    string tempFolder = rootFolder + ThreadSafeRandom.Next(0, int.MaxValue).ToString(CultureInfo.CurrentCulture).AppendMissing(@"\");
                     if (Directory.Exists(tempFolder))
                     {
                         attempt++;

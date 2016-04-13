@@ -389,7 +389,7 @@ namespace OBeautifulCode.IO
                 int attempt = 0;
                 do
                 {
-                    string tempfilePath = rootDirectory.AppendMissing(@"\") + MathHelper.RandomNumber(int.MaxValue).ToString(CultureInfo.CurrentCulture) + ".tmp";
+                    string tempfilePath = rootDirectory.AppendMissing(@"\") + ThreadSafeRandom.Next(0, int.MaxValue).ToString(CultureInfo.CurrentCulture) + ".tmp";
 
                     if (File.Exists(tempfilePath))
                     {
