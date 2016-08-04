@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileHelperTest.cs" company="OBeautifulCode">
-//   Copyright 2015 OBeautifulCode
+//   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ namespace OBeautifulCode.IO.Test
     /// Because of the volume of test code, I was only able to break-up a few of these monolithic tests.
     /// The rest remain as-is.
     /// </remarks>
-    public class FileHelperTest
+    public static class FileHelperTest
     {
         // ReSharper disable InconsistentNaming
         #region Alter and Write to Files
@@ -106,7 +106,7 @@ namespace OBeautifulCode.IO.Test
             // <exception cref="SecurityException">The caller does not have the required permission to access topFilepath or bottomFilepath</exception>
             // <exception cref="SecurityException">The caller does not have the required permission to write to topFilepath or newFilepath depending on the MergeMethod.</exception>
             // <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions to topFilepath or bottomFilepath</exception>
-            // <exception cref="UnauthorizedAccessException">Caller doesn't have write permission to either newFilepath or topFilepath depending on MethodMethod</exception>            
+            // <exception cref="UnauthorizedAccessException">Caller doesn't have write permission to either newFilepath or topFilepath depending on MethodMethod</exception>
             // <exception cref="IOException">I/O error writing to topFilepath or newFilepath depending on MergeMethod.</exception>
 
             // zero-byte files
@@ -320,7 +320,7 @@ namespace OBeautifulCode.IO.Test
 
             // best way to test these?
             // <exception cref="IOException">An I/O error occurs.</exception>
-            // <exception cref="OutOfMemoryException">Thrown when there is insufficient memory to allocate a buffer for the old header string.</exception>    
+            // <exception cref="OutOfMemoryException">Thrown when there is insufficient memory to allocate a buffer for the old header string.</exception>
             // <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on filepath OR caller doesn't have permissions to create a temporary file OR caller doesn't have permission to write to filepath</exception>
             // <exception cref="SecurityException">The caller does not have the required permission.</exception>
 
@@ -453,13 +453,13 @@ namespace OBeautifulCode.IO.Test
             // Arrange
             string filePathToSaveTo = Path.GetTempFileName();
             var expectedStream = new MemoryStream();
-            
+
             // Act
             var actualStream = expectedStream.SaveStreamToFile(filePathToSaveTo);
 
             // Assert
             Assert.Equal(expectedStream, actualStream);
-            
+
             // Cleanup
             expectedStream.Dispose();
         }
@@ -662,7 +662,7 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void CreateFileNamedByTimestamp_RootDirectoryIsInvalid_ThrowsArgumentException()
         {
-            // Act, Assert            
+            // Act, Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\baddir>s\"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\badd:irs"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
@@ -679,7 +679,7 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
-        public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhitespace_ReturnsPathToFileInWorkingDirectory()
+        public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhiteSpace_ReturnsPathToFileInWorkingDirectory()
         {
             // Arrange
             string workingDirectory = Directory.GetCurrentDirectory();
@@ -703,7 +703,7 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
-        public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhitespace_CreatesFile()
+        public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhiteSpace_CreatesFile()
         {
             // Arrange, Act
             // ReSharper disable once RedundantArgumentDefaultValue
@@ -771,12 +771,12 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void CreateFileNamedByTimestamp_WithInvalidPrefix_ThrowsArgumentException()
         {
-            // Act, Assert            
+            // Act, Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"sadf:9234"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"abc?def"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"<test>"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
-            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"c:\badd:irs"));            
+            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, @"c:\badd:irs"));
         }
 
         [Fact]
@@ -794,15 +794,15 @@ namespace OBeautifulCode.IO.Test
 
             // Assert
             // ReSharper disable PossibleNullReferenceException
-            Assert.True(Path.GetFileName(tempFile1).StartsWith(Prefix1));            
-            Assert.True(Path.GetFileName(tempFile2).StartsWith(Prefix2));
+            Assert.True(Path.GetFileName(tempFile1).StartsWith(Prefix1, StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile2).StartsWith(Prefix2, StringComparison.Ordinal));
             // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
         public static void CreateFileNamedByTimestamp_WithInvalidSuffix_ThrowsArgumentException()
         {
-            // Act, Assert            
+            // Act, Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"sadf:9234"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"abc?def"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, @"<test>"));
@@ -825,15 +825,15 @@ namespace OBeautifulCode.IO.Test
 
             // Assert
             // ReSharper disable PossibleNullReferenceException
-            Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix1 + ".tmp"));
-            Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix2 + ".tmp"));
+            Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix1 + ".tmp", StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix2 + ".tmp", StringComparison.Ordinal));
             // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
         public static void CreateFileNamedByTimestamp_WithInvalidExtension_ThrowsArgumentException()
         {
-            // Act, Assert            
+            // Act, Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"sadf:9234"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"abc?def"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(null, null, null, @"<test>"));
@@ -846,18 +846,18 @@ namespace OBeautifulCode.IO.Test
         {
             // Arrange
             string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
-            
+
             // Act
             // ReSharper disable RedundantArgumentDefaultValue
-            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);            
+            string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);
             // ReSharper restore RedundantArgumentDefaultValue
 
             // Assert
             // ReSharper disable PossibleNullReferenceException
-            Assert.True(Path.GetFileName(tempFile1).EndsWith(".tmp"));
-            Assert.True(Path.GetFileName(tempFile2).EndsWith(".tmp"));
+            Assert.True(Path.GetFileName(tempFile1).EndsWith(".tmp", StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith(".tmp", StringComparison.Ordinal));
             // ReSharper restore PossibleNullReferenceException
         }
 
@@ -876,18 +876,18 @@ namespace OBeautifulCode.IO.Test
 
             // Assert
             // ReSharper disable PossibleNullReferenceException
-            Assert.True(Path.GetFileName(tempFile1).EndsWith("." + Ext1));
-            Assert.True(Path.GetFileName(tempFile2).EndsWith("." + Ext2));
+            Assert.True(Path.GetFileName(tempFile1).EndsWith("." + Ext1, StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith("." + Ext2, StringComparison.Ordinal));
             // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
-        public static void CreateFileNamedByTimestamp_ExtensionIsNullOrWhitespace_NoExtensionApplied()
+        public static void CreateFileNamedByTimestamp_ExtensionIsNullOrWhiteSpace_NoExtensionApplied()
         {
             // Arrange
             string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
             const string Suffix = "ENDING";
-            
+
             // Act
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, null);
             Thread.Sleep(1000);
@@ -899,10 +899,10 @@ namespace OBeautifulCode.IO.Test
 
             // Assert
             // ReSharper disable PossibleNullReferenceException
-            Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix));
-            Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix));
-            Assert.True(Path.GetFileName(tempFile3).EndsWith(Suffix));
-            Assert.True(Path.GetFileName(tempFile4).EndsWith(Suffix));
+            Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix, StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix, StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile3).EndsWith(Suffix, StringComparison.Ordinal));
+            Assert.True(Path.GetFileName(tempFile4).EndsWith(Suffix, StringComparison.Ordinal));
             // ReSharper restore PossibleNullReferenceException
         }
 
@@ -1036,14 +1036,14 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void CompressFilesToMemory_ParameterFilesIsNull_ThrowsArgumentNullException()
         {
-            // Act / Assert            
+            // Act / Assert
             Assert.Throws<ArgumentNullException>(() => FileHelper.CompressFilesToMemory(null));
         }
 
         [Fact]
         public static void CompressFilesToMemory_ParameterFilesIsEmpty_ThrowsArgumentException()
         {
-            // Act / Assert            
+            // Act / Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CompressFilesToMemory(new List<FileToZip>()));
         }
 
@@ -1148,7 +1148,7 @@ namespace OBeautifulCode.IO.Test
             // Arrange
             string tempFolder = Path.GetTempPath();
 
-            // Act / Assert            
+            // Act / Assert
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile(string.Empty, tempFolder));
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile("     ", tempFolder));
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile("  \r\n       ", tempFolder));
@@ -1172,7 +1172,7 @@ namespace OBeautifulCode.IO.Test
             string zipFilePath = FileHelper.CreateTemporaryFile() + ".zip";
             AssemblyHelper.OpenEmbeddedResourceStream("SingleFile.zip", true).SaveStreamToFile(zipFilePath);
 
-            // Act / Assert            
+            // Act / Assert
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile(zipFilePath, string.Empty));
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile(zipFilePath, "     "));
             Assert.Throws<ArgumentException>(() => FileHelper.DecompressFile(zipFilePath, "   \r\n  "));
@@ -1423,12 +1423,12 @@ namespace OBeautifulCode.IO.Test
             FileHelper.DeleteFile(tempFile);
             Assert.False(File.Exists(tempFile));
 
-            // create a temp file, open a filestream with delete share permissions, 
+            // create a temp file, open a filestream with delete share permissions,
             // try delete, ensure deleted after filestream is closed
             tempFile = Path.GetTempFileName();
             Assert.True(File.Exists(tempFile));
             var stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.Delete | FileShare.ReadWrite);
-            var disposeParams = new DisposeFilestreamParams(stream, 5);
+            var disposeParams = new DisposeFileStreamParams(stream, 5);
             var th = new Thread(DisposeFilestream);
             th.Start(disposeParams);
             FileHelper.DeleteFile(tempFile);
@@ -1439,7 +1439,7 @@ namespace OBeautifulCode.IO.Test
             tempFile = Path.GetTempFileName();
             Assert.True(File.Exists(tempFile));
             stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.None);
-            disposeParams = new DisposeFilestreamParams(stream, 5);
+            disposeParams = new DisposeFileStreamParams(stream, 5);
             th = new Thread(DisposeFilestream);
             th.Start(disposeParams);
             FileHelper.DeleteFile(tempFile);
@@ -1535,7 +1535,7 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<PathTooLongException>(() => FileHelper.DeleteFiles(@"c:\ThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLongThisIsReallyLong", "*.*", SearchOption.TopDirectoryOnly));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.DeleteFiles(@"c:\thisdoesntexist", "*.*", SearchOption.TopDirectoryOnly));
 
-            // create a temp folder 
+            // create a temp folder
             string windowsTempFolder = Path.GetTempPath().AppendMissing(@"\");
             string tempFolder = windowsTempFolder + @"DeleteFilesTest\";
             if (Directory.Exists(tempFolder))
@@ -1676,7 +1676,7 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
-        public static void CountLines_FilePathIsWhitespace_ThrowsArgumentException()
+        public static void CountLines_FilePathIsWhiteSpace_ThrowsArgumentException()
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CountLines(string.Empty));
@@ -1724,10 +1724,10 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void CountLines_ZeroByteFile_Returns0()
         {
-            // Arrange, 
+            // Arrange,
             string tempFile = Path.GetTempFileName();
 
-            // Act, 
+            // Act,
             long lines = FileHelper.CountLines(tempFile);
 
             // Assert
@@ -1737,14 +1737,14 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void CountLines_OneChunkOfTextWithNoNewLines_Returns1()
         {
-            // Arrange, 
+            // Arrange,
             string tempFile1 = Path.GetTempFileName();
             File.WriteAllText(tempFile1, "a");
 
             string tempFile2 = Path.GetTempFileName();
             File.WriteAllText(tempFile2, "This is the first line");
 
-            // Act, 
+            // Act,
             long lines1 = FileHelper.CountLines(tempFile1);
             long lines2 = FileHelper.CountLines(tempFile2);
 
@@ -1754,13 +1754,13 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
-        public static void CountLines_OneChunkOfTextEndingInNewline_Returns1()
+        public static void CountLines_OneChunkOfTextEndingInNewLine_Returns1()
         {
-            // Arrange, 
+            // Arrange,
             string tempFile2 = Path.GetTempFileName();
             File.WriteAllText(tempFile2, "This is the first line" + Environment.NewLine);
 
-            // Act, 
+            // Act,
             long lines2 = FileHelper.CountLines(tempFile2);
 
             // Assert
@@ -1770,25 +1770,11 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void CountLines_NewLineFollowedByOneChunkOfText_Returns2()
         {
-            // Arrange, 
+            // Arrange,
             string tempFile1 = Path.GetTempFileName();
             File.WriteAllText(tempFile1, Environment.NewLine + "a");
-            
-            // Act, 
-            long lines1 = FileHelper.CountLines(tempFile1);
-            
-            // Assert
-            Assert.Equal(2, lines1);            
-        }
 
-        [Fact]
-        public static void CountLines_NewLineFollowedByOneChunkOfTextFollowedByNewline_Returns2()
-        {
-            // Arrange, 
-            string tempFile1 = Path.GetTempFileName();
-            File.WriteAllText(tempFile1, Environment.NewLine + "a" + Environment.NewLine);
-
-            // Act, 
+            // Act,
             long lines1 = FileHelper.CountLines(tempFile1);
 
             // Assert
@@ -1796,9 +1782,23 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
-        public static void CountLines_MultipleLinesSomeAreNewLine_ReturnsOneLinePerTextNewlinePairOrTextNotEndingInNewline()
+        public static void CountLines_NewLineFollowedByOneChunkOfTextFollowedByNewLine_Returns2()
         {
-            // Arrange, 
+            // Arrange,
+            string tempFile1 = Path.GetTempFileName();
+            File.WriteAllText(tempFile1, Environment.NewLine + "a" + Environment.NewLine);
+
+            // Act,
+            long lines1 = FileHelper.CountLines(tempFile1);
+
+            // Assert
+            Assert.Equal(2, lines1);
+        }
+
+        [Fact]
+        public static void CountLines_MultipleLinesSomeAreNewLine_ReturnsOneLinePerTextNewLinePairOrTextNotEndingInNewLine()
+        {
+            // Arrange,
             string tempFile1 = Path.GetTempFileName();
             File.WriteAllText(tempFile1, Environment.NewLine + Environment.NewLine + Environment.NewLine);
 
@@ -1808,7 +1808,7 @@ namespace OBeautifulCode.IO.Test
             string tempFile3 = Path.GetTempFileName();
             File.WriteAllText(tempFile3, "This is the first line" + Environment.NewLine + "this is the second line" + Environment.NewLine + "this is the third line");
 
-            // Act, 
+            // Act,
             long lines1 = FileHelper.CountLines(tempFile1);
             long lines2 = FileHelper.CountLines(tempFile2);
             long lines3 = FileHelper.CountLines(tempFile3);
@@ -1818,7 +1818,7 @@ namespace OBeautifulCode.IO.Test
             Assert.Equal(2, lines2);
             Assert.Equal(3, lines3);
         }
-        
+
         [Fact]
         public static void CountNonblankLinesTest()
         {
@@ -1833,7 +1833,7 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<PathTooLongException>(() => FileHelper.CountNonblankLines(@"c:\thisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpaththisisaverlongpath\file.txt"));
             Assert.Throws<NotSupportedException>(() => FileHelper.CountNonblankLines(@"c:\pip:es.txt"));
 
-            // how about: UnauthorizedAccess, Security, and OutOfMemory exceptions?  
+            // how about: UnauthorizedAccess, Security, and OutOfMemory exceptions?
 
             // zero-byte file
             string tempFile = Path.GetTempFileName();
@@ -2288,7 +2288,7 @@ namespace OBeautifulCode.IO.Test
         [Fact]
         public static void IsValidFileName_ParameterFileNameIsWhiteSpace_ThrowsArgumentException()
         {
-            // Act / Assert            
+            // Act / Assert
             Assert.Throws<ArgumentException>(() => FileHelper.IsValidFileName(string.Empty));
             Assert.Throws<ArgumentException>(() => FileHelper.IsValidFileName("    "));
             Assert.Throws<ArgumentException>(() => FileHelper.IsValidFileName("  \r\n   "));
@@ -2373,7 +2373,7 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.IsOsRestrictedPath("con.whatever.i.want.txt"));
             Assert.False(FileHelper.IsOsRestrictedPath("whtever.con.i.want.txt"));
             Assert.True(FileHelper.IsOsRestrictedPath("nUL"));
-            
+
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:\mydir\my.long.dir\lpt1.aux"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:\mydir\my.long.dir\whatever.aux"));
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:\mydir\prn.long.dir\"));
@@ -2387,7 +2387,7 @@ namespace OBeautifulCode.IO.Test
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:\good\great\whatever.lpt2\"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:\"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"\"));
-            
+
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir/my.long.dir/lpt1.aux"));
             Assert.False(FileHelper.IsOsRestrictedPath(@"c:/mydir/my.long.dir/whatever.aux"));
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:/mydir/prn.long.dir/"));
@@ -2409,14 +2409,14 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:\con/whatever.txt"));
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:/LPT1.0\whatever.txt"));
             Assert.True(FileHelper.IsOsRestrictedPath(@"c:/good\great/lPT2.whatever/"));
-            
+
             Assert.Throws<ArgumentException>(() => FileHelper.IsOsRestrictedPath(string.Empty));
             Assert.Throws<ArgumentNullException>(() => FileHelper.IsOsRestrictedPath(null));
 
             // IsOsRestrictedPath doesn't check for illegal characters.  Use IsValidFilePath and IsValidDirectoryPath to check
             // for illegal characters and OS restricted terms
             // Assert.Throws<ArgumentException>( () => FileHelper.IsOSRestrictedPath( @"c:\someillegal<chars\con.txt" ) );
-            // Assert.Throws<ArgumentException>( () => FileHelper.IsOSRestrictedPath( @"c:\someillegalchars\con.<txt" ) );            
+            // Assert.Throws<ArgumentException>( () => FileHelper.IsOSRestrictedPath( @"c:\someillegalchars\con.<txt" ) );
         }
 
         [Fact]
@@ -2459,7 +2459,7 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.CanWriteToFile(tempFile));
 
             // open streamreader to the file, shouldn't be able to write to it because, by default, Streamreader calls
-            // new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read) 
+            // new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)
             using (new StreamReader(tempFile))
             {
                 Assert.False(FileHelper.CanWriteToFile(tempFile));
@@ -2608,7 +2608,7 @@ namespace OBeautifulCode.IO.Test
             tempFile = Path.GetTempFileName();
             Assert.True(File.Exists(tempFile));
             stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            var disposeParams = new DisposeFilestreamParams(stream, 6);
+            var disposeParams = new DisposeFileStreamParams(stream, 6);
             var th = new Thread(DisposeFilestream);
             th.Start(disposeParams);
             Assert.False(FileHelper.WaitForUnlock(tempFile, 1));
@@ -2637,7 +2637,7 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.WaitUntilFileIsWritable(tempFile, 2));
 
             // open streamreader to the file, shouldn't be able to write to it because, by default, Streamreader calls
-            // new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read) 
+            // new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)
             // ReSharper disable JoinDeclarationAndInitializer
             FileStream stream;
             // ReSharper restore JoinDeclarationAndInitializer
@@ -2681,7 +2681,7 @@ namespace OBeautifulCode.IO.Test
             tempFile = Path.GetTempFileName();
             Assert.True(File.Exists(tempFile));
             stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-            var disposeParams = new DisposeFilestreamParams(stream, 20);
+            var disposeParams = new DisposeFileStreamParams(stream, 20);
             var th = new Thread(DisposeFilestream);
             th.Start(disposeParams);
             Assert.True(FileHelper.WaitUntilFileIsWritable(tempFile, 5));  // this should immediately unlock
@@ -2690,11 +2690,11 @@ namespace OBeautifulCode.IO.Test
 
             // now with read permissions
             stream = new FileStream(tempFile, FileMode.Open, FileAccess.Read, FileShare.Read);
-            disposeParams = new DisposeFilestreamParams(stream, 10);
+            disposeParams = new DisposeFileStreamParams(stream, 10);
             th = new Thread(DisposeFilestream);
             th.Start(disposeParams);
             Assert.False(FileHelper.WaitUntilFileIsWritable(tempFile, 3));  // this should immediately unlock
-            Assert.True(FileHelper.WaitUntilFileIsWritable(tempFile, 15));  // this should immediately unlock           
+            Assert.True(FileHelper.WaitUntilFileIsWritable(tempFile, 15));  // this should immediately unlock
             File.Delete(tempFile);
         }
 
@@ -2746,7 +2746,7 @@ namespace OBeautifulCode.IO.Test
 
             // no great way to test these:
             // <exception cref="SecurityException">The caller does not have the required permission</exception>
-            // <exception cref="UnauthorizedAccessException">Thrown when method can't access rootFolder to clear out older temporary files, or when the system doesn't have permission to write the zero-byte file to rootFolder.</exception>            
+            // <exception cref="UnauthorizedAccessException">Thrown when method can't access rootFolder to clear out older temporary files, or when the system doesn't have permission to write the zero-byte file to rootFolder.</exception>
         }
 
         [Fact]
@@ -2796,7 +2796,7 @@ namespace OBeautifulCode.IO.Test
         /// <param name="data">The file stream wrapper.</param>
         private static void DisposeFilestream(object data)
         {
-            var disposeParams = data as DisposeFilestreamParams;
+            var disposeParams = data as DisposeFileStreamParams;
             if (disposeParams != null)
             {
                 Thread.Sleep(disposeParams.WaitSeconds * 1000);

@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OBeautifulCode.IO.Test", "O
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23162827-910C-443D-B1B2-E8CE2FDFA14C}"
 	ProjectSection(SolutionItems) = preProject
+		common\analyzers-testing.ruleset = common\analyzers-testing.ruleset
+		common\analyzers.ruleset = common\analyzers.ruleset
 		appveyor.yml = appveyor.yml
+		common\codeanalysis-dictionary.xml = common\codeanalysis-dictionary.xml
+		common\stylecop.json = common\stylecop.json
 	EndProjectSection
 EndProject
 Global
