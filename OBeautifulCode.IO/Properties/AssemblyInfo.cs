@@ -13,11 +13,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("OBeautifulCode.IO")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("OBeautifulCode.IO")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("OBeautifulCode")]
 [assembly: AssemblyProduct("OBeautifulCode.IO")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2016 OBeautifulCode")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
