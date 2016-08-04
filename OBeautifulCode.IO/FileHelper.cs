@@ -78,8 +78,8 @@ namespace OBeautifulCode.IO
         /// </remarks>
         public static void MergeFiles(string topFilePath, string bottomFilePath, FileMergeHeaderTreatment headerTreatment, FileMergeMethod mergeMethod, string newFilePath)
         {
-            Condition.Requires(topFilePath, "topFilePath").IsNotNullOrWhiteSpace();
-            Condition.Requires(bottomFilePath, "bottomFilePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(topFilePath, nameof(topFilePath)).IsNotNullOrWhiteSpace();
+            Condition.Requires(bottomFilePath, nameof(bottomFilePath)).IsNotNullOrWhiteSpace();
             if (mergeMethod == FileMergeMethod.MergeIntoNewFile)
             {
                 Condition.Requires(newFilePath, "newFilePath").IsNotNullOrWhiteSpace();
@@ -164,7 +164,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">filePath is in an invalid format</exception>
         public static void ReplaceHeader(string filePath, string newHeader)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
 
             string tempFile = CreateTemporaryFile();
 
@@ -229,8 +229,8 @@ namespace OBeautifulCode.IO
         /// </returns>
         public static Stream SaveStreamToFile(this Stream stream, string filePath)
         {
-            Condition.Requires(stream, "stream").IsNotNull();
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(stream, nameof(stream)).IsNotNull();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
 
             try
             {
@@ -291,8 +291,8 @@ namespace OBeautifulCode.IO
         public static void ClearTemporaryFiles(string temporaryFolder, int minutesToKeep)
         {
             // check arguments
-            Condition.Requires(temporaryFolder, "temporaryFolder").IsNotNullOrWhiteSpace();
-            Condition.Requires(minutesToKeep, "minutesToKeep").IsGreaterThan(0);
+            Condition.Requires(temporaryFolder, nameof(temporaryFolder)).IsNotNullOrWhiteSpace();
+            Condition.Requires(minutesToKeep, nameof(minutesToKeep)).IsGreaterThan(0);
 
             if (!Directory.Exists(temporaryFolder))
             {
@@ -385,7 +385,7 @@ namespace OBeautifulCode.IO
         {
             lock (CreateTemporaryResourceLock)
             {
-                Condition.Requires(rootDirectory, "rootDirectory").IsNotNullOrWhiteSpace();
+                Condition.Requires(rootDirectory, nameof(rootDirectory)).IsNotNullOrWhiteSpace();
                 int attempt = 0;
                 do
                 {
@@ -489,8 +489,8 @@ namespace OBeautifulCode.IO
         /// <exception cref="IOException">sourceFilePath is locked.</exception>
         public static void CompressFile(string sourceFilePath, string zipFilePath)
         {
-            Condition.Requires(sourceFilePath, "sourceFilePath").IsNotNullOrWhiteSpace();
-            Condition.Requires(zipFilePath, "zipFilePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(sourceFilePath, nameof(sourceFilePath)).IsNotNullOrWhiteSpace();
+            Condition.Requires(zipFilePath, nameof(zipFilePath)).IsNotNullOrWhiteSpace();
             if (!File.Exists(sourceFilePath))
             {
                 throw new FileNotFoundException("sourceFilePath points to a file that does not exist on disk: " + sourceFilePath);
@@ -538,7 +538,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="IOException">A file is locked.</exception>
         public static byte[] CompressFilesToMemory(ICollection<FileToZip> files)
         {
-            Condition.Requires(files, "files").IsNotEmpty();
+            Condition.Requires(files, nameof(files)).IsNotEmpty();
             var uniqueFileNames = new HashSet<string>();
 
             using (var compressed = new MemoryStream())
@@ -590,8 +590,8 @@ namespace OBeautifulCode.IO
         /// </remarks>
         public static void DecompressFile(string zipFilePath, string targetDirectory)
         {
-            Condition.Requires(zipFilePath, "zipFilePath").IsNotNullOrWhiteSpace();
-            Condition.Requires(targetDirectory, "targetDirectory").IsNotNullOrWhiteSpace();
+            Condition.Requires(zipFilePath, nameof(zipFilePath)).IsNotNullOrWhiteSpace();
+            Condition.Requires(targetDirectory, nameof(targetDirectory)).IsNotNullOrWhiteSpace();
 
             targetDirectory = targetDirectory.AppendMissing(@"\");
 
@@ -629,8 +629,8 @@ namespace OBeautifulCode.IO
         /// <exception cref="ZipException">The zip file is malformed.</exception>
         public static void DecompressFilesFromMemory(byte[] zip, string outputFolder)
         {
-            Condition.Requires(zip, "zip").IsNotNull();
-            Condition.Requires(outputFolder, "outputFolder").IsNotNullOrWhiteSpace();
+            Condition.Requires(zip, nameof(zip)).IsNotNull();
+            Condition.Requires(outputFolder, nameof(outputFolder)).IsNotNullOrWhiteSpace();
             if (!Directory.Exists(outputFolder))
             {
                 throw new DirectoryNotFoundException("outputFolder does not exist: " + outputFolder);
@@ -664,7 +664,7 @@ namespace OBeautifulCode.IO
         /// </remarks>
         public static void DeleteFile(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
 
             try
             {
@@ -728,7 +728,7 @@ namespace OBeautifulCode.IO
         /// </remarks>
         public static void DeleteFiles(string folder)
         {
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
 
             // DONT append backslash - we don't want user accidentally deleting all files in the current working directory
             string[] files = Directory.GetFiles(folder);
@@ -756,8 +756,8 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentException">searchPattern does not contain a valid pattern.</exception>
         public static void DeleteFiles(string folder, string searchPattern, SearchOption searchOption)
         {
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
-            Condition.Requires(searchPattern, "searchPattern").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
+            Condition.Requires(searchPattern, nameof(searchPattern)).IsNotNullOrWhiteSpace();
 
             string[] files = Directory.GetFiles(folder, searchPattern, searchOption);
             foreach (string filePath in files)
@@ -851,7 +851,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">path is in an invalid format</exception>
         public static string Md5(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
 
             var md5Provider = new MD5CryptoServiceProvider();
             byte[] hash;
@@ -880,7 +880,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="SecurityException">the caller doesn't have the required permissions.</exception>
         public static ReadOnlyCollection<string> ReadAllNonblankLines(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             string[] lines = File.ReadAllLines(filePath);
             var nonblankLines = lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
             return new ReadOnlyCollection<string>(nonblankLines);
@@ -904,7 +904,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">path is in an invalid format</exception>
         public static string ReadFirstNonHeaderLine(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = new StreamReader(filestream))
@@ -942,7 +942,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">path is in an invalid format</exception>
         public static string ReadHeaderLine(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 using (var reader = new StreamReader(filestream))
@@ -974,7 +974,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">path is in an invalid format</exception>
         public static string ReadLastLine(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 string text = null;
@@ -1020,7 +1020,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="InvalidOperationException">filePath points to a zero-byte file.</exception>
         public static string ReadLastNonblankLine(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -1083,7 +1083,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentException">filename is whitespace.</exception>
         public static bool IsValidFileName(string fileName)
         {
-            Condition.Requires(fileName, "fileName").IsNotNullOrWhiteSpace();
+            Condition.Requires(fileName, nameof(fileName)).IsNotNullOrWhiteSpace();
             fileName = fileName.Trim(); // remove leading/lagging whitespace
             return (!Path.GetInvalidFileNameChars().Any(illegalChar => fileName.Contains(illegalChar))) && (!IsOsRestrictedPath(fileName));
         }
@@ -1115,7 +1115,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentException">filename is whitespace.</exception>
         public static string MakeLegalFileName(string fileName)
         {
-            Condition.Requires(fileName, "fileName").IsNotNullOrWhiteSpace();
+            Condition.Requires(fileName, nameof(fileName)).IsNotNullOrWhiteSpace();
             char[] illegalCharacters = Path.GetInvalidFileNameChars();
             return illegalCharacters.Aggregate(fileName, (current, illegal) => current.Replace(illegal, ' '));
         }
@@ -1134,7 +1134,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
         public static bool CanWriteToFile(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             try
             {
                 using (new FileStream(filePath, FileMode.Open, FileAccess.Write, FileShare.ReadWrite))
@@ -1172,7 +1172,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
         public static bool IsFileInUse(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             try
             {
                 using (File.Open(filePath, FileMode.Open, FileAccess.Read, FileShare.None))
@@ -1221,8 +1221,8 @@ namespace OBeautifulCode.IO
         public static bool WaitForUnlock(string filePath, int timeoutSeconds)
         {
             // argument check
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
-            Condition.Requires(timeoutSeconds, "timeoutSeconds").IsGreaterOrEqual(1);
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
+            Condition.Requires(timeoutSeconds, nameof(timeoutSeconds)).IsGreaterOrEqual(1);
 
             int elapsedSeconds = 0;
 
@@ -1259,8 +1259,8 @@ namespace OBeautifulCode.IO
         public static bool WaitUntilFileIsWritable(string filePath, int timeoutSeconds)
         {
             // argument check
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
-            Condition.Requires(timeoutSeconds, "timeoutSeconds").IsGreaterOrEqual(1);
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
+            Condition.Requires(timeoutSeconds, nameof(timeoutSeconds)).IsGreaterOrEqual(1);
             int elapsedSeconds = 0;
 
             do
@@ -1297,7 +1297,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="PathTooLongException">The specified filePath exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
         public static bool CreateZeroByteFile(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             using (new FileStream(filePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {
             }
@@ -1320,7 +1320,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="IOException">Couldn't get state of file.</exception>
         public static bool IsFileSizeZero(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             var info = new FileInfo(filePath);
             return info.Length == 0;
         }
@@ -1340,7 +1340,7 @@ namespace OBeautifulCode.IO
         /// </remarks>
         internal static void DeleteFileDos(string filePath)
         {
-            Condition.Requires(filePath, "filePath").IsNotNullOrWhiteSpace();
+            Condition.Requires(filePath, nameof(filePath)).IsNotNullOrWhiteSpace();
             var cmd = new Process
             {
                 StartInfo =
@@ -1369,12 +1369,12 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentException">path is whitespace.</exception>
         internal static bool IsOsRestrictedPath(string path)
         {
-            Condition.Requires(path, "path").IsNotNullOrWhiteSpace();
+            Condition.Requires(path, nameof(path)).IsNotNullOrWhiteSpace();
 
             path = path.ToUpper(CultureInfo.CurrentCulture);
 
             // get all terms that are separated by slash
-            string[] directories = path.Split(new[] { '\\', '/' });
+            string[] directories = path.Split('\\', '/');
 
             // ensure each term isn't restricted by checking the first substring when splitting on the period character
             // this will work for both files and folders
@@ -1448,7 +1448,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentNullException">value is null or empty.</exception>
         internal static string ToHexString(IList<byte> value)
         {
-            Condition.Requires(value, "value").IsNotNull();
+            Condition.Requires(value, nameof(value)).IsNotNull();
 
             var output = new StringBuilder(value.Count * 2);
             foreach (byte t in value)
