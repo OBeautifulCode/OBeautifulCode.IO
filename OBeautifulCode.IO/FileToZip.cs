@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileToZip.cs" company="OBeautifulCode">
-//   Copyright 2015 OBeautifulCode
+//   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -30,6 +30,6 @@ namespace OBeautifulCode.IO
         /// <summary>
         /// Gets the path to the file on disk.
         /// </summary>
-        public string Path { get; private set; }        
+        public string Path { get; private set; }
     }
 }

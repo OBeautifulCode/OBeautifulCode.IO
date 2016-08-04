@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DirectoryHelperTest.cs" company="OBeautifulCode">
-//   Copyright 2015 OBeautifulCode
+//   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ namespace OBeautifulCode.IO.Test
     /// Because of the volume of test code, I was only able to break-up a few of these monolithic tests.
     /// The rest remain as-is.
     /// </remarks>
-    public class DirectoryHelperTest
+    public static class DirectoryHelperTest
     {
         /// <summary>
         /// Tests the ClearTemporaryFolders method
@@ -88,7 +88,7 @@ namespace OBeautifulCode.IO.Test
             Assert.True(Directory.Exists(unmodifiedTempFolder)); // this folder was created moments ago
             DirectoryHelper.DeleteFolder(unmodifiedTempFolder);
 
-            // make a directory read-only, OS system files, and hidden    
+            // make a directory read-only, OS system files, and hidden
             string tempFolderAttributes = Path.GetTempFileName() + @".dir\";
             DirectoryHelper.DeleteFolder(tempFolderAttributes, true);
             Assert.True(Directory.Exists(tempFolderAttributes));
@@ -142,7 +142,7 @@ namespace OBeautifulCode.IO.Test
             Assert.Throws<IOException>(() => DirectoryHelper.CreateTemporaryFolder(Directory.GetCurrentDirectory()));
 
             // how can we replicate these?
-            // <exception cref="SecurityException">The caller does not have the required permissions.</exception>       
+            // <exception cref="SecurityException">The caller does not have the required permissions.</exception>
             // <exception cref="UnauthorizedAccessException">The caller does not have the required permission to create a folder under rootFolder.</exception>
 
             // no good way to test whether old folders get cleared out
@@ -250,7 +250,7 @@ namespace OBeautifulCode.IO.Test
             // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
             new DirectoryInfo(tempFolderEmbed) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
-            // ReSharper restore ObjectCreationAsStatement            
+            // ReSharper restore ObjectCreationAsStatement
             Assert.True(Directory.Exists(tempFolder));
             DirectoryHelper.DeleteFolder(tempFolder, true);
             Assert.True(Directory.Exists(tempFolder));
@@ -370,7 +370,7 @@ namespace OBeautifulCode.IO.Test
             // <exception cref="ArgumentException">Thrown when temporaryFolder is null or empty, or a relative path couldn't be made absolute.</exception>
 
             // how can we reproduce this?
-            // <exception cref="SecurityException">The caller does not have the required permissions.</exception>              
+            // <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         }
 
         [Fact]
@@ -407,6 +407,6 @@ namespace OBeautifulCode.IO.Test
             Assert.False(DirectoryHelper.IsValidDirectoryPath(@"c:\folder\otherfolder\con\"));
 
             // how about directories with leading or training spaces?  are those just ignored by the OS? (i.e. they OK)
-        }        
+        }
     }
 }

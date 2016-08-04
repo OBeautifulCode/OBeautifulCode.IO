@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DirectoryHelper.cs" company="OBeautifulCode">
-//   Copyright 2015 OBeautifulCode
+//   Copyright (c) OBeautifulCode. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ namespace OBeautifulCode.IO
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
     /// </summary>
-    public class DirectoryHelper
+    public static class DirectoryHelper
     {
         /// <summary>
         /// Lock object for creating temporary resources.
@@ -35,28 +35,28 @@ namespace OBeautifulCode.IO
         /// <param name="minutesToKeep">
         /// Keeps subfolders that were last accessed to within this number of minutes.  Minutes are based on time - keeping
         /// 1440 minutes means keeping subfolders last accessed to 24 hours prior to right now.
-        /// </param>        
+        /// </param>
         /// <exception cref="ArgumentNullException">rootFolder is null.</exception>
         /// <exception cref="ArgumentException">rootFolder is whitespace or a relative path couldn't be made absolute.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">minutesToKeep is &lt;=0</exception>        
+        /// <exception cref="ArgumentOutOfRangeException">minutesToKeep is &lt;=0</exception>
         /// <exception cref="DirectoryNotFoundException">The directory doesn't exist or disappears during the process.</exception>
         /// <exception cref="UnauthorizedAccessException">method can't access the directory</exception>
         /// <exception cref="IOException">rootFolder is in the application's current working directory.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>       
+        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         public static void ClearTemporaryFolders(string rootFolder, int minutesToKeep)
         {
             // check arguments
-            Condition.Requires(rootFolder, "rootFolder").IsNotNullOrWhiteSpace();
-            Condition.Requires(minutesToKeep, "minutesToKeep").IsGreaterThan(0);
+            Condition.Requires(rootFolder, nameof(rootFolder)).IsNotNullOrWhiteSpace();
+            Condition.Requires(minutesToKeep, nameof(minutesToKeep)).IsGreaterThan(0);
             if (!Directory.Exists(rootFolder))
             {
-                throw new DirectoryNotFoundException("rootFolder doesn't exist '" + rootFolder + "'");
+                throw new DirectoryNotFoundException("root folder doesn't exist '" + rootFolder + "'");
             }
 
             // check if the directory is the application's current working directory
             if (IsFolderInWorkingDirectory(rootFolder))
             {
-                throw new IOException("rootFolder is the application's current working directory.");
+                throw new IOException("root folder is the application's current working directory.");
             }
 
             // now delete folders
@@ -83,11 +83,11 @@ namespace OBeautifulCode.IO
 
                 if (minutesElapsed > minutesToKeep)
                 {
+                    // ReSharper disable RedundantJumpStatement
                     try
                     {
                         DeleteFolder(subfolder);
                     }
-                    // ReSharper disable RedundantJumpStatement
                     catch (IOException)
                     {
                         // folder cannot be deleted (we already checked for application's working directory reason for this exception)
@@ -100,6 +100,7 @@ namespace OBeautifulCode.IO
                     {
                         continue;
                     }
+
                     // ReSharper restore RedundantJumpStatement
                 } // enough time has passed?
             } // for each subfolder
@@ -112,7 +113,7 @@ namespace OBeautifulCode.IO
         /// <remarks>path to new temporary folder will have trailing backslash</remarks>
         /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission to create a folder in the windows temporary folder.</exception>
         /// <exception cref="IOException">Could't create a temporary folder</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>       
+        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         public static string CreateTemporaryFolder()
         {
             lock (CreateTemporaryResourceLock)
@@ -131,24 +132,24 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentException">rootFolder is whitespace or is a relative path that cannot be made absolute.</exception>
         /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission to create a folder under rootFolder or cannot access rootFolder</exception>
         /// <exception cref="PathTooLongException">temporary folder would exceed the character limit</exception>
-        /// <exception cref="DirectoryNotFoundException">rootFolder is invalid, such as being on an unmapped drive, doesn't exist, or disappears during the process.</exception>       
+        /// <exception cref="DirectoryNotFoundException">rootFolder is invalid, such as being on an unmapped drive, doesn't exist, or disappears during the process.</exception>
         /// <exception cref="IOException">could't create a temporary folder or rootFolder was in the application's current working directory.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>       
+        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         public static string CreateTemporaryFolder(string rootFolder)
         {
             lock (CreateTemporaryResourceLock)
             {
-                Condition.Requires(rootFolder, "rootFolder").IsNotNullOrWhiteSpace();
+                Condition.Requires(rootFolder, nameof(rootFolder)).IsNotNullOrWhiteSpace();
 
                 if (!Directory.Exists(rootFolder))
                 {
-                    throw new DirectoryNotFoundException("rootFolder doesn't exist '" + rootFolder + "'");
+                    throw new DirectoryNotFoundException("root folder doesn't exist '" + rootFolder + "'");
                 }
 
                 // check if the directory is the application's current working directory
                 if (IsFolderInWorkingDirectory(rootFolder))
                 {
-                    throw new IOException("rootFolder is the application's current working directory.");
+                    throw new IOException("root folder is the application's current working directory.");
                 }
 
                 rootFolder = rootFolder.AppendMissing(@"\");
@@ -176,7 +177,7 @@ namespace OBeautifulCode.IO
                 throw new IOException("Couldn't create temporary folder.");
             } // lock _createTemporaryResourceLock
         }
-        
+
         /// <summary>
         /// Deletes a folder and all contents of that folder.
         /// </summary>
@@ -184,15 +185,15 @@ namespace OBeautifulCode.IO
         /// <param name="recreate">recreate the deleted folder?</param>
         /// <exception cref="ArgumentNullException">folder is null.</exception>
         /// <exception cref="ArgumentException">folder is whitespace or contains illegal characters, or has a relative path that couldn't be made absolute.</exception>
-        /// <exception cref="IOException">The directory is the application's current working directory OR the directory couldn't be deleted OR the directory couldn't be recreated.</exception>        
+        /// <exception cref="IOException">The directory is the application's current working directory OR the directory couldn't be deleted OR the directory couldn't be recreated.</exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters and file names must be less than 260 characters.</exception>
         /// <exception cref="UnauthorizedAccessException">The caller does not have permission to recreate the folder when recreate = true.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>       
+        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:")</exception>
         public static void DeleteFolder(string folder, bool recreate = false)
         {
             // check arguments
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
             folder = folder.AppendMissing(@"\");
 
             // check if the directory is the application's current working directory
@@ -259,19 +260,22 @@ namespace OBeautifulCode.IO
         /// </remarks>
         internal static void DeleteFolderDos(string folder)
         {
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
-            var cmd = new Process
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
+
+            var startInfo = new ProcessStartInfo
             {
-                StartInfo =
-                {
-                    FileName = "cmd.exe",
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    Arguments = "/c rmdir /S /Q \"" + folder + "\""
-                }
+                FileName = "cmd.exe",
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                Arguments = "/c rmdir /S /Q \"" + folder + "\""
             };
-            cmd.Start();
-            cmd.WaitForExit();
+
+            using (var cmd = new Process())
+            {
+                cmd.StartInfo = startInfo;
+                cmd.Start();
+                cmd.WaitForExit();
+            }
         }
 
         /// <summary>
@@ -284,11 +288,11 @@ namespace OBeautifulCode.IO
         /// <exception cref="ArgumentNullException">folder is null.</exception>
         /// <exception cref="ArgumentException">folder is whitespace, has invalid characters, or is a relative path that couldn't be made absolute.</exception>
         /// <exception cref="PathTooLongException">folder has too many characters.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>              
+        /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:")</exception>
         internal static bool IsFolderInWorkingDirectory(string folder)
         {
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
 
             string fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
             string currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");
