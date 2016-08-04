@@ -46,8 +46,8 @@ namespace OBeautifulCode.IO
         public static void ClearTemporaryFolders(string rootFolder, int minutesToKeep)
         {
             // check arguments
-            Condition.Requires(rootFolder, "rootFolder").IsNotNullOrWhiteSpace();
-            Condition.Requires(minutesToKeep, "minutesToKeep").IsGreaterThan(0);
+            Condition.Requires(rootFolder, nameof(rootFolder)).IsNotNullOrWhiteSpace();
+            Condition.Requires(minutesToKeep, nameof(minutesToKeep)).IsGreaterThan(0);
             if (!Directory.Exists(rootFolder))
             {
                 throw new DirectoryNotFoundException("rootFolder doesn't exist '" + rootFolder + "'");
@@ -138,7 +138,7 @@ namespace OBeautifulCode.IO
         {
             lock (CreateTemporaryResourceLock)
             {
-                Condition.Requires(rootFolder, "rootFolder").IsNotNullOrWhiteSpace();
+                Condition.Requires(rootFolder, nameof(rootFolder)).IsNotNullOrWhiteSpace();
 
                 if (!Directory.Exists(rootFolder))
                 {
@@ -192,7 +192,7 @@ namespace OBeautifulCode.IO
         public static void DeleteFolder(string folder, bool recreate = false)
         {
             // check arguments
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
             folder = folder.AppendMissing(@"\");
 
             // check if the directory is the application's current working directory
@@ -259,7 +259,7 @@ namespace OBeautifulCode.IO
         /// </remarks>
         internal static void DeleteFolderDos(string folder)
         {
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
             var cmd = new Process
             {
                 StartInfo =
@@ -288,7 +288,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:")</exception>
         internal static bool IsFolderInWorkingDirectory(string folder)
         {
-            Condition.Requires(folder, "folder").IsNotNullOrWhiteSpace();
+            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
 
             string fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
             string currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");
