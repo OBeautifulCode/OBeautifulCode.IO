@@ -12,10 +12,10 @@ namespace OBeautifulCode.IO
     using System.IO;
     using System.Security;
 
-    using Conditions;
-
     using OBeautifulCode.Math;
     using OBeautifulCode.String;
+
+    using Spritely.Recipes;
 
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
@@ -45,9 +45,9 @@ namespace OBeautifulCode.IO
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         public static void ClearTemporaryFolders(string rootFolder, int minutesToKeep)
         {
-            // check arguments
-            Condition.Requires(rootFolder, nameof(rootFolder)).IsNotNullOrWhiteSpace();
-            Condition.Requires(minutesToKeep, nameof(minutesToKeep)).IsGreaterThan(0);
+            new { rootFolder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { minutesToKeep }.Must().BeGreaterThan(0).OrThrow();
+
             if (!Directory.Exists(rootFolder))
             {
                 throw new DirectoryNotFoundException("root folder doesn't exist '" + rootFolder + "'");
@@ -139,7 +139,7 @@ namespace OBeautifulCode.IO
         {
             lock (CreateTemporaryResourceLock)
             {
-                Condition.Requires(rootFolder, nameof(rootFolder)).IsNotNullOrWhiteSpace();
+                new { rootFolder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
 
                 if (!Directory.Exists(rootFolder))
                 {
@@ -192,8 +192,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:")</exception>
         public static void DeleteFolder(string folder, bool recreate = false)
         {
-            // check arguments
-            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
+            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
             folder = folder.AppendMissing(@"\");
 
             // check if the directory is the application's current working directory
@@ -260,7 +259,7 @@ namespace OBeautifulCode.IO
         /// </remarks>
         internal static void DeleteFolderDos(string folder)
         {
-            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
+            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
 
             var startInfo = new ProcessStartInfo
             {
@@ -292,7 +291,7 @@ namespace OBeautifulCode.IO
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:")</exception>
         internal static bool IsFolderInWorkingDirectory(string folder)
         {
-            Condition.Requires(folder, nameof(folder)).IsNotNullOrWhiteSpace();
+            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
 
             string fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
             string currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");
