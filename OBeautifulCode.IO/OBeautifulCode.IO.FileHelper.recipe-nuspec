@@ -13,5 +13,7 @@
   </metadata>
   <files>
     <file src="FileHelper.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.IO\FileHelper.cs" />
+    <file src="FileMergeHeaderTreatment.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.IO\FileMergeHeaderTreatment.cs" />
+    <file src="FileMergeMethod.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.IO\FileMergeMethod.cs" />
   </files>
 </package>
