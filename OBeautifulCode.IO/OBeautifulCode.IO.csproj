@@ -59,10 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="OBeautifulCode.IO.DirectoryHelper.recipe-nuspec" />
+    <None Include="OBeautifulCode.IO.FileHelper.recipe-nuspec" />
+    <None Include="OBeautifulCode.IO.template-nuspec" />
     <None Include="packages.config" />
-    <None Include="OBeautifulCode.IO.nuspec">
-      <SubType>Designer</SubType>
-    </None>
     <AdditionalFiles Include="..\common\stylecop.json">
       <Link>stylecop.json</Link>
       <InProject>false</InProject>

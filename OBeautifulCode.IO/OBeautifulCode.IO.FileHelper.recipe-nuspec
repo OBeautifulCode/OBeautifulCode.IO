@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.IO.FileHelper</id>
+    <description>Provides various convenience methods for dealing with files.</description>
+    <tags>IO file filepath</tags>
+    <developmentDependency>true</developmentDependency>
+    <dependencies>
+      <dependency id="OBeautifulCode.Math.MathHelper" version="1.0.52" />
+      <dependency id="OBeautifulCode.Math.ThreadSafeRandom" version="1.0.52" />
+      <dependency id="OBeautifulCode.String.StringExtensions" version="1.0.14" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="FileHelper.cs" target="content\net45\.OBeautifulCode.Recipes\OBeautifulCode.IO\FileHelper.cs" />
+  </files>
+</package>
