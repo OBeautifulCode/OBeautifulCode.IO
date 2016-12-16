@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OBeautifulCode")]
 [assembly: AssemblyProduct("OBeautifulCode.IO")]
-[assembly: AssemblyCopyright("Copyright ©  2016 OBeautifulCode")]
+[assembly: AssemblyCopyright("Copyright (c) 2016 OBeautifulCode")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -43,3 +43,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("OBeautifulCode.IO.Test")]
 [assembly: CLSCompliant(true)]
+[assembly: InternalsVisibleTo("OBeautifulCode.IO.Test")]
