@@ -707,11 +707,11 @@ namespace OBeautifulCode.IO.Test
             // ReSharper disable once RedundantArgumentDefaultValue
             string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
             // ReSharper restore once RedundantArgumentDefaultValue
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             string tempFilePath3 = FileHelper.CreateFileNamedByTimestamp("    ");
-            Thread.Sleep(1000);
+            Thread.Sleep(2000);
             string tempFilePath4 = FileHelper.CreateFileNamedByTimestamp("  \r\n  ");
 
             // Assert
