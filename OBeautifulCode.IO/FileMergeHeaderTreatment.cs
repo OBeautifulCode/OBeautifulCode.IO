@@ -15,7 +15,7 @@ namespace OBeautifulCode.IO
 #if !OBeautifulCodeIORecipesProject
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO", "See package version number")]
 #endif
-    public enum FileMergeHeaderTreatment
+    internal enum FileMergeHeaderTreatment
     {
         /// <summary>
         /// Delete the header of the bottom file

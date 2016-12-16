@@ -15,7 +15,7 @@ namespace OBeautifulCode.IO
 #if !OBeautifulCodeIORecipesProject
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO", "See package version number")]
 #endif
-    public enum FileMergeMethod
+    internal enum FileMergeMethod
     {
         /// <summary>
         /// Merge the bottom file into the top file.

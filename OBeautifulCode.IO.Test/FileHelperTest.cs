@@ -17,7 +17,6 @@ namespace OBeautifulCode.IO.Test
 
     using OBeautifulCode.IO;
     using OBeautifulCode.Math;
-    using OBeautifulCode.Reflection;
     using OBeautifulCode.String;
 
     using Xunit;

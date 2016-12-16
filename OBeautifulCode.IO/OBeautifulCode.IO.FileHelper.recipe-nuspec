@@ -8,7 +8,7 @@
     <dependencies>
       <dependency id="OBeautifulCode.Math.MathHelper" version="1.0.52" />
       <dependency id="OBeautifulCode.Math.ThreadSafeRandom" version="1.0.52" />
-      <dependency id="OBeautifulCode.String.StringExtensions" version="1.0.14" />
+      <dependency id="OBeautifulCode.String.StringExtensions" version="1.0.15" />
     </dependencies>
   </metadata>
   <files>

@@ -36,7 +36,7 @@ namespace OBeautifulCode.IO
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO", "See package version number")]
 #endif
-    public static class FileHelper
+    internal static class FileHelper
     {
         /// <summary>
         /// Lock object for creating temporary resources.
