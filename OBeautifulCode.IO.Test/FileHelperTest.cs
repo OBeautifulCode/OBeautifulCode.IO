@@ -15,9 +15,9 @@ namespace OBeautifulCode.IO.Test
     using System.Text;
     using System.Threading;
 
-    using OBeautifulCode.IO;
-    using OBeautifulCode.Math;
-    using OBeautifulCode.String;
+    using OBeautifulCode.IO.Recipes;
+    using OBeautifulCode.Math.Recipes;
+    using OBeautifulCode.String.Recipes;
 
     using Xunit;
 

@@ -12,7 +12,8 @@ namespace OBeautifulCode.IO.Test
     using System.IO;
     using System.Linq;
 
-    using OBeautifulCode.String;
+    using OBeautifulCode.IO.Recipes;
+    using OBeautifulCode.String.Recipes;
 
     using Xunit;
 

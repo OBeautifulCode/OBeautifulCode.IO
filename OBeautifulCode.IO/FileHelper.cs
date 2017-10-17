@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO
+namespace OBeautifulCode.IO.Recipes
 {
     using System;
     using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace OBeautifulCode.IO
     using System.Text.RegularExpressions;
     using System.Threading;
 
-    using OBeautifulCode.Math;
-    using OBeautifulCode.String;
+    using OBeautifulCode.Math.Recipes;
+    using OBeautifulCode.String.Recipes;
 
     using Spritely.Recipes;
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO
+namespace OBeautifulCode.IO.Recipes
 {
     /// <summary>
     /// Determines what to do with the header line of the bottom file when merging two files.

@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO
+namespace OBeautifulCode.IO.Recipes
 {
     using System;
     using System.Diagnostics;
@@ -15,8 +15,8 @@ namespace OBeautifulCode.IO
     using System.IO;
     using System.Security;
 
-    using OBeautifulCode.Math;
-    using OBeautifulCode.String;
+    using OBeautifulCode.Math.Recipes;
+    using OBeautifulCode.String.Recipes;
 
     using Spritely.Recipes;
 

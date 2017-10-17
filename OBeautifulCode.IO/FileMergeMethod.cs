@@ -7,7 +7,7 @@
 // </auto-generated>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO
+namespace OBeautifulCode.IO.Recipes
 {
     /// <summary>
     /// Determines how to store the output of merging two files

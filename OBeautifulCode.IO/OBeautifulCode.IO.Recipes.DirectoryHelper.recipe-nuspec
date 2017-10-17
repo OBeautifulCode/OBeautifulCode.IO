@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.IO.Recipes.DirectoryHelper</id>
+    <description>Provides various convenience methods for dealing with directories.</description>
+    <tags>IO directory</tags>
+    <developmentDependency>true</developmentDependency>
+    <dependencies>
+      <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.54" />
+      <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.54" />
+      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.17" />
+      <dependency id="Spritely.Recipes.MustValidation" version="0.6.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="DirectoryHelper.cs" target="content\net45\.recipes\OBeautifulCode.IO\DirectoryHelper.cs" />
+  </files>
+</package>

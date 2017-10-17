@@ -45,14 +45,14 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.Math\MathHelper.cs" />
-    <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.Math\ThreadSafeRandom.cs" />
-    <Compile Include=".OBeautifulCode.Recipes\OBeautifulCode.String\StringExtensions.cs" />
-    <Compile Include=".Spritely.Recipes\MustValidation\MakeRule.cs" />
-    <Compile Include=".Spritely.Recipes\MustValidation\MustExtensions.cs" />
-    <Compile Include=".Spritely.Recipes\MustValidation\RuleExtensions.cs" />
-    <Compile Include=".Spritely.Recipes\MustValidation\Rules.cs" />
-    <Compile Include=".Spritely.Recipes\MustValidation\ValidatedNotNullAttribute.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Math\MathHelper.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Math\ThreadSafeRandom.cs" />
+    <Compile Include=".recipes\OBeautifulCode.String\StringExtensions.cs" />
+    <Compile Include=".recipes\Spritely.MustValidation\MakeRule.cs" />
+    <Compile Include=".recipes\Spritely.MustValidation\MustExtensions.cs" />
+    <Compile Include=".recipes\Spritely.MustValidation\RuleExtensions.cs" />
+    <Compile Include=".recipes\Spritely.MustValidation\Rules.cs" />
+    <Compile Include=".recipes\Spritely.MustValidation\ValidatedNotNullAttribute.cs" />
     <Compile Include="DirectoryHelper.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FileMergeHeaderTreatment.cs" />
@@ -60,8 +60,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="OBeautifulCode.IO.DirectoryHelper.recipe-nuspec" />
-    <None Include="OBeautifulCode.IO.FileHelper.recipe-nuspec" />
+    <None Include="OBeautifulCode.IO.Recipes.DirectoryHelper.recipe-nuspec" />
+    <None Include="OBeautifulCode.IO.Recipes.FileHelper.recipe-nuspec" />
     <None Include="OBeautifulCode.IO.template-nuspec" />
     <None Include="packages.config" />
     <AdditionalFiles Include="..\common\stylecop.json">
