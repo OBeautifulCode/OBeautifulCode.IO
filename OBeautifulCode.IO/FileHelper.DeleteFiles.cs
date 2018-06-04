@@ -13,7 +13,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Diagnostics;
     using System.IO;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -26,17 +26,18 @@ namespace OBeautifulCode.IO.Recipes
         /// Deletes a file from disk.
         /// </summary>
         /// <param name="filePath">Path to file.</param>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
-        /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
         /// <exception cref="IOException">file couldn't be deleted.</exception>
-        /// <exception cref="UnauthorizedAccessException">filePath is a directory, caller doesn't have the required permissions.</exception>
+        /// <exception cref="UnauthorizedAccessException"><paramref name="filePath"/> is a directory, caller doesn't have the required permissions.</exception>
         /// <remarks>
         /// No exception is thrown if file doesn't exist to begin with, if the path is too long, or the directory is not found.
         /// </remarks>
-        public static void DeleteFile(string filePath)
+        public static void DeleteFile(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -88,19 +89,20 @@ namespace OBeautifulCode.IO.Recipes
         /// Deletes all files in a given folder.
         /// </summary>
         /// <param name="folder">Folder containing files to delete.</param>
-        /// <exception cref="ArgumentNullException">folder is null.</exception>
-        /// <exception cref="ArgumentException">folder is whitespace or contains illegal characters.</exception>
-        /// <exception cref="IOException">folder is a file name, or if a file couldn't be deleted.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="folder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="folder"/> is whitespace or contains illegal characters.</exception>
+        /// <exception cref="IOException"><paramref name="folder"/> is a file name, or if a file couldn't be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">caller doesn't have permission to browse files in the folder or delete a file in the folder.</exception>
-        /// <exception cref="PathTooLongException">Folder's path is too long or file within folder path is too long.</exception>
-        /// <exception cref="DirectoryNotFoundException">folder wasn't found.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="folder"/>'s path is too long or file within folder path is too long.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="folder"/> wasn't found.</exception>
         /// <remarks>
         /// If a file couldn't be deleted, the delete process stops.  So folder may contain multiple files that haven't
         /// been deleted yet.
         /// </remarks>
-        public static void DeleteFiles(string folder)
+        public static void DeleteFiles(
+            string folder)
         {
-            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { folder }.Must().NotBeNullNorWhiteSpace();
 
             // DONT append backslash - we don't want user accidentally deleting all files in the current working directory
             string[] files = Directory.GetFiles(folder);
@@ -117,19 +119,22 @@ namespace OBeautifulCode.IO.Recipes
         /// <param name="folder">The directory containing files to delete.</param>
         /// <param name="searchPattern">The search string to match against the names of files in path. The parameter cannot end in two periods ("..") or contain two periods ("..") followed by DirectorySeparatorChar or AltDirectorySeparatorChar, nor can it contain any of the characters in InvalidPathChars.</param>
         /// <param name="searchOption">One of the SearchOption values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
-        /// <exception cref="ArgumentNullException">folder is null.</exception>
-        /// <exception cref="ArgumentException">folder is whitespace or contains illegal characters.</exception>
-        /// <exception cref="ArgumentNullException">searchPattern is null.</exception>
-        /// <exception cref="ArgumentException">searchPattern is whitespace.</exception>
-        /// <exception cref="IOException">folder is a file name, or if a file couldn't be deleted.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="folder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="folder"/> is whitespace or contains illegal characters.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="searchPattern"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="searchPattern"/> is whitespace.</exception>
+        /// <exception cref="IOException"><paramref name="folder"/> is a file name, or if a file couldn't be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">caller doesn't have permission to browse files in the folder or delete a file in the folder.</exception>
-        /// <exception cref="PathTooLongException">folder path is too long or file within folder path is too long.</exception>
-        /// <exception cref="DirectoryNotFoundException">folder wasn't found.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="folder"/> path is too long or file within folder path is too long.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="folder"/> wasn't found.</exception>
         /// <exception cref="ArgumentException">searchPattern does not contain a valid pattern.</exception>
-        public static void DeleteFiles(string folder, string searchPattern, SearchOption searchOption)
+        public static void DeleteFiles(
+            string folder, 
+            string searchPattern, 
+            SearchOption searchOption)
         {
-            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { searchPattern }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { folder }.Must().NotBeNullNorWhiteSpace();
+            new { searchPattern }.Must().NotBeNullNorWhiteSpace();
 
             string[] files = Directory.GetFiles(folder, searchPattern, searchOption);
             foreach (string filePath in files)
@@ -142,16 +147,17 @@ namespace OBeautifulCode.IO.Recipes
         /// Deletes a file using DOS.
         /// </summary>
         /// <param name="filePath">file to delete.</param>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace.</exception>
         /// <remarks>
         /// Won't delete hidden or system files, even if the /A attribute is used with the del command (that is only applicable to wildcards)
         /// Won't delete files that are in use.
         /// Should be used as a last-ditch effort.
         /// </remarks>
-        public static void DeleteFileDos(string filePath)
+        public static void DeleteFileDos(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             var startInfo = new ProcessStartInfo
             {

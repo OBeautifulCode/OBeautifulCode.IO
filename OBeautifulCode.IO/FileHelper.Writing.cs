@@ -15,8 +15,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Text;
 
     using OBeautifulCode.String.Recipes;
-
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
@@ -35,40 +34,45 @@ namespace OBeautifulCode.IO.Recipes
         /// <param name="bottomFilePath">path to the file whose contents will be placed at the bottom of the merged file.</param>
         /// <param name="headerTreatment">determines whether the bottom file's header will be deleted or kept upon merge.</param>
         /// <param name="mergeMethod">Determines if the bottom file should be merged into the top file, or if both should be merged into a new file.</param>
-        /// <param name="newFilePath">path to the new file to create IF mergeMethod is MergeIntoNewFile.</param>
-        /// <exception cref="ArgumentNullException">topFilePath or bottomFilePath is null.</exception>
-        /// <exception cref="ArgumentException">topFilePath or bottomFilePath is whitespace or contains invalid characters, or referes to a non-file device such as "con:", "com1:" etc.</exception>
-        /// <exception cref="ArgumentNullException">mergeMethod = MergeIntoNewFile and newFilePath is null.</exception>
-        /// <exception cref="ArgumentException">mergeMethod = MergeIntoNewFile and newFilePath is whitespace or contains invalid characters.</exception>
-        /// <exception cref="FileNotFoundException">topFilePath or bottomFilePath cannot be found.</exception>
-        /// <exception cref="IOException">An I/O error occurs with topFilePath or bottomFilePath or newFilePath, such as when these files are locked.</exception>
-        /// <exception cref="IOException">I/O error writing to topFilePath or newFilePath depending on MergeMethod.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permission to access topFilePath or bottomFilePath.</exception>
-        /// <exception cref="SecurityException">The caller does not have the required permission to write to topFilePath or newFilePath depending on the MergeMethod.</exception>
-        /// <exception cref="DirectoryNotFoundException">The directory containing topFilePath or bottomFilePath could not be found or the filePath is a directory.</exception>
-        /// <exception cref="DirectoryNotFoundException">mergeMethod = MergeIntoNewFile and directory containing newFilePath could not be found, or newFilePath is a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions to topFilePath or bottomFilePath.</exception>
-        /// <exception cref="UnauthorizedAccessException">topFilePath is read-only.</exception>
-        /// <exception cref="UnauthorizedAccessException">newFilePath is readonly and mergeMethod is MergeIntoNewFile.</exception>
-        /// <exception cref="UnauthorizedAccessException">Caller doesn't have write permission to either newFilePath or topFilePath depending on MethodMethod.</exception>
-        /// <exception cref="IOException">topFilePath or bottomFilePath was too long.</exception>
-        /// <exception cref="IOException">mergeMethod = MergeIntoNewFile and newFilePath was too long.</exception>
-        /// <exception cref="NotSupportedException">topFilePath or bottomFilePath is in an invalid format.</exception>
-        /// <exception cref="NotSupportedException">mergeMethod = MergeIntoNewFile and newFilePath is in an invalid format.</exception>
+        /// <param name="newFilePath">path to the new file to create IF <paramref name="mergeMethod"/> is <see cref="FileMergeMethod.MergeIntoNewFile"/>.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> is whitespace or contains invalid characters, or referes to a non-file device such as "con:", "com1:" etc.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="mergeMethod"/> = <see cref="FileMergeMethod.MergeIntoNewFile"/> and <paramref name="newFilePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="mergeMethod"/> = <see cref="FileMergeMethod.MergeIntoNewFile"/> and <paramref name="newFilePath"/> is whitespace or contains invalid characters.</exception>
+        /// <exception cref="FileNotFoundException"><paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> cannot be found.</exception>
+        /// <exception cref="IOException">An I/O error occurs with <paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> or <paramref name="newFilePath"/>, such as when these files are locked.</exception>
+        /// <exception cref="IOException">I/O error writing to <paramref name="topFilePath"/> or <paramref name="newFilePath"/> depending on <paramref name="mergeMethod"/>.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission to access <paramref name="topFilePath"/> or <paramref name="bottomFilePath"/>.</exception>
+        /// <exception cref="SecurityException">The caller does not have the required permission to write to <paramref name="topFilePath"/> or <paramref name="newFilePath"/> depending on the MergeMethod.</exception>
+        /// <exception cref="DirectoryNotFoundException">The directory containing <paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> could not be found or the filePath is a directory.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="mergeMethod"/> = <see cref="FileMergeMethod.MergeIntoNewFile"/> and directory containing <paramref name="newFilePath"/> could not be found, or <paramref name="newFilePath"/> is a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions to <paramref name="topFilePath"/> or <paramref name="bottomFilePath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException"><paramref name="topFilePath"/> is read-only.</exception>
+        /// <exception cref="UnauthorizedAccessException"><paramref name="newFilePath"/> is readonly and <paramref name="mergeMethod"/> is <see cref="FileMergeMethod.MergeIntoNewFile"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Caller doesn't have write permission to either <paramref name="newFilePath"/> or <paramref name="topFilePath"/> depending on MethodMethod.</exception>
+        /// <exception cref="IOException"><paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> was too long.</exception>
+        /// <exception cref="IOException"><paramref name="mergeMethod"/> = <see cref="FileMergeMethod.MergeIntoNewFile"/> and <paramref name="newFilePath"/> was too long.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="topFilePath"/> or <paramref name="bottomFilePath"/> is in an invalid format.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="mergeMethod"/> = <see cref="FileMergeMethod.MergeIntoNewFile"/> and <paramref name="newFilePath"/> is in an invalid format.</exception>
         /// <remarks>
         /// If the top file ends in a newline, then the bottom file is merged into the top without an additional newline.
         /// If, however, the top file doesn't end in a new line, then a newline is inserted at the end of the top file before merging in the bottom file.
-        /// The bottom file always remains intact, except when headerTreatment is DeleteBottomFileHeader.  In that case, the first line (including the newline at the end of that line, if it exists) are removed before merging.
+        /// The bottom file always remains intact, except when <paramref name="headerTreatment"/> is DeleteBottomFileHeader.  In that case, the first line (including the newline at the end of that line, if it exists) are removed before merging.
         /// </remarks>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "It's redundant but not harmful.")]
-        public static void MergeFiles(string topFilePath, string bottomFilePath, FileMergeHeaderTreatment headerTreatment, FileMergeMethod mergeMethod, string newFilePath)
+        public static void MergeFiles(
+            string topFilePath, 
+            string bottomFilePath, 
+            FileMergeHeaderTreatment headerTreatment, 
+            FileMergeMethod mergeMethod, 
+            string newFilePath)
         {
-            new { topFilePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { bottomFilePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { topFilePath }.Must().NotBeNullNorWhiteSpace();
+            new { bottomFilePath }.Must().NotBeNullNorWhiteSpace();
 
             if (mergeMethod == FileMergeMethod.MergeIntoNewFile)
             {
-                new { newFilePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+                new { newFilePath }.Must().NotBeNullNorWhiteSpace();
             }
 
             // is the last character in filepathTop a newline?
@@ -134,24 +138,26 @@ namespace OBeautifulCode.IO.Recipes
         /// <param name="filePath">file containing header to replace.</param>
         /// <param name="newHeader">new header to paste into file's header line.</param>
         /// <remarks>
-        /// If input file doesn't have a header, newHeader will be inserted as the first line.
-        /// If newHeader is null, then the old header is simply deleted and the second line becomes the header.
+        /// If input file doesn't have a header, <paramref name="newHeader"/> will be inserted as the first line.
+        /// If <paramref name="newHeader"/> is null, then the old header is simply deleted and the second line becomes the header.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or containsinvalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="ArgumentNullException">newHeader is null.</exception>
-        /// <exception cref="FileNotFoundException">File specified by filePath cannot be found.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or containsinvalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="newHeader"/> is null.</exception>
+        /// <exception cref="FileNotFoundException">File specified by <paramref name="filePath"/> cannot be found.</exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        /// <exception cref="DirectoryNotFoundException">The directory containing file specified by filePath could not be found or the filePath is a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on filePath OR caller doesn't have permissions to create a temporary file OR caller doesn't have permission to write to filePath OR filePath is read-only.</exception>
-        /// <exception cref="PathTooLongException">filePath was too long.</exception>
+        /// <exception cref="DirectoryNotFoundException">The directory containing file specified by <paramref name="filePath"/> could not be found or the <paramref name="filePath"/> is a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on <paramref name="filePath"/> OR caller doesn't have permissions to create a temporary file OR caller doesn't have permission to write to filePath OR filePath is read-only.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the old header string.</exception>
-        /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "It's redundant but not harmful.")]
-        public static void ReplaceHeader(string filePath, string newHeader)
+        public static void ReplaceHeader(
+            string filePath, 
+            string newHeader)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             string tempFile = CreateTemporaryFile();
 
@@ -199,25 +205,27 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="stream">stream containing data to save to file.</param>
         /// <param name="filePath">location to write file to disk.</param>
-        /// <exception cref="ArgumentNullException">stream is null.</exception>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or has illegal characters, or referes to a non-file device such as "con:".</exception>
-        /// <exception cref="NotSupportedException">stream does not support reading.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or has illegal characters, or referes to a non-file device such as "con:".</exception>
+        /// <exception cref="NotSupportedException"><paramref name="stream"/> does not support reading.</exception>
         /// <exception cref="SecurityException">caller does not have the required permission.</exception>
-        /// <exception cref="DirectoryNotFoundException">directory specified in filePath not found.</exception>
-        /// <exception cref="UnauthorizedAccessException">filePath is an existing file that's read-only or the caller doesn't have write access to the file or folder represented by filePath.</exception>
-        /// <exception cref="PathTooLongException">filepath has too many characters.</exception>
-        /// <exception cref="ObjectDisposedException">Methods called on stream after it was closed.</exception>
+        /// <exception cref="DirectoryNotFoundException">directory specified in <paramref name="filePath"/> not found.</exception>
+        /// <exception cref="UnauthorizedAccessException"><paramref name="filePath"/> is an existing file that's read-only or the caller doesn't have write access to the file or folder represented by filePath.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> has too many characters.</exception>
+        /// <exception cref="ObjectDisposedException">Methods called on <paramref name="stream"/> after it was closed.</exception>
         /// <remarks>
-        /// If filePath already exists, it will be overwritten.
+        /// If <paramref name="filePath"/> already exists, it will be overwritten.
         /// </remarks>
         /// <returns>
         /// Returns the inputted stream.
         /// </returns>
-        public static Stream SaveStreamToFile(this Stream stream, string filePath)
+        public static Stream SaveStreamToFile(
+            this Stream stream, 
+            string filePath)
         {
-            new { stream }.Must().NotBeNull().OrThrow();
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { stream }.Must().NotBeNull();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -243,17 +251,18 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">filePath to create.</param>
         /// <returns>True if zero-byte file was created.  False if not.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
-        /// <exception cref="NotSupportedException">filePath refers to a non-file device, such as "con:", "com1:", "lpt1:", etc. in a non-NTFS environment.</exception>
-        /// <exception cref="IOException">An I/O error occurs, such as specifying FileMode.CreateNew and the file specified by filePath already exists.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> refers to a non-file device, such as "con:", "com1:", "lpt1:", etc. in a non-NTFS environment.</exception>
+        /// <exception cref="IOException">An I/O error occurs, such as specifying FileMode.CreateNew and the file specified by <paramref name="filePath"/> already exists.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        /// <exception cref="DirectoryNotFoundException">The specified filePath is invalid, such as being on an unmapped drive.</exception>
-        /// <exception cref="UnauthorizedAccessException">The access requested is not permitted by the operating system for the specified path, such as when filePath points to a directory that the caller doesn't have write permission to.</exception>
-        /// <exception cref="PathTooLongException">The specified filePath exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
-        public static bool CreateZeroByteFile(string filePath)
+        /// <exception cref="DirectoryNotFoundException">The specified <paramref name="filePath"/> is invalid, such as being on an unmapped drive.</exception>
+        /// <exception cref="UnauthorizedAccessException">The access requested is not permitted by the operating system for the specified path, such as when <paramref name="filePath"/> points to a directory that the caller doesn't have write permission to.</exception>
+        /// <exception cref="PathTooLongException">The specified <paramref name="filePath"/> exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
+        public static bool CreateZeroByteFile(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             using (new FileStream(filePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {

@@ -20,7 +20,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -42,14 +42,15 @@ namespace OBeautifulCode.IO.Recipes
         /// </remarks>
         /// <param name="filePath">file to count lines.</param>
         /// <returns>number of lines in the file.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is empty, not in legal form, has illegal characters in path, or points to a Win32 device.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is empty, not in legal form, has illegal characters in path, or points to a Win32 device.</exception>
         /// <exception cref="FileNotFoundException">file wasn't found on disk.</exception>
-        /// <exception cref="DirectoryNotFoundException">filePath path is invalid.</exception>
-        /// <exception cref="PathTooLongException">filepath was too long.</exception>
-        /// <exception cref="NotSupportedException">The filePath's format is not supported.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="filePath"/> path is invalid.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
+        /// <exception cref="NotSupportedException">The <paramref name="filePath"/>'s format is not supported.</exception>
         /// <exception cref="IOException">There's an IO error accessing file.</exception>
-        public static long CountLines(string filePath)
+        public static long CountLines(
+            string filePath)
         {
             long count = 0;
             using (var reader = new StreamReader(filePath))
@@ -68,14 +69,15 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">file to count lines.</param>
         /// <returns>number of non-blank lines in the file.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is empty, not in legal form, has illegal characters in path, or points to a Win32 device.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is empty, not in legal form, has illegal characters in path, or points to a Win32 device.</exception>
         /// <exception cref="FileNotFoundException">file wasn't found on disk.</exception>
-        /// <exception cref="DirectoryNotFoundException">filePath path is invalid.</exception>
-        /// <exception cref="PathTooLongException">filepath was too long.</exception>
-        /// <exception cref="NotSupportedException">The filePath's format is not supported.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="filePath"/> path is invalid.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
+        /// <exception cref="NotSupportedException">The <paramref name="filePath"/>'s format is not supported.</exception>
         /// <exception cref="IOException">There's an IO error accessing file.</exception>
-        public static long CountNonblankLines(string filePath)
+        public static long CountNonblankLines(
+            string filePath)
         {
             long count = 0;
 
@@ -99,20 +101,21 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">file to calculate MD5.</param>
         /// <returns>the MD5 hash.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="FileNotFoundException">File specified by filePath cannot be found.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="FileNotFoundException">File specified by <paramref name="filePath"/> cannot be found.</exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory containing file specified by filePath could not be found or the filePath is a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on file.</exception>
-        /// <exception cref="PathTooLongException">filePath was too long.</exception>
-        /// <exception cref="NotSupportedException">path is in an invalid format.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Md", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Md", Justification = "This is cased as we would like it.")]
-        public static string Md5(string filePath)
+        public static string Md5(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             byte[] hash;
             using (var md5Provider = new MD5CryptoServiceProvider())
@@ -131,10 +134,11 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="value">byte array to convert.</param>
         /// <returns>lowercase hex string representing the input byte array.</returns>
-        /// <exception cref="ArgumentNullException">value is null or empty.</exception>
-        public static string ToHexString(IList<byte> value)
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is null.</exception>
+        public static string ToHexString(
+            IList<byte> value)
         {
-            new { value }.Must().NotBeNull().OrThrow();
+            new { value }.Must().NotBeNull();
 
             var output = new StringBuilder(value.Count * 2);
             foreach (byte t in value)
@@ -150,18 +154,19 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">file to read.</param>
         /// <returns>List of string containing all non-blank lines, or an empty List if there are none.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="PathTooLongException">filePath has too many characters.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> has too many characters.</exception>
         /// <exception cref="DirectoryNotFoundException">The specified path is invalid (for example, it is on an unmapped drive), filePath is actually a directory.</exception>
-        /// <exception cref="FileNotFoundException">The file specified in filePath was not found.</exception>
+        /// <exception cref="FileNotFoundException">The file specified in <paramref name="filePath"/> was not found.</exception>
         /// <exception cref="IOException">An I/O error occurred while opening the file, such as when the file is locked.</exception>
-        /// <exception cref="UnauthorizedAccessException">caller doesn't have the required permissions.</exception>
-        /// <exception cref="NotSupportedException">path is in an invalid format.</exception>
-        /// <exception cref="SecurityException">the caller doesn't have the required permissions.</exception>
-        public static ReadOnlyCollection<string> ReadAllNonblankLines(string filePath)
+        /// <exception cref="UnauthorizedAccessException">Caller doesn't have the required permissions.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        /// <exception cref="SecurityException">The caller doesn't have the required permissions.</exception>
+        public static ReadOnlyCollection<string> ReadAllNonblankLines(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             string[] lines = File.ReadAllLines(filePath);
             var nonblankLines = lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
@@ -173,21 +178,22 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">File to read.</param>
         /// <returns>String containing first non-header line in file.  If file has only a header line then empty string is returned.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="FileNotFoundException">File specified by filePath cannot be found.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="FileNotFoundException">File specified by <paramref name="filePath"/> cannot be found.</exception>
         /// <exception cref="InvalidOperationException">There is no header line.</exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory containing file specified by filePath could not be found or the filePath is a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on file.</exception>
-        /// <exception cref="PathTooLongException">filePath was too long.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
-        /// <exception cref="NotSupportedException">path is in an invalid format.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "It's redundant but not harmful.")]
-        public static string ReadFirstNonHeaderLine(string filePath)
+        public static string ReadFirstNonHeaderLine(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -214,20 +220,21 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">File to read.</param>
         /// <returns>String containing first line in file.  If file has no lines, empty string is returned.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="FileNotFoundException">File specified by filePath cannot be found.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="FileNotFoundException">File specified by <paramref name="filePath"/> cannot be found.</exception>
         /// <exception cref="IOException">An I/O error occurs.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory containing file specified by filePath could not be found or the filePath is a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on file.</exception>
-        /// <exception cref="PathTooLongException">filePath was too long.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
-        /// <exception cref="NotSupportedException">path is in an invalid format.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "We It's redundant but not harmful.")]
-        public static string ReadHeaderLine(string filePath)
+        public static string ReadHeaderLine(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -248,19 +255,20 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">file to read.</param>
         /// <returns>String containing last line of file.  If file has no lines then an empty string is returned.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="FileNotFoundException">File specified by filePath cannot be found.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="FileNotFoundException">File specified by <paramref name="filePath"/> cannot be found.</exception>
         /// <exception cref="IOException">An I/O error occurs, such as when the file is locked.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory containing file specified by filePath could not be found or the filePath is a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on file.</exception>
-        /// <exception cref="PathTooLongException">filePath was too long.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
-        /// <exception cref="NotSupportedException">path is in an invalid format.</exception>
-        public static string ReadLastLine(string filePath)
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        public static string ReadLastLine(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -294,20 +302,21 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">file to read.</param>
         /// <returns>String containing last line of file that's not blank.  If file has no lines then an empty string is returned.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
-        /// <exception cref="FileNotFoundException">File specified by filePath cannot be found.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace, contains invalid characters, or refers to a non-file device such as "con:", "com1:", etc.</exception>
+        /// <exception cref="FileNotFoundException">File specified by <paramref name="filePath"/> cannot be found.</exception>
         /// <exception cref="IOException">An I/O error occurs, such as when the file is locked.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory containing file specified by filePath could not be found or the filePath is a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Caller doesn't have read permissions on file.</exception>
-        /// <exception cref="PathTooLongException">filePath was too long.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> was too long.</exception>
         /// <exception cref="OutOfMemoryException">There is insufficient memory to allocate a buffer for the returned string.</exception>
-        /// <exception cref="NotSupportedException">path is in an invalid format.</exception>
-        /// <exception cref="InvalidOperationException">filePath points to a zero-byte file.</exception>
-        public static string ReadLastNonblankLine(string filePath)
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        /// <exception cref="InvalidOperationException"><paramref name="filePath"/> points to a zero-byte file.</exception>
+        public static string ReadLastNonblankLine(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -357,17 +366,18 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">path to file to evaluate.</param>
         /// <returns>True if file is zero-byte, false if not.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission.</exception>
-        /// <exception cref="UnauthorizedAccessException">Access to filePath is denied.</exception>
+        /// <exception cref="UnauthorizedAccessException">Access to <paramref name="filePath"/> is denied.</exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
-        /// <exception cref="NotSupportedException">filePath contains a colon (:) in the middle of the string.</exception>
-        /// <exception cref="FileNotFoundException">The filePath doesn't exist or the filePath is a directory.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> contains a colon (:) in the middle of the string.</exception>
+        /// <exception cref="FileNotFoundException">The <paramref name="filePath"/> doesn't exist or the filePath is a directory.</exception>
         /// <exception cref="IOException">Couldn't get state of file.</exception>
-        public static bool IsFileSizeZero(string filePath)
+        public static bool IsFileSizeZero(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             var info = new FileInfo(filePath);
             return info.Length == 0;

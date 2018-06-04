@@ -16,7 +16,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Security;
     using System.Security.Permissions;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -35,11 +35,12 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns true if the given file name is valid, false if not.
         /// </returns>
-        /// <exception cref="ArgumentNullException">filename is null.</exception>
-        /// <exception cref="ArgumentException">filename is whitespace.</exception>
-        public static bool IsValidFileName(string fileName)
+        /// <exception cref="ArgumentNullException"><paramref name="fileName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="fileName"/> is whitespace.</exception>
+        public static bool IsValidFileName(
+            string fileName)
         {
-            new { fileName }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { fileName }.Must().NotBeNullNorWhiteSpace();
 
             fileName = fileName.Trim(); // remove leading/lagging whitespace
             return (!Path.GetInvalidFileNameChars().Any(illegalChar => fileName.Contains(illegalChar))) && (!IsOsRestrictedPath(fileName));
@@ -52,7 +53,8 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns true if the path is a valid file path, false if not.
         /// </returns>
-        public static bool IsValidFilePath(string filePath)
+        public static bool IsValidFilePath(
+            string filePath)
         {
             if (IsValidPath(filePath) && (!string.IsNullOrEmpty(Path.GetFileName(filePath))))
             {
@@ -68,11 +70,12 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="fileName">filename to evaluate.</param>
         /// <returns>The legal filename.</returns>
-        /// <exception cref="ArgumentNullException">filename is null.</exception>
-        /// <exception cref="ArgumentException">filename is whitespace.</exception>
-        public static string MakeLegalFileName(string fileName)
+        /// <exception cref="ArgumentNullException"><paramref name="fileName"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="fileName"/> is whitespace.</exception>
+        public static string MakeLegalFileName(
+            string fileName)
         {
-            new { fileName }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { fileName }.Must().NotBeNullNorWhiteSpace();
 
             char[] illegalCharacters = Path.GetInvalidFileNameChars();
             return illegalCharacters.Aggregate(fileName, (current, illegal) => current.Replace(illegal, ' '));
@@ -88,13 +91,14 @@ namespace OBeautifulCode.IO.Recipes
         /// The OS seems to only care about the beginning part of the file.  so MyFile.con.txt is legit, whereas con.txt isn't.
         /// OS also restricts folder names in the same way files are restricted (i.e. no folder named "con"  or even "con.directory").
         /// </remarks>
-        /// <exception cref="ArgumentNullException">path is null.</exception>
-        /// <exception cref="ArgumentException">path is whitespace.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="path"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="path"/> is whitespace.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Os", Justification = "This is spelled correctly.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Os", Justification = "This is cased as we would like it.")]
-        public static bool IsOsRestrictedPath(string path)
+        public static bool IsOsRestrictedPath(
+            string path)
         {
-            new { path }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { path }.Must().NotBeNullNorWhiteSpace();
 
             path = path.ToUpper(CultureInfo.CurrentCulture);
 
@@ -116,7 +120,8 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns true if the path is valid.  False if not.
         /// </returns>
-        public static bool IsValidPath(string path)
+        public static bool IsValidPath(
+            string path)
         {
             try
             {

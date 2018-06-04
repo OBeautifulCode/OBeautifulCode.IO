@@ -13,7 +13,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Threading;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -27,12 +27,13 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="filePath">filePath to check.</param>
         /// <returns>True if the file can be written to, false if not.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
-        /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
-        public static bool CanWriteToFile(string filePath)
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        public static bool CanWriteToFile(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -66,12 +67,13 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns true if the file is in use, false if not.
         /// </returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
-        /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
-        public static bool IsFileInUse(string filePath)
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        public static bool IsFileInUse(
+            string filePath)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -114,14 +116,16 @@ namespace OBeautifulCode.IO.Recipes
         /// If the path is too long or the directory does not exist, then this method returns true.
         /// </remarks>
         /// <returns>True if file is unlocked.  False if not.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when timeoutSeconds &lt; 1.</exception>
-        /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
-        public static bool WaitForUnlock(string filePath, int timeoutSeconds)
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="timeoutSeconds"/> &lt; 1.</exception>
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        public static bool WaitForUnlock(
+            string filePath, 
+            int timeoutSeconds)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { timeoutSeconds }.Must().BeGreaterThanOrEqualTo(1).OrThrow();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { timeoutSeconds }.Must().BeGreaterThanOrEqualTo(1);
 
             int elapsedSeconds = 0;
             do
@@ -148,16 +152,18 @@ namespace OBeautifulCode.IO.Recipes
         /// If the path is too long or the directory does not exist, returns false.
         /// </remarks>
         /// <returns>True if file is writeable.  False if not.</returns>
-        /// <exception cref="ArgumentNullException">filePath is null.</exception>
-        /// <exception cref="ArgumentException">filePath is whitespace or contains one or more invalid characters.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when timeoutSeconds &lt; 1.</exception>
-        /// <exception cref="PathTooLongException">The filePath exceeds the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="filePath"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="filePath"/> is whitespace or contains one or more invalid characters.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="timeoutSeconds"/> &lt; 1.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="filePath"/> exceeds the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters, and file names must be less than 260 characters.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory containing the file doesn't exist.</exception>
-        /// <exception cref="NotSupportedException">filePath is in an invalid format.</exception>
-        public static bool WaitUntilFileIsWritable(string filePath, int timeoutSeconds)
+        /// <exception cref="NotSupportedException"><paramref name="filePath"/> is in an invalid format.</exception>
+        public static bool WaitUntilFileIsWritable(
+            string filePath,
+            int timeoutSeconds)
         {
-            new { filePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { timeoutSeconds }.Must().BeGreaterThanOrEqualTo(1).OrThrow();
+            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { timeoutSeconds }.Must().BeGreaterThanOrEqualTo(1);
 
             int elapsedSeconds = 0;
             do

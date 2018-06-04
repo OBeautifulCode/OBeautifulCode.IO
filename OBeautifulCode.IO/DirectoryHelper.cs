@@ -17,8 +17,7 @@ namespace OBeautifulCode.IO.Recipes
 
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
-
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
@@ -46,17 +45,19 @@ namespace OBeautifulCode.IO.Recipes
         /// Keeps subfolders that were last accessed to within this number of minutes.  Minutes are based on time - keeping
         /// 1440 minutes means keeping subfolders last accessed to 24 hours prior to right now.
         /// </param>
-        /// <exception cref="ArgumentNullException">rootFolder is null.</exception>
-        /// <exception cref="ArgumentException">rootFolder is whitespace or a relative path couldn't be made absolute.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="rootFolder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="rootFolder"/> is whitespace or a relative path couldn't be made absolute.</exception>
         /// <exception cref="ArgumentOutOfRangeException">minutesToKeep is &lt;=0.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory doesn't exist or disappears during the process.</exception>
         /// <exception cref="UnauthorizedAccessException">method can't access the directory.</exception>
-        /// <exception cref="IOException">rootFolder is in the application's current working directory.</exception>
+        /// <exception cref="IOException"><paramref name="rootFolder"/> is in the application's current working directory.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
-        public static void ClearTemporaryFolders(string rootFolder, int minutesToKeep)
+        public static void ClearTemporaryFolders(
+            string rootFolder, 
+            int minutesToKeep)
         {
-            new { rootFolder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { minutesToKeep }.Must().BeGreaterThan(0).OrThrow();
+            new { rootFolder }.Must().NotBeNullNorWhiteSpace();
+            new { minutesToKeep }.Must().BeGreaterThan(0);
 
             if (!Directory.Exists(rootFolder))
             {
@@ -138,18 +139,19 @@ namespace OBeautifulCode.IO.Recipes
         /// <param name="rootFolder">folder in which to create a temporary folder.</param>
         /// <returns>The path to the new temporary folder.</returns>
         /// <remarks>path to new temporary folder will have trailing backslash.</remarks>
-        /// <exception cref="ArgumentException">rootFolder is null.</exception>
-        /// <exception cref="ArgumentException">rootFolder is whitespace or is a relative path that cannot be made absolute.</exception>
+        /// <exception cref="ArgumentException"><paramref name="rootFolder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="rootFolder"/> is whitespace or is a relative path that cannot be made absolute.</exception>
         /// <exception cref="UnauthorizedAccessException">The caller does not have the required permission to create a folder under rootFolder or cannot access rootFolder.</exception>
         /// <exception cref="PathTooLongException">temporary folder would exceed the character limit.</exception>
-        /// <exception cref="DirectoryNotFoundException">rootFolder is invalid, such as being on an unmapped drive, doesn't exist, or disappears during the process.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="rootFolder"/> is invalid, such as being on an unmapped drive, doesn't exist, or disappears during the process.</exception>
         /// <exception cref="IOException">could't create a temporary folder or rootFolder was in the application's current working directory.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
-        public static string CreateTemporaryFolder(string rootFolder)
+        public static string CreateTemporaryFolder(
+            string rootFolder)
         {
             lock (CreateTemporaryResourceLock)
             {
-                new { rootFolder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+                new { rootFolder }.Must().NotBeNullNorWhiteSpace();
 
                 if (!Directory.Exists(rootFolder))
                 {
@@ -193,16 +195,18 @@ namespace OBeautifulCode.IO.Recipes
         /// </summary>
         /// <param name="folder">The folder to delete.</param>
         /// <param name="recreate">Determines whether to recreate the deleted folder.</param>
-        /// <exception cref="ArgumentNullException">folder is null.</exception>
-        /// <exception cref="ArgumentException">folder is whitespace or contains illegal characters, or has a relative path that couldn't be made absolute.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="folder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="folder"/> is whitespace or contains illegal characters, or has a relative path that couldn't be made absolute.</exception>
         /// <exception cref="IOException">The directory is the application's current working directory OR the directory couldn't be deleted OR the directory couldn't be recreated.</exception>
         /// <exception cref="PathTooLongException">The specified path, file name, or both exceed the system-defined maximum length. For example, on Windows-based platforms, paths must be less than 248 characters and file names must be less than 260 characters.</exception>
         /// <exception cref="UnauthorizedAccessException">The caller does not have permission to recreate the folder when recreate = true.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:").</exception>
-        public static void DeleteFolder(string folder, bool recreate = false)
+        public static void DeleteFolder(
+            string folder, 
+            bool recreate = false)
         {
-            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { folder }.Must().NotBeNullNorWhiteSpace();
             folder = folder.AppendMissing(@"\");
 
             // check if the directory is the application's current working directory
@@ -247,7 +251,8 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns true if the path is a valid directory path, false if not.
         /// </returns>
-        public static bool IsValidDirectoryPath(string path)
+        public static bool IsValidDirectoryPath(
+            string path)
         {
             if (FileHelper.IsValidPath(path) && string.IsNullOrEmpty(Path.GetFileName(path)))
             {
@@ -261,15 +266,16 @@ namespace OBeautifulCode.IO.Recipes
         /// Deletes a folder, including all subfolders and files, using a Windows command-line command.
         /// </summary>
         /// <param name="folder">folder to delete.</param>
-        /// <exception cref="ArgumentNullException">folder is null.</exception>
-        /// <exception cref="ArgumentException">folder is whitespace.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="folder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="folder"/> is whitespace.</exception>
         /// <remarks>
         /// The purpose of this function is to skirt attributes like read-only.  It doesn't deal locked folders.
         /// If there's an existing file handle on a file in the folder (or any subfolders), then all paths to the file will remain intact and won't be deleted.  Other subfolders will be deleted.
         /// </remarks>
-        public static void DeleteFolderDos(string folder)
+        public static void DeleteFolderDos(
+            string folder)
         {
-            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { folder }.Must().NotBeNullNorWhiteSpace();
 
             var startInfo = new ProcessStartInfo
             {
@@ -294,17 +300,18 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns true if the folder is in the working directory, false if not.
         /// </returns>
-        /// <exception cref="ArgumentNullException">folder is null.</exception>
-        /// <exception cref="ArgumentException">folder is whitespace, has invalid characters, or is a relative path that couldn't be made absolute.</exception>
-        /// <exception cref="PathTooLongException">folder has too many characters.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="folder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="folder"/> is whitespace, has invalid characters, or is a relative path that couldn't be made absolute.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="folder"/> has too many characters.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
-        /// <exception cref="NotSupportedException">folder contains a colon (":") that is not part of a volume identifier (for example, "lpt:").</exception>
-        public static bool IsFolderInWorkingDirectory(string folder)
+        /// <exception cref="NotSupportedException"><paramref name="folder"/> contains a colon (":") that is not part of a volume identifier (for example, "lpt:").</exception>
+        public static bool IsFolderInWorkingDirectory(
+            string folder)
         {
-            new { folder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { folder }.Must().NotBeNullNorWhiteSpace();
 
-            string fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
-            string currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");
+            var fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
+            var currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");
             if (currentDirectory.ToLower(CultureInfo.CurrentCulture).Contains(fullpath.ToLower(CultureInfo.CurrentCulture)))
             {
                 return true;

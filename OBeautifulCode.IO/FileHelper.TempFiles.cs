@@ -16,8 +16,7 @@ namespace OBeautifulCode.IO.Recipes
 
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
-
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -34,13 +33,14 @@ namespace OBeautifulCode.IO.Recipes
         /// Keeps files that were last accessed within this number of minutes.  Minutes are based on time - keeping
         /// 1440 minutes means keeping files that were last modified 24 hours prior to right now.
         /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">minutesToKeep is &lt;=0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minutesToKeep"/> is &lt;=0.</exception>
         /// <exception cref="UnauthorizedAccessException"> method can't access the directory.</exception>
         /// <remarks>
         /// Assumption that its not possible to delete the Windows temp folder and as such it won't disappear somehow
         /// in this process.
         /// </remarks>
-        public static void ClearTemporaryFiles(int minutesToKeep)
+        public static void ClearTemporaryFiles(
+            int minutesToKeep)
         {
             ClearTemporaryFiles(Path.GetTempPath(), minutesToKeep);
         }
@@ -54,16 +54,18 @@ namespace OBeautifulCode.IO.Recipes
         /// Keeps files that were last accessed within this number of minutes.  Minutes are based on time - keeping
         /// 1440 minutes means keeping files that were last modified 24 hours prior to right now.
         /// </param>
-        /// <exception cref="ArgumentNullException">temporaryFolder is null.</exception>
-        /// <exception cref="ArgumentException">temporaryFolder is whitespace.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">minutesToKeep is &lt;=0.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="temporaryFolder"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="temporaryFolder"/> is whitespace.</exception>
+        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minutesToKeep"/> is &lt;=0.</exception>
         /// <exception cref="DirectoryNotFoundException">The directory doesn't exist or disappears during the process.</exception>
         /// <exception cref="UnauthorizedAccessException">method can't access the directory.</exception>
-        public static void ClearTemporaryFiles(string temporaryFolder, int minutesToKeep)
+        public static void ClearTemporaryFiles(
+            string temporaryFolder,
+            int minutesToKeep)
         {
             // check arguments
-            new { temporaryFolder }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
-            new { minutesToKeep }.Must().BeGreaterThan(0).OrThrow();
+            new { temporaryFolder }.Must().NotBeNullNorWhiteSpace();
+            new { minutesToKeep }.Must().BeGreaterThan(0);
 
             if (!Directory.Exists(temporaryFolder))
             {
@@ -145,19 +147,20 @@ namespace OBeautifulCode.IO.Recipes
         /// <returns>
         /// Returns the path to the temporary file that was created.
         /// </returns>
-        /// <exception cref="ArgumentNullException">rootDirectory is null.</exception>
-        /// <exception cref="ArgumentException">rootDirectory is whitespace or contains illegal characters.</exception>
-        /// <exception cref="DirectoryNotFoundException">The rootDirectory doesn't exist or disappears during the process.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="rootDirectory"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="rootDirectory"/> is whitespace or contains illegal characters.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="rootDirectory"/> doesn't exist or disappears during the process.</exception>
         /// <exception cref="UnauthorizedAccessException">method can't access rootDirectory to clear out older temporary files, or when the system doesn't have access permission to write the zero-byte file to rootDirectory.</exception>
-        /// <exception cref="PathTooLongException">rootDirectory is greater than 248 characters or if the temporary file would exceed the character limit.</exception>
+        /// <exception cref="PathTooLongException"><paramref name="rootDirectory"/> is greater than 248 characters or if the temporary file would exceed the character limit.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permission to create a zero-byte file in the rootDirectory.</exception>
         /// <exception cref="IOException">Could't create a temporary file.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "tmp", Justification = "This is spelled correctly.")]
-        public static string CreateTemporaryFile(string rootDirectory)
+        public static string CreateTemporaryFile(
+            string rootDirectory)
         {
             lock (CreateTemporaryResourceLock)
             {
-                new { rootDirectory }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+                new { rootDirectory }.Must().NotBeNullNorWhiteSpace();
 
                 int attempt = 0;
                 do
@@ -197,10 +200,14 @@ namespace OBeautifulCode.IO.Recipes
         /// </returns>
         /// <exception cref="ArgumentException">The parameters supplied result in an invalid file path.</exception>
         /// <exception cref="IOException">An I/O error occurs, such as attempting to write a file that already exists.</exception>
-        /// <exception cref="DirectoryNotFoundException">The rootDirectory does not exist.</exception>
+        /// <exception cref="DirectoryNotFoundException"><paramref name="rootDirectory"/> does not exist.</exception>
         /// <exception cref="UnauthorizedAccessException">User doesn't have the proper access permissions.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)", Justification = "Can't use Invariant with framework 4.5.")]
-        public static string CreateFileNamedByTimestamp(string rootDirectory = null, string prefix = null, string suffix = null, string extension = "tmp")
+        public static string CreateFileNamedByTimestamp(
+            string rootDirectory = null,
+            string prefix = null,
+            string suffix = null,
+            string extension = "tmp")
         {
             // determine file name
             DateTime timeStamp = DateTime.Now;
