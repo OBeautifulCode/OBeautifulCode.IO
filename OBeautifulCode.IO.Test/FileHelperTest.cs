@@ -33,7 +33,6 @@ namespace OBeautifulCode.IO.Recipes.Test
     {
 #pragma warning disable SA1124 // Do not use regions
 
-        // ReSharper disable InconsistentNaming
         #region Alter and Write to Files
 
         [Fact]
@@ -2279,7 +2278,6 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<FileNotFoundException>(() => FileHelper.IsFileSizeZero(tempFilepath));
         }
 
-        // ReSharper restore InconsistentNaming
         #endregion
 
         /// <summary>

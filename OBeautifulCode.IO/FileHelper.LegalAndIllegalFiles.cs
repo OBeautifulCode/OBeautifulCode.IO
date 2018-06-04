@@ -135,10 +135,8 @@ namespace OBeautifulCode.IO.Recipes
                 permission.Assert();
                 try
                 {
-                    // ReSharper disable ReturnValueOfPureMethodIsNotUsed
+                    // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                     Path.GetFullPath(path);
-
-                    // ReSharper restore ReturnValueOfPureMethodIsNotUsed
                 }
                 finally
                 {

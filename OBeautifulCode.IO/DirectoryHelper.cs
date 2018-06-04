@@ -94,7 +94,6 @@ namespace OBeautifulCode.IO.Recipes
 
                 if (minutesElapsed > minutesToKeep)
                 {
-                    // ReSharper disable RedundantJumpStatement
                     try
                     {
                         DeleteFolder(subfolder);
@@ -105,10 +104,12 @@ namespace OBeautifulCode.IO.Recipes
                     }
                     catch (UnauthorizedAccessException)
                     {
+                        // ReSharper disable once RedundantJumpStatement
                         continue;
                     }
                     catch (SecurityException)
                     {
+                        // ReSharper disable once RedundantJumpStatement
                         continue;
                     }
 
