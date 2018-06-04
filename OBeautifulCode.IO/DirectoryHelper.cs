@@ -53,7 +53,7 @@ namespace OBeautifulCode.IO.Recipes
         /// <exception cref="IOException"><paramref name="rootFolder"/> is in the application's current working directory.</exception>
         /// <exception cref="SecurityException">The caller does not have the required permissions.</exception>
         public static void ClearTemporaryFolders(
-            string rootFolder, 
+            string rootFolder,
             int minutesToKeep)
         {
             new { rootFolder }.Must().NotBeNullNorWhiteSpace();
