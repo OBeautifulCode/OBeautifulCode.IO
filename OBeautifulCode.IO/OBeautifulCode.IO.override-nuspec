@@ -1,0 +1,7 @@
+<package>
+  <metadata>
+    <description>Provides IO-related convenience/helper methods.</description>
+    <tags>IO file directory helper</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO/nuget-icon.png</iconUrl>
+  </metadata>
+</package>

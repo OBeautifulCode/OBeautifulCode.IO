@@ -1,16 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DisposeFilestreamParams.cs" company="OBeautifulCode">
-//   Copyright (c) OBeautifulCode. All rights reserved.
+//   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO.Test
+namespace OBeautifulCode.IO.Recipes.Test
 {
     using System.IO;
 
     /// <summary>
     /// A wrapper for a file stream for testing purposes.
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Params", Justification = "This is spelled correctly.")]
     public class DisposeFileStreamParams
     {
         /// <summary>
@@ -18,7 +19,9 @@ namespace OBeautifulCode.IO.Test
         /// </summary>
         /// <param name="fileStream">The file stream.</param>
         /// <param name="waitSeconds">The number of seconds to wait.</param>
-        public DisposeFileStreamParams(FileStream fileStream, int waitSeconds)
+        public DisposeFileStreamParams(
+            FileStream fileStream,
+            int waitSeconds)
         {
             this.FileStream = fileStream;
             this.WaitSeconds = waitSeconds;

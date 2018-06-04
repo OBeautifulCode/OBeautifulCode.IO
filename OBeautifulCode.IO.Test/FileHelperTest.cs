@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileHelperTest.cs" company="OBeautifulCode">
-//   Copyright (c) OBeautifulCode. All rights reserved.
+//   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO.Test
+namespace OBeautifulCode.IO.Recipes.Test
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,6 @@ namespace OBeautifulCode.IO.Test
     using System.Text;
     using System.Threading;
 
-    using OBeautifulCode.IO.Recipes;
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
 
@@ -32,6 +31,8 @@ namespace OBeautifulCode.IO.Test
     /// </remarks>
     public static class FileHelperTest
     {
+#pragma warning disable SA1124 // Do not use regions
+
         // ReSharper disable InconsistentNaming
         #region Alter and Write to Files
 
@@ -621,9 +622,7 @@ namespace OBeautifulCode.IO.Test
             // create a temp folder, make read-only and try to create temp file
             string tempFolder = Path.GetTempFileName() + @".dir\";
             DirectoryHelper.DeleteFolder(tempFolder, true);
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly };
-            // ReSharper restore ObjectCreationAsStatement
             Assert.Null(Record.Exception(() => FileHelper.CreateTemporaryFile(tempFolder)));
 
             // how do we reproduce these?
@@ -682,10 +681,8 @@ namespace OBeautifulCode.IO.Test
             string workingDirectory = Directory.GetCurrentDirectory();
 
             // Act
-            // ReSharper disable RedundantArgumentDefaultValue
             string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
             Thread.Sleep(1000);
-            // ReSharper restore RedundantArgumentDefaultValue
             string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
             Thread.Sleep(1000);
             string tempFilePath3 = FileHelper.CreateFileNamedByTimestamp("    ");
@@ -703,9 +700,7 @@ namespace OBeautifulCode.IO.Test
         public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhiteSpace_CreatesFile()
         {
             // Arrange, Act
-            // ReSharper disable once RedundantArgumentDefaultValue
             string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
-            // ReSharper restore once RedundantArgumentDefaultValue
             Thread.Sleep(2000);
             string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
             Thread.Sleep(2000);
@@ -790,10 +785,8 @@ namespace OBeautifulCode.IO.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, Prefix2);
 
             // Assert
-            // ReSharper disable PossibleNullReferenceException
             Assert.True(Path.GetFileName(tempFile1).StartsWith(Prefix1, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).StartsWith(Prefix2, StringComparison.Ordinal));
-            // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
@@ -821,10 +814,8 @@ namespace OBeautifulCode.IO.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix2);
 
             // Assert
-            // ReSharper disable PossibleNullReferenceException
             Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix1 + ".tmp", StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix2 + ".tmp", StringComparison.Ordinal));
-            // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
@@ -839,23 +830,20 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Tmp", Justification = "this is spelled correctly.")]
         public static void CreateFileNamedByTimestamp_ExtensionNotSpecified_CreatesFileWithTmpExtension()
         {
             // Arrange
             string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
 
             // Act
-            // ReSharper disable RedundantArgumentDefaultValue
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);
-            // ReSharper restore RedundantArgumentDefaultValue
 
             // Assert
-            // ReSharper disable PossibleNullReferenceException
             Assert.True(Path.GetFileName(tempFile1).EndsWith(".tmp", StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith(".tmp", StringComparison.Ordinal));
-            // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
@@ -872,10 +860,8 @@ namespace OBeautifulCode.IO.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null, Ext2);
 
             // Assert
-            // ReSharper disable PossibleNullReferenceException
             Assert.True(Path.GetFileName(tempFile1).EndsWith("." + Ext1, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith("." + Ext2, StringComparison.Ordinal));
-            // ReSharper restore PossibleNullReferenceException
         }
 
         [Fact]
@@ -895,12 +881,10 @@ namespace OBeautifulCode.IO.Test
             string tempFile4 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, "   \r\n  ");
 
             // Assert
-            // ReSharper disable PossibleNullReferenceException
             Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile3).EndsWith(Suffix, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile4).EndsWith(Suffix, StringComparison.Ordinal));
-            // ReSharper restore PossibleNullReferenceException
         }
 
         #endregion
@@ -1424,6 +1408,7 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Md", Justification = "This is spelled correctly.")]
         public static void Md5Test()
         {
             Assert.Throws<ArgumentException>(() => FileHelper.Md5(string.Empty));
@@ -1509,9 +1494,7 @@ namespace OBeautifulCode.IO.Test
 
             // one line
             tempFile = Path.GetTempFileName();
-            // ReSharper disable JoinDeclarationAndInitializer
             ReadOnlyCollection<string> results;
-            // ReSharper restore JoinDeclarationAndInitializer
             File.WriteAllText(tempFile, "this is a line");
             results = FileHelper.ReadAllNonblankLines(tempFile);
             Assert.Equal(1, results.Count);
@@ -1882,6 +1865,7 @@ namespace OBeautifulCode.IO.Test
         }
 
         [Fact]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Os", Justification = "This is spelled correctly.")]
         public static void IsOsRestrictedPathTest()
         {
             Assert.True(FileHelper.IsOsRestrictedPath("con.whatever.i.want.txt"));
@@ -2083,9 +2067,7 @@ namespace OBeautifulCode.IO.Test
             Assert.True(FileHelper.WaitForUnlock(tempFile, 2));
 
             // open streamreader to the file, should be locked now
-            // ReSharper disable JoinDeclarationAndInitializer
             FileStream stream;
-            // ReSharper restore JoinDeclarationAndInitializer
             using (new StreamReader(tempFile))
             {
                 Assert.False(FileHelper.WaitForUnlock(tempFile, 2));
@@ -2152,9 +2134,7 @@ namespace OBeautifulCode.IO.Test
 
             // open streamreader to the file, shouldn't be able to write to it because, by default, Streamreader calls
             // new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)
-            // ReSharper disable JoinDeclarationAndInitializer
             FileStream stream;
-            // ReSharper restore JoinDeclarationAndInitializer
             using (new StreamReader(tempFile))
             {
                 Assert.False(FileHelper.WaitUntilFileIsWritable(tempFile, 3));
@@ -2248,9 +2228,7 @@ namespace OBeautifulCode.IO.Test
             string tempFolder = Path.GetTempPath().AppendMissing(@"\") + @"CreateZeroByteTest\";
             DirectoryHelper.DeleteFolder(tempFolder, true);
             Assert.True(Directory.Exists(tempFolder));
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly };
-            // ReSharper restore ObjectCreationAsStatement
             tempFilepath = tempFolder + "Test.txt";
             Assert.True(FileHelper.CreateZeroByteFile(tempFilepath));
             Assert.True(File.Exists(tempFilepath));
@@ -2305,7 +2283,7 @@ namespace OBeautifulCode.IO.Test
         #endregion
 
         /// <summary>
-        /// disposes a file stream after a wait period
+        /// disposes a file stream after a wait period.
         /// </summary>
         /// <param name="data">The file stream wrapper.</param>
         private static void DisposeFilestream(object data)
@@ -2317,5 +2295,7 @@ namespace OBeautifulCode.IO.Test
                 disposeParams.FileStream.Dispose();
             }
         }
+
+#pragma warning restore SA1124 // Do not use regions
     }
 }

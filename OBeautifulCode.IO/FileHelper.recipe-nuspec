@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>OBeautifulCode.IO.Recipes.FileHelper</id>
+    <description>Provides various convenience methods for dealing with files.</description>
+    <tags>IO file filepath</tags>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO/nuget-icon.png</iconUrl>
+    <dependencies>
+      <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.62" />
+      <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.62" />
+      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.32" />
+      <dependency id="OBeautifulCode.Validation.Recipes.ParameterValidator" version="1.0.13" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="FileHelper.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.cs" />
+    <file src="FileHelper.DeleteFiles.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.DeleteFiles.cs" />
+    <file src="FileHelper.LegalAndIllegalFiles.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.LegalAndIllegalFiles.cs" />
+    <file src="FileHelper.Locking.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.Locking.cs" />
+    <file src="FileHelper.Reading.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.Reading.cs" />
+    <file src="FileHelper.TempFiles.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.TempFiles.cs" />
+    <file src="FileHelper.Writing.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileHelper.Writing.cs" />
+    <file src="FileMergeHeaderTreatment.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileMergeHeaderTreatment.cs" />
+    <file src="FileMergeMethod.cs" target="content\net462\.recipes\OBeautifulCode.IO\FileMergeMethod.cs" />
+  </files>
+</package>

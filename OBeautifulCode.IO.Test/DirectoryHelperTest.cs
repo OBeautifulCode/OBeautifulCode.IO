@@ -1,10 +1,10 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DirectoryHelperTest.cs" company="OBeautifulCode">
-//   Copyright (c) OBeautifulCode. All rights reserved.
+//   Copyright (c) OBeautifulCode 2018. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace OBeautifulCode.IO.Test
+namespace OBeautifulCode.IO.Recipes.Test
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,6 @@ namespace OBeautifulCode.IO.Test
     using System.IO;
     using System.Linq;
 
-    using OBeautifulCode.IO.Recipes;
     using OBeautifulCode.String.Recipes;
 
     using Xunit;
@@ -29,7 +28,7 @@ namespace OBeautifulCode.IO.Test
     public static class DirectoryHelperTest
     {
         /// <summary>
-        /// Tests the ClearTemporaryFolders method
+        /// Tests the ClearTemporaryFolders method.
         /// </summary>
         [Fact]
         public static void ClearTemporaryFoldersTest()
@@ -93,9 +92,7 @@ namespace OBeautifulCode.IO.Test
             string tempFolderAttributes = Path.GetTempFileName() + @".dir\";
             DirectoryHelper.DeleteFolder(tempFolderAttributes, true);
             Assert.True(Directory.Exists(tempFolderAttributes));
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolderAttributes) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
-            // ReSharper restore ObjectCreationAsStatement
             Directory.SetCreationTime(tempFolderAttributes, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
             Directory.SetLastWriteTime(tempFolderAttributes, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
             Directory.SetLastAccessTime(tempFolderAttributes, DateTime.Now.Subtract(new TimeSpan(100, 0, 0, 0)));
@@ -153,17 +150,12 @@ namespace OBeautifulCode.IO.Test
             string tempFolderRoot = Path.GetTempFileName() + @".dir\";
             DirectoryHelper.DeleteFolder(tempFolderRoot, true);
             Assert.True(Directory.Exists(tempFolderRoot));
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolderRoot) { Attributes = FileAttributes.ReadOnly };
-            // ReSharper restore ObjectCreationAsStatement
 
             // create 10,000 temporary folders.  no IOException, no repeat folders
             var folders = new HashSet<string>();
 
-            // ReSharper disable JoinDeclarationAndInitializer
-            int totalFolders;
-            // ReSharper restore JoinDeclarationAndInitializer
-            totalFolders = 500;
+            var totalFolders = 500;
             for (int x = 0; x < totalFolders; x++)
             {
                 string folder = DirectoryHelper.CreateTemporaryFolder(tempFolderRoot);
@@ -213,9 +205,7 @@ namespace OBeautifulCode.IO.Test
             // make folder read-only, then delete folder
             tempFolder = tempFolder + @"\";
             Directory.CreateDirectory(tempFolder);
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly };
-            // ReSharper restore ObjectCreationAsStatement
             Assert.True(Directory.Exists(tempFolder));
             DirectoryHelper.DeleteFolder(tempFolder);
             Assert.False(Directory.Exists(tempFolder));
@@ -248,10 +238,8 @@ namespace OBeautifulCode.IO.Test
             File.SetAttributes(tempFile, FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden);
             File.SetAttributes(tempFileEmbed, FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden);
 
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
             new DirectoryInfo(tempFolderEmbed) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
-            // ReSharper restore ObjectCreationAsStatement
             Assert.True(Directory.Exists(tempFolder));
             DirectoryHelper.DeleteFolder(tempFolder, true);
             Assert.True(Directory.Exists(tempFolder));
@@ -335,10 +323,8 @@ namespace OBeautifulCode.IO.Test
             // make files/directories read-only, OS system files, and hidden
             File.SetAttributes(tempFile, FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden);
             File.SetAttributes(tempFileEmbed, FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden);
-            // ReSharper disable ObjectCreationAsStatement
             new DirectoryInfo(tempFolder) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
             new DirectoryInfo(tempFolderEmbed) { Attributes = FileAttributes.ReadOnly | FileAttributes.System | FileAttributes.Hidden };
-            // ReSharper restore ObjectCreationAsStatement
             Assert.True(Directory.Exists(tempFolder));
             DirectoryHelper.DeleteFolderDos(tempFolder);
             Assert.False(Directory.Exists(tempFolder));
