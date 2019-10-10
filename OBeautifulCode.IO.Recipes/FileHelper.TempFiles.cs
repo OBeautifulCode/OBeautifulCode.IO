@@ -14,9 +14,9 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Security;
 
+    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
-    using OBeautifulCode.Validation.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -64,8 +64,8 @@ namespace OBeautifulCode.IO.Recipes
             int minutesToKeep)
         {
             // check arguments
-            new { temporaryFolder }.Must().NotBeNullNorWhiteSpace();
-            new { minutesToKeep }.Must().BeGreaterThan(0);
+            new { temporaryFolder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            new { minutesToKeep }.AsArg().Must().BeGreaterThan(0);
 
             if (!Directory.Exists(temporaryFolder))
             {
@@ -160,7 +160,7 @@ namespace OBeautifulCode.IO.Recipes
         {
             lock (CreateTemporaryResourceLock)
             {
-                new { rootDirectory }.Must().NotBeNullNorWhiteSpace();
+                new { rootDirectory }.AsArg().Must().NotBeNullNorWhiteSpace();
 
                 int attempt = 0;
                 do

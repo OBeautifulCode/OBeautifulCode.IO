@@ -13,7 +13,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Diagnostics;
     using System.IO;
 
-    using OBeautifulCode.Validation.Recipes;
+    using OBeautifulCode.Assertion.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -37,7 +37,7 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFile(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -102,7 +102,7 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFiles(
             string folder)
         {
-            new { folder }.Must().NotBeNullNorWhiteSpace();
+            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             // DONT append backslash - we don't want user accidentally deleting all files in the current working directory
             string[] files = Directory.GetFiles(folder);
@@ -133,8 +133,8 @@ namespace OBeautifulCode.IO.Recipes
             string searchPattern, 
             SearchOption searchOption)
         {
-            new { folder }.Must().NotBeNullNorWhiteSpace();
-            new { searchPattern }.Must().NotBeNullNorWhiteSpace();
+            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            new { searchPattern }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             string[] files = Directory.GetFiles(folder, searchPattern, searchOption);
             foreach (string filePath in files)
@@ -157,7 +157,7 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFileDos(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             var startInfo = new ProcessStartInfo
             {

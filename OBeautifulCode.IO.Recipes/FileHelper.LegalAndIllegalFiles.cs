@@ -16,7 +16,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Security;
     using System.Security.Permissions;
 
-    using OBeautifulCode.Validation.Recipes;
+    using OBeautifulCode.Assertion.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -40,7 +40,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsValidFileName(
             string fileName)
         {
-            new { fileName }.Must().NotBeNullNorWhiteSpace();
+            new { fileName }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             fileName = fileName.Trim(); // remove leading/lagging whitespace
             return (!Path.GetInvalidFileNameChars().Any(illegalChar => fileName.Contains(illegalChar))) && (!IsOsRestrictedPath(fileName));
@@ -75,7 +75,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string MakeLegalFileName(
             string fileName)
         {
-            new { fileName }.Must().NotBeNullNorWhiteSpace();
+            new { fileName }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             char[] illegalCharacters = Path.GetInvalidFileNameChars();
             return illegalCharacters.Aggregate(fileName, (current, illegal) => current.Replace(illegal, ' '));
@@ -98,7 +98,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsOsRestrictedPath(
             string path)
         {
-            new { path }.Must().NotBeNullNorWhiteSpace();
+            new { path }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             path = path.ToUpper(CultureInfo.CurrentCulture);
 

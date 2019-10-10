@@ -20,7 +20,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using OBeautifulCode.Validation.Recipes;
+    using OBeautifulCode.Assertion.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -115,7 +115,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string Md5(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             byte[] hash;
             using (var md5Provider = new MD5CryptoServiceProvider())
@@ -138,7 +138,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string ToHexString(
             IList<byte> value)
         {
-            new { value }.Must().NotBeNull();
+            new { value }.AsArg().Must().NotBeNull();
 
             var output = new StringBuilder(value.Count * 2);
             foreach (byte t in value)
@@ -166,7 +166,7 @@ namespace OBeautifulCode.IO.Recipes
         public static ReadOnlyCollection<string> ReadAllNonblankLines(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             string[] lines = File.ReadAllLines(filePath);
             var nonblankLines = lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
@@ -193,7 +193,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadFirstNonHeaderLine(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -234,7 +234,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadHeaderLine(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -268,7 +268,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadLastLine(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -316,7 +316,7 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadLastNonblankLine(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -377,7 +377,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsFileSizeZero(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             var info = new FileInfo(filePath);
             return info.Length == 0;

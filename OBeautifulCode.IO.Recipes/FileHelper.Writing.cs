@@ -14,8 +14,8 @@ namespace OBeautifulCode.IO.Recipes
     using System.Security;
     using System.Text;
 
+    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.String.Recipes;
-    using OBeautifulCode.Validation.Recipes;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
@@ -67,12 +67,12 @@ namespace OBeautifulCode.IO.Recipes
             FileMergeMethod mergeMethod, 
             string newFilePath)
         {
-            new { topFilePath }.Must().NotBeNullNorWhiteSpace();
-            new { bottomFilePath }.Must().NotBeNullNorWhiteSpace();
+            new { topFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            new { bottomFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             if (mergeMethod == FileMergeMethod.MergeIntoNewFile)
             {
-                new { newFilePath }.Must().NotBeNullNorWhiteSpace();
+                new { newFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
             }
 
             // is the last character in filepathTop a newline?
@@ -157,7 +157,7 @@ namespace OBeautifulCode.IO.Recipes
             string filePath, 
             string newHeader)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             string tempFile = CreateTemporaryFile();
 
@@ -224,8 +224,8 @@ namespace OBeautifulCode.IO.Recipes
             this Stream stream, 
             string filePath)
         {
-            new { stream }.Must().NotBeNull();
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { stream }.AsArg().Must().NotBeNull();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -262,7 +262,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool CreateZeroByteFile(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             using (new FileStream(filePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {

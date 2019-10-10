@@ -13,7 +13,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Threading;
 
-    using OBeautifulCode.Validation.Recipes;
+    using OBeautifulCode.Assertion.Recipes;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -33,7 +33,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool CanWriteToFile(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -73,7 +73,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsFileInUse(
             string filePath)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             try
             {
@@ -124,8 +124,8 @@ namespace OBeautifulCode.IO.Recipes
             string filePath, 
             int timeoutSeconds)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
-            new { timeoutSeconds }.Must().BeGreaterThanOrEqualTo(1);
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            new { timeoutSeconds }.AsArg().Must().BeGreaterThanOrEqualTo(1);
 
             int elapsedSeconds = 0;
             do
@@ -162,8 +162,8 @@ namespace OBeautifulCode.IO.Recipes
             string filePath,
             int timeoutSeconds)
         {
-            new { filePath }.Must().NotBeNullNorWhiteSpace();
-            new { timeoutSeconds }.Must().BeGreaterThanOrEqualTo(1);
+            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            new { timeoutSeconds }.AsArg().Must().BeGreaterThanOrEqualTo(1);
 
             int elapsedSeconds = 0;
             do

@@ -45,10 +45,10 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), null, FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
             Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles(@"c:\test<\file.txt", Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
             Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), @"c:\test<\file.txt", FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
-            Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles("con:", Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
-            Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), "con:", FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
-            Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles("con:", Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
-            Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), "con:", FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
+            Assert.Throws<NotSupportedException>(() => FileHelper.MergeFiles("con:", Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
+            Assert.Throws<NotSupportedException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), "con:", FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
+            Assert.Throws<NotSupportedException>(() => FileHelper.MergeFiles("con:", Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
+            Assert.Throws<NotSupportedException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), "con:", FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
             Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles("     ", Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
             Assert.Throws<ArgumentException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), "     ", FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoTopFile, null));
             Assert.Throws<ArgumentNullException>(() => FileHelper.MergeFiles(Path.GetTempFileName(), Path.GetTempFileName(), FileMergeHeaderTreatment.DeleteBottomFileHeader, FileMergeMethod.MergeIntoNewFile, null));
@@ -304,7 +304,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.ReplaceHeader(null, "header"));
             Assert.Throws<ArgumentException>(() => FileHelper.ReplaceHeader("     ", "header"));
             Assert.Throws<ArgumentException>(() => FileHelper.ReplaceHeader(@"c:\test<\file.txt", "header"));
-            Assert.Throws<ArgumentException>(() => FileHelper.ReplaceHeader("con:", "header"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.ReplaceHeader("con:", "header"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.ReplaceHeader(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReplaceHeaderTest.txt", "new header"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReplaceHeader(@"c:\directorythatdoesntexistReplaceHeaderTest\test.txt", "new header"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReplaceHeader(Path.GetTempPath().AppendMissing(@"\"), "new header"));
@@ -414,7 +414,7 @@ namespace OBeautifulCode.IO.Recipes.Test
                 Assert.Throws<ArgumentException>(() => stream.SaveStreamToFile("     "));
                 Assert.Throws<ArgumentException>(() => stream.SaveStreamToFile(saveFile + ".<.txt"));
                 Assert.Throws<PathTooLongException>(() => stream.SaveStreamToFile(Path.GetTempPath().AppendMissing(@"\") + "verylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailenameverylongfailename.txt"));
-                Assert.Throws<ArgumentException>(() => stream.SaveStreamToFile("con:"));
+                Assert.Throws<NotSupportedException>(() => stream.SaveStreamToFile("con:"));
                 Assert.Throws<NotSupportedException>(() => stream.SaveStreamToFile(saveFile));
                 Assert.Throws<DirectoryNotFoundException>(() => stream.SaveStreamToFile(@"c:\directorythatdoesntexistSaveStreamToFileTest\test.txt"));
             }
@@ -662,7 +662,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\badd:irs"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\folderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolongfolderthatstoolong\"));
             Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"c:\badd:irs"));
-            Assert.Throws<ArgumentException>(() => FileHelper.CreateFileNamedByTimestamp(@"con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.CreateFileNamedByTimestamp(@"con:"));
         }
 
         [Fact]
@@ -1186,7 +1186,7 @@ namespace OBeautifulCode.IO.Recipes.Test
         {
             // Arrange, Act, Assert
             Assert.Throws<ArgumentException>(() => FileHelper.CountLines(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.CountLines("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.CountLines("con:"));
         }
 
         [Fact]
@@ -1323,7 +1323,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.CountNonblankLines(null));
             Assert.Throws<ArgumentException>(() => FileHelper.CountNonblankLines("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.CountNonblankLines(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.CountNonblankLines("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.CountNonblankLines("con:"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.CountNonblankLines(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadAllNonBlankLines.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CountNonblankLines(@"c:\directorythatdoesntexistReadLastLineTest\test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CountNonblankLines(Path.GetTempPath().AppendMissing(@"\")));
@@ -1414,7 +1414,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.Md5(null));
             Assert.Throws<ArgumentException>(() => FileHelper.Md5("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.Md5(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.Md5("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.Md5("con:"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.Md5(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistMD5Test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.Md5(@"c:\directorythatdoesntexistMD5Test\test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.Md5(Path.GetTempPath().AppendMissing(@"\")));
@@ -1466,7 +1466,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.ReadAllNonblankLines(null));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadAllNonblankLines("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadAllNonblankLines(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.ReadAllNonblankLines("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.ReadAllNonblankLines("con:"));
             Assert.Throws<NotSupportedException>(() => FileHelper.ReadAllNonblankLines(@"c:\pip:es.txt"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.ReadAllNonblankLines(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadAllNonBlankLinesTest.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadAllNonblankLines(@"c:\directorythatdoesntexistReadAllNonBlankLinesTest\test.txt"));
@@ -1539,7 +1539,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.ReadFirstNonHeaderLine(null));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadFirstNonHeaderLine("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadFirstNonHeaderLine(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.ReadFirstNonHeaderLine("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.ReadFirstNonHeaderLine("con:"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.ReadFirstNonHeaderLine(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadFirstNonHeaderLineTest.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadFirstNonHeaderLine(@"c:\directorythatdoesntexistReadFirstNonHeaderLineTest\test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadFirstNonHeaderLine(Path.GetTempPath().AppendMissing(@"\")));
@@ -1605,7 +1605,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.ReadHeaderLine(null));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadHeaderLine("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadHeaderLine(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.ReadHeaderLine("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.ReadHeaderLine("con:"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.ReadHeaderLine(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadHeaderLineTest.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadHeaderLine(@"c:\directorythatdoesntexistReadHeaderLineTest\test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadHeaderLine(Path.GetTempPath().AppendMissing(@"\")));
@@ -1660,7 +1660,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.ReadLastLine(null));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadLastLine("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadLastLine(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.ReadLastLine("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.ReadLastLine("con:"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.ReadLastLine(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadLastLineTest.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadLastLine(@"c:\directorythatdoesntexistReadLastLineTest\test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadLastLine(Path.GetTempPath().AppendMissing(@"\")));
@@ -1671,7 +1671,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Throws<ArgumentNullException>(() => FileHelper.ReadLastNonblankLine(null));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadLastNonblankLine("   "));
             Assert.Throws<ArgumentException>(() => FileHelper.ReadLastNonblankLine(@"c:\test<\file.txt"));
-            Assert.Throws<ArgumentException>(() => FileHelper.ReadLastNonblankLine("con:"));
+            Assert.Throws<NotSupportedException>(() => FileHelper.ReadLastNonblankLine("con:"));
             Assert.Throws<FileNotFoundException>(() => FileHelper.ReadLastNonblankLine(Path.GetTempPath().AppendMissing(@"\") + "filethatdoesntexistReadLastNonBlankLine.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadLastNonblankLine(@"c:\directorythatdoesntexistReadLastNonBlankLine\test.txt"));
             Assert.Throws<DirectoryNotFoundException>(() => FileHelper.ReadLastNonblankLine(Path.GetTempPath().AppendMissing(@"\")));

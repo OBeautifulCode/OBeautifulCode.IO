@@ -15,10 +15,10 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Security;
 
+    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
-    using OBeautifulCode.Validation.Recipes;
-
+    
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
     /// </summary>
@@ -56,8 +56,8 @@ namespace OBeautifulCode.IO.Recipes
             string rootFolder,
             int minutesToKeep)
         {
-            new { rootFolder }.Must().NotBeNullNorWhiteSpace();
-            new { minutesToKeep }.Must().BeGreaterThan(0);
+            new { rootFolder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            new { minutesToKeep }.AsArg().Must().BeGreaterThan(0);
 
             if (!Directory.Exists(rootFolder))
             {
@@ -152,7 +152,7 @@ namespace OBeautifulCode.IO.Recipes
         {
             lock (CreateTemporaryResourceLock)
             {
-                new { rootFolder }.Must().NotBeNullNorWhiteSpace();
+                new { rootFolder }.AsArg().Must().NotBeNullNorWhiteSpace();
 
                 if (!Directory.Exists(rootFolder))
                 {
@@ -207,7 +207,7 @@ namespace OBeautifulCode.IO.Recipes
             string folder, 
             bool recreate = false)
         {
-            new { folder }.Must().NotBeNullNorWhiteSpace();
+            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
             folder = folder.AppendMissing(@"\");
 
             // check if the directory is the application's current working directory
@@ -276,7 +276,7 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFolderDos(
             string folder)
         {
-            new { folder }.Must().NotBeNullNorWhiteSpace();
+            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             var startInfo = new ProcessStartInfo
             {
@@ -309,7 +309,7 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsFolderInWorkingDirectory(
             string folder)
         {
-            new { folder }.Must().NotBeNullNorWhiteSpace();
+            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             var fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
             var currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");
