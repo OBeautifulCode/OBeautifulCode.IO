@@ -13,11 +13,11 @@ using Xunit;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OBeautifulCode.IO.Test")]
-[assembly: AssemblyDescription("OBeautifulCode.IO.Test")]
+[assembly: AssemblyTitle("OBeautifulCode.IO.Recipes.Test")]
+[assembly: AssemblyDescription("OBeautifulCode.IO.Recipes.Test")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OBeautifulCode")]
-[assembly: AssemblyProduct("OBeautifulCode.IO.Test")]
+[assembly: AssemblyProduct("OBeautifulCode.IO.Recipes.Test")]
 [assembly: AssemblyCopyright("Copyright (c) 2018 OBeautifulCode")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

@@ -4,7 +4,7 @@
     <id>OBeautifulCode.IO.Recipes.FileHelper</id>
     <description>Provides various convenience methods for dealing with files.</description>
     <tags>IO file filepath</tags>
-    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO/nuget-icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.62" />
       <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.62" />
