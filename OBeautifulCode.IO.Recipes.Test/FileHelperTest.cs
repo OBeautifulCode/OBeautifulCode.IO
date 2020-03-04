@@ -684,6 +684,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             string workingDirectory = Directory.GetCurrentDirectory();
 
             // Act
+            Thread.Sleep(1000);
             string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
             Thread.Sleep(1000);
             string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
@@ -703,6 +704,7 @@ namespace OBeautifulCode.IO.Recipes.Test
         public static void CreateFileNamedByTimestamp_RootDirectoryIsNullOrWhiteSpace_CreatesFile()
         {
             // Arrange, Act
+            Thread.Sleep(1000);
             string tempFilePath1 = FileHelper.CreateFileNamedByTimestamp(null);
             Thread.Sleep(2000);
             string tempFilePath2 = FileHelper.CreateFileNamedByTimestamp(string.Empty);
@@ -755,6 +757,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempDirectory = DirectoryHelper.CreateTemporaryFolder();
 
             // Act
+            Thread.Sleep(1000);
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory);
@@ -783,6 +786,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             const string Prefix2 = "pre ";
 
             // Act
+            Thread.Sleep(1000);
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, Prefix1);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, Prefix2);
@@ -814,6 +818,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             const string Suffix2 = " suffix";
 
             // Act
+            Thread.Sleep(1000);
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix1);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix2);
@@ -864,6 +869,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             const string Ext2 = " test";
 
             // Act
+            Thread.Sleep(1000);
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null, Ext1);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null, Ext2);
@@ -883,6 +889,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             const string Suffix = "ENDING";
 
             // Act
+            Thread.Sleep(1000);
             string tempFile1 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, null);
             Thread.Sleep(1000);
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, string.Empty);
