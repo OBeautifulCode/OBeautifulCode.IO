@@ -600,7 +600,9 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempFilepath = FileHelper.CreateTemporaryFile();
 
             // temp file is in the windows temp folder
+#pragma warning disable xUnit2017 // Do not use Contains() to check if a value exists in a collection
             Assert.True(Directory.GetFiles(Path.GetTempPath()).Contains(tempFilepath, StringComparer.CurrentCultureIgnoreCase));
+#pragma warning restore xUnit2017 // Do not use Contains() to check if a value exists in a collection
             Assert.True(FileHelper.IsFileSizeZero(tempFilepath));
 
             // no great way to test when temp folder is full - would have to completely populate folder
@@ -647,7 +649,9 @@ namespace OBeautifulCode.IO.Recipes.Test
             var filesInFolder = new HashSet<string>(Directory.GetFiles(tempFolder));
             foreach (string createdFile in filenames)
             {
+#pragma warning disable xUnit2017 // Do not use Contains() to check if a value exists in a collection
                 Assert.True(filesInFolder.Contains(createdFile, StringComparer.CurrentCultureIgnoreCase));
+#pragma warning restore xUnit2017 // Do not use Contains() to check if a value exists in a collection
             }
 
             // cleanup
@@ -784,8 +788,10 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, Prefix2);
 
             // Assert
+#pragma warning disable xUnit2009 // Do not use boolean check to check for substrings
             Assert.True(Path.GetFileName(tempFile1).StartsWith(Prefix1, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).StartsWith(Prefix2, StringComparison.Ordinal));
+#pragma warning restore xUnit2009 // Do not use boolean check to check for substrings
         }
 
         [Fact]
@@ -813,8 +819,10 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix2);
 
             // Assert
+#pragma warning disable xUnit2009 // Do not use boolean check to check for substrings
             Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix1 + ".tmp", StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix2 + ".tmp", StringComparison.Ordinal));
+#pragma warning restore xUnit2009 // Do not use boolean check to check for substrings
         }
 
         [Fact]
@@ -841,8 +849,10 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null);
 
             // Assert
+#pragma warning disable xUnit2009 // Do not use boolean check to check for substrings
             Assert.True(Path.GetFileName(tempFile1).EndsWith(".tmp", StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith(".tmp", StringComparison.Ordinal));
+#pragma warning restore xUnit2009 // Do not use boolean check to check for substrings
         }
 
         [Fact]
@@ -859,8 +869,10 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempFile2 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, null, Ext2);
 
             // Assert
+#pragma warning disable xUnit2009 // Do not use boolean check to check for substrings
             Assert.True(Path.GetFileName(tempFile1).EndsWith("." + Ext1, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith("." + Ext2, StringComparison.Ordinal));
+#pragma warning restore xUnit2009 // Do not use boolean check to check for substrings
         }
 
         [Fact]
@@ -880,10 +892,12 @@ namespace OBeautifulCode.IO.Recipes.Test
             string tempFile4 = FileHelper.CreateFileNamedByTimestamp(tempDirectory, null, Suffix, "   \r\n  ");
 
             // Assert
+#pragma warning disable xUnit2009 // Do not use boolean check to check for substrings
             Assert.True(Path.GetFileName(tempFile1).EndsWith(Suffix, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile2).EndsWith(Suffix, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile3).EndsWith(Suffix, StringComparison.Ordinal));
             Assert.True(Path.GetFileName(tempFile4).EndsWith(Suffix, StringComparison.Ordinal));
+#pragma warning restore xUnit2009 // Do not use boolean check to check for substrings
         }
 
         #endregion
@@ -1492,6 +1506,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Empty(FileHelper.ReadAllNonblankLines(tempFile));
 
             // one line
+#pragma warning disable xUnit2013 // Do not use equality check to check for collection size.
             tempFile = Path.GetTempFileName();
             ReadOnlyCollection<string> results;
             File.WriteAllText(tempFile, "this is a line");
@@ -1529,6 +1544,7 @@ namespace OBeautifulCode.IO.Recipes.Test
             Assert.Equal("This is the first line", results[0]);
             Assert.Equal("This is the second line", results[1]);
             Assert.Equal("This is the third line", results[2]);
+#pragma warning restore xUnit2013 // Do not use equality check to check for collection size.
         }
 
         [Fact]

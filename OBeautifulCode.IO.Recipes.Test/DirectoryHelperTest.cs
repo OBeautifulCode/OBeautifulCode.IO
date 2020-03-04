@@ -161,7 +161,11 @@ namespace OBeautifulCode.IO.Recipes.Test
                 string folder = DirectoryHelper.CreateTemporaryFolder(tempFolderRoot);
                 Assert.True(folder[folder.Length - 1] == '\\');
                 Assert.True(Directory.Exists(folder));
+
+#pragma warning disable xUnit2013 // Do not use equality check to check for collection size.
                 Assert.Equal(0, Directory.GetFiles(folder).Length);
+#pragma warning restore xUnit2013 // Do not use equality check to check for collection size.
+
                 Assert.True(folders.Add(folder));
             }
 
@@ -172,7 +176,9 @@ namespace OBeautifulCode.IO.Recipes.Test
             foldersInRoot = new HashSet<string>(foldersInRoot.Select(folder => folder.AppendMissing(@"\")));
             foreach (string createdFolder in folders)
             {
+#pragma warning disable xUnit2017 // Do not use Contains() to check if a value exists in a collection
                 Assert.True(foldersInRoot.Contains(createdFolder, StringComparer.CurrentCultureIgnoreCase));
+#pragma warning restore xUnit2017 // Do not use Contains() to check if a value exists in a collection
             }
 
             // cleanup
