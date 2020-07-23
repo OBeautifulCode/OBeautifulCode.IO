@@ -44,24 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".analyzers\SuppressBecause.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\DateTimeEqualityComparer.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\DictionaryEqualityComparer.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\EnumerableEqualityComparer.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\EnumerableEqualityComparerStrategy.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\EqualityComparerHelper.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\EqualityExtensions.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\HashCodeHelper.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\ReadOnlyDictionaryEqualityComparer.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Equality\SuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Math\MathHelper.cs" />
     <Compile Include=".recipes\OBeautifulCode.Math\SuppressBecause.cs" />
     <Compile Include=".recipes\OBeautifulCode.Math\ThreadSafeRandom.cs" />
     <Compile Include=".recipes\OBeautifulCode.String\StringExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.String\SuppressBecause.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Type\ArrayKind.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Type\SuppressBecause.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
-    <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
     <Compile Include="DirectoryHelper.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="FileHelper.DeleteFiles.cs" />
