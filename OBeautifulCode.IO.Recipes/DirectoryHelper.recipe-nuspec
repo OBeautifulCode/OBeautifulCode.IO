@@ -7,7 +7,7 @@
     <dependencies>
       <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.75" />
       <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.75" />
-      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.44" />
+      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.45" />
       <dependency id="OBeautifulCode.IO.Recipes.FileHelper" version="$version$" />
     </dependencies>
   </metadata>
