@@ -5,7 +5,6 @@
     <tags>IO directory</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Assertion.Recipes.Must" version="1.0.15" />
       <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.75" />
       <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.75" />
       <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.44" />
