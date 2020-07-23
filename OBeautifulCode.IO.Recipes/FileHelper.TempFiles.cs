@@ -14,9 +14,10 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Security;
 
-    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
+
+    using static System.FormattableString;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -63,9 +64,20 @@ namespace OBeautifulCode.IO.Recipes
             string temporaryFolder,
             int minutesToKeep)
         {
-            // check arguments
-            new { temporaryFolder }.AsArg().Must().NotBeNullNorWhiteSpace();
-            new { minutesToKeep }.AsArg().Must().BeGreaterThan(0);
+            if (temporaryFolder == null)
+            {
+                throw new ArgumentNullException(nameof(temporaryFolder));
+            }
+
+            if (string.IsNullOrWhiteSpace(temporaryFolder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(temporaryFolder)}' is white space"));
+            }
+
+            if (minutesToKeep <= 0)
+            {
+                throw new ArgumentOutOfRangeException(Invariant($"'{nameof(minutesToKeep)}' <= '{0}'"), (Exception)null);
+            }
 
             if (!Directory.Exists(temporaryFolder))
             {
@@ -160,7 +172,15 @@ namespace OBeautifulCode.IO.Recipes
         {
             lock (CreateTemporaryResourceLock)
             {
-                new { rootDirectory }.AsArg().Must().NotBeNullNorWhiteSpace();
+                if (rootDirectory == null)
+                {
+                    throw new ArgumentNullException(nameof(rootDirectory));
+                }
+
+                if (string.IsNullOrWhiteSpace(rootDirectory))
+                {
+                    throw new ArgumentException(Invariant($"'{nameof(rootDirectory)}' is white space"));
+                }
 
                 int attempt = 0;
                 do

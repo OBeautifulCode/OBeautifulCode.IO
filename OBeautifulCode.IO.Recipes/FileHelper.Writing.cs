@@ -14,8 +14,9 @@ namespace OBeautifulCode.IO.Recipes
     using System.Security;
     using System.Text;
 
-    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.String.Recipes;
+
+    using static System.FormattableString;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
@@ -67,12 +68,37 @@ namespace OBeautifulCode.IO.Recipes
             FileMergeMethod mergeMethod, 
             string newFilePath)
         {
-            new { topFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
-            new { bottomFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (topFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(topFilePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(topFilePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(topFilePath)}' is white space"));
+            }
+
+            if (bottomFilePath == null)
+            {
+                throw new ArgumentNullException(nameof(bottomFilePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(bottomFilePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(bottomFilePath)}' is white space"));
+            }
 
             if (mergeMethod == FileMergeMethod.MergeIntoNewFile)
             {
-                new { newFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+                if (newFilePath == null)
+                {
+                    throw new ArgumentNullException(nameof(newFilePath));
+                }
+
+                if (string.IsNullOrWhiteSpace(newFilePath))
+                {
+                    throw new ArgumentException(Invariant($"'{nameof(newFilePath)}' is white space"));
+                }
             }
 
             // is the last character in filepathTop a newline?
@@ -157,7 +183,15 @@ namespace OBeautifulCode.IO.Recipes
             string filePath, 
             string newHeader)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             string tempFile = CreateTemporaryFile();
 
@@ -224,8 +258,20 @@ namespace OBeautifulCode.IO.Recipes
             this Stream stream, 
             string filePath)
         {
-            new { stream }.AsArg().Must().NotBeNull();
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             try
             {
@@ -262,7 +308,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool CreateZeroByteFile(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             using (new FileStream(filePath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             {

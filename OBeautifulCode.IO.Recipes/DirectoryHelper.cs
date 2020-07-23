@@ -15,9 +15,10 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Security;
 
-    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
+
+    using static System.FormattableString;
     
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
@@ -56,8 +57,20 @@ namespace OBeautifulCode.IO.Recipes
             string rootFolder,
             int minutesToKeep)
         {
-            new { rootFolder }.AsArg().Must().NotBeNullNorWhiteSpace();
-            new { minutesToKeep }.AsArg().Must().BeGreaterThan(0);
+            if (rootFolder == null)
+            {
+                throw new ArgumentNullException(nameof(rootFolder));
+            }
+
+            if (string.IsNullOrWhiteSpace(rootFolder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(rootFolder)}' is white space"));
+            }
+
+            if (minutesToKeep <= 0)
+            {
+                throw new ArgumentOutOfRangeException(Invariant($"'{nameof(minutesToKeep)}' <= '{0}'"), (Exception)null);
+            }
 
             if (!Directory.Exists(rootFolder))
             {
@@ -152,7 +165,15 @@ namespace OBeautifulCode.IO.Recipes
         {
             lock (CreateTemporaryResourceLock)
             {
-                new { rootFolder }.AsArg().Must().NotBeNullNorWhiteSpace();
+                if (rootFolder == null)
+                {
+                    throw new ArgumentNullException(nameof(rootFolder));
+                }
+
+                if (string.IsNullOrWhiteSpace(rootFolder))
+                {
+                    throw new ArgumentException(Invariant($"'{nameof(rootFolder)}' is white space"));
+                }
 
                 if (!Directory.Exists(rootFolder))
                 {
@@ -207,7 +228,15 @@ namespace OBeautifulCode.IO.Recipes
             string folder, 
             bool recreate = false)
         {
-            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (folder == null)
+            {
+                throw new ArgumentNullException(nameof(folder));
+            }
+
+            if (string.IsNullOrWhiteSpace(folder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(folder)}' is white space"));
+            }
             folder = folder.AppendMissing(@"\");
 
             // check if the directory is the application's current working directory
@@ -276,7 +305,15 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFolderDos(
             string folder)
         {
-            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (folder == null)
+            {
+                throw new ArgumentNullException(nameof(folder));
+            }
+
+            if (string.IsNullOrWhiteSpace(folder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(folder)}' is white space"));
+            }
 
             var startInfo = new ProcessStartInfo
             {
@@ -309,7 +346,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsFolderInWorkingDirectory(
             string folder)
         {
-            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (folder == null)
+            {
+                throw new ArgumentNullException(nameof(folder));
+            }
+
+            if (string.IsNullOrWhiteSpace(folder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(folder)}' is white space"));
+            }
 
             var fullpath = Path.GetFullPath(folder).AppendMissing(@"\");
             var currentDirectory = Directory.GetCurrentDirectory().AppendMissing(@"\");

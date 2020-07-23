@@ -13,7 +13,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.IO;
     using System.Threading;
 
-    using OBeautifulCode.Assertion.Recipes;
+    using static System.FormattableString;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -33,7 +33,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool CanWriteToFile(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             try
             {
@@ -73,7 +81,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsFileInUse(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             try
             {
@@ -124,8 +140,20 @@ namespace OBeautifulCode.IO.Recipes
             string filePath, 
             int timeoutSeconds)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
-            new { timeoutSeconds }.AsArg().Must().BeGreaterThanOrEqualTo(1);
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
+
+            if (timeoutSeconds < 1)
+            {
+                throw new ArgumentOutOfRangeException(Invariant($"'{nameof(timeoutSeconds)}' < '{1}'"), (Exception)null);
+            }
 
             int elapsedSeconds = 0;
             do
@@ -162,8 +190,20 @@ namespace OBeautifulCode.IO.Recipes
             string filePath,
             int timeoutSeconds)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
-            new { timeoutSeconds }.AsArg().Must().BeGreaterThanOrEqualTo(1);
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
+
+            if (timeoutSeconds < 1)
+            {
+                throw new ArgumentOutOfRangeException(Invariant($"'{nameof(timeoutSeconds)}' < '{1}'"), (Exception)null);
+            }
 
             int elapsedSeconds = 0;
             do

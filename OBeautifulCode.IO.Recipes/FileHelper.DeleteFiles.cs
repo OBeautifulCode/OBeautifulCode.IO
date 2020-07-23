@@ -13,7 +13,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Diagnostics;
     using System.IO;
 
-    using OBeautifulCode.Assertion.Recipes;
+    using static System.FormattableString;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -37,7 +37,15 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFile(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             try
             {
@@ -102,7 +110,15 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFiles(
             string folder)
         {
-            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (folder == null)
+            {
+                throw new ArgumentNullException(nameof(folder));
+            }
+
+            if (string.IsNullOrWhiteSpace(folder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(folder)}' is white space"));
+            }
 
             // DONT append backslash - we don't want user accidentally deleting all files in the current working directory
             string[] files = Directory.GetFiles(folder);
@@ -133,8 +149,25 @@ namespace OBeautifulCode.IO.Recipes
             string searchPattern, 
             SearchOption searchOption)
         {
-            new { folder }.AsArg().Must().NotBeNullNorWhiteSpace();
-            new { searchPattern }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (folder == null)
+            {
+                throw new ArgumentNullException(nameof(folder));
+            }
+
+            if (string.IsNullOrWhiteSpace(folder))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(folder)}' is white space"));
+            }
+
+            if (searchPattern == null)
+            {
+                throw new ArgumentNullException(nameof(searchPattern));
+            }
+
+            if (string.IsNullOrWhiteSpace(searchPattern))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(searchPattern)}' is white space"));
+            }
 
             string[] files = Directory.GetFiles(folder, searchPattern, searchOption);
             foreach (string filePath in files)
@@ -157,7 +190,15 @@ namespace OBeautifulCode.IO.Recipes
         public static void DeleteFileDos(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             var startInfo = new ProcessStartInfo
             {

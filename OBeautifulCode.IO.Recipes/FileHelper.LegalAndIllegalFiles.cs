@@ -16,7 +16,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Security;
     using System.Security.Permissions;
 
-    using OBeautifulCode.Assertion.Recipes;
+    using static System.FormattableString;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -40,7 +40,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsValidFileName(
             string fileName)
         {
-            new { fileName }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(fileName)}' is white space"));
+            }
 
             fileName = fileName.Trim(); // remove leading/lagging whitespace
             return (!Path.GetInvalidFileNameChars().Any(illegalChar => fileName.Contains(illegalChar))) && (!IsOsRestrictedPath(fileName));
@@ -75,7 +83,15 @@ namespace OBeautifulCode.IO.Recipes
         public static string MakeLegalFileName(
             string fileName)
         {
-            new { fileName }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(fileName)}' is white space"));
+            }
 
             char[] illegalCharacters = Path.GetInvalidFileNameChars();
             return illegalCharacters.Aggregate(fileName, (current, illegal) => current.Replace(illegal, ' '));
@@ -98,7 +114,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsOsRestrictedPath(
             string path)
         {
-            new { path }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(path)}' is white space"));
+            }
 
             path = path.ToUpper(CultureInfo.CurrentCulture);
 

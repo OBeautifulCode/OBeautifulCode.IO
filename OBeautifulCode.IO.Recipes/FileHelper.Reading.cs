@@ -20,7 +20,7 @@ namespace OBeautifulCode.IO.Recipes
     using System.Text;
     using System.Text.RegularExpressions;
 
-    using OBeautifulCode.Assertion.Recipes;
+    using static System.FormattableString;
 
 #if !OBeautifulCodeIORecipesProject
     internal
@@ -115,7 +115,15 @@ namespace OBeautifulCode.IO.Recipes
         public static string Md5(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             byte[] hash;
             using (var md5Provider = new MD5CryptoServiceProvider())
@@ -138,7 +146,10 @@ namespace OBeautifulCode.IO.Recipes
         public static string ToHexString(
             IList<byte> value)
         {
-            new { value }.AsArg().Must().NotBeNull();
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
 
             var output = new StringBuilder(value.Count * 2);
             foreach (byte t in value)
@@ -166,7 +177,15 @@ namespace OBeautifulCode.IO.Recipes
         public static ReadOnlyCollection<string> ReadAllNonblankLines(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             string[] lines = File.ReadAllLines(filePath);
             var nonblankLines = lines.Where(line => !string.IsNullOrEmpty(line)).ToList();
@@ -193,7 +212,15 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadFirstNonHeaderLine(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -234,7 +261,15 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadHeaderLine(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             using (var filestream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
@@ -268,7 +303,15 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadLastLine(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -316,7 +359,15 @@ namespace OBeautifulCode.IO.Recipes
         public static string ReadLastNonblankLine(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             using (var wholeStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
@@ -377,7 +428,15 @@ namespace OBeautifulCode.IO.Recipes
         public static bool IsFileSizeZero(
             string filePath)
         {
-            new { filePath }.AsArg().Must().NotBeNullNorWhiteSpace();
+            if (filePath == null)
+            {
+                throw new ArgumentNullException(nameof(filePath));
+            }
+
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException(Invariant($"'{nameof(filePath)}' is white space"));
+            }
 
             var info = new FileInfo(filePath);
             return info.Length == 0;
