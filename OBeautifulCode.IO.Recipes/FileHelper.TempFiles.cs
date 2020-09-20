@@ -9,17 +9,17 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Security;
+    using global::System;
+    using global::System.Globalization;
+    using global::System.IO;
+    using global::System.Security;
 
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
 
-    using static System.FormattableString;
+    using static global::System.FormattableString;
 
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     internal
 #else
     public

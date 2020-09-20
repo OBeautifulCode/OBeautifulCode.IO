@@ -9,13 +9,13 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System;
-    using System.IO;
-    using System.Threading;
+    using global::System;
+    using global::System.IO;
+    using global::System.Threading;
 
-    using static System.FormattableString;
+    using static global::System.FormattableString;
 
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     internal
 #else
     public

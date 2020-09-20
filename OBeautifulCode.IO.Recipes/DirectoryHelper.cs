@@ -9,21 +9,21 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System;
-    using System.Diagnostics;
-    using System.Globalization;
-    using System.IO;
-    using System.Security;
+    using global::System;
+    using global::System.Diagnostics;
+    using global::System.Globalization;
+    using global::System.IO;
+    using global::System.Security;
 
     using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.String.Recipes;
 
-    using static System.FormattableString;
-    
+    using static global::System.FormattableString;
+
     /// <summary>
     /// Provides various convenience methods for dealing with directories.
     /// </summary>
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO.Recipes", "See package version number")]
     internal

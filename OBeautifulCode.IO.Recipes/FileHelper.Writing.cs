@@ -9,19 +9,19 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System;
-    using System.IO;
-    using System.Security;
-    using System.Text;
+    using global::System;
+    using global::System.IO;
+    using global::System.Security;
+    using global::System.Text;
 
     using OBeautifulCode.String.Recipes;
 
-    using static System.FormattableString;
+    using static global::System.FormattableString;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
     /// </summary>
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     internal
 #else
     public

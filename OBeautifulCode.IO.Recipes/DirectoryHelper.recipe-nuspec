@@ -5,14 +5,14 @@
     <tags>IO directory</tags>
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO.Recipes/nuget-icon.png</iconUrl>
     <dependencies>
-      <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.75" />
-      <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.75" />
-      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.45" />
+      <dependency id="OBeautifulCode.Math.Recipes.MathHelper" version="1.0.76" />
+      <dependency id="OBeautifulCode.Math.Recipes.ThreadSafeRandom" version="1.0.76" />
+      <dependency id="OBeautifulCode.String.Recipes.StringExtensions" version="1.0.47" />
       <dependency id="OBeautifulCode.IO.Recipes.FileHelper" version="$version$" />
+      <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src=".analyzers\SuppressBecause.cs" target="content\net462\.recipes\OBeautifulCode.IO\SuppressBecause.cs" />
     <file src="DirectoryHelper.cs" target="content\net462\.recipes\OBeautifulCode.IO\DirectoryHelper.cs" />
   </files>
 </package>

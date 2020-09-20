@@ -9,20 +9,20 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Security;
-    using System.Security.Cryptography;
-    using System.Text;
-    using System.Text.RegularExpressions;
+    using global::System;
+    using global::System.Collections.Generic;
+    using global::System.Collections.ObjectModel;
+    using global::System.Globalization;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Security;
+    using global::System.Security.Cryptography;
+    using global::System.Text;
+    using global::System.Text.RegularExpressions;
 
-    using static System.FormattableString;
+    using static global::System.FormattableString;
 
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     internal
 #else
     public

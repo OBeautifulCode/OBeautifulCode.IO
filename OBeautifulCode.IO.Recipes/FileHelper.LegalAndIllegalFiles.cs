@@ -9,16 +9,16 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Security;
-    using System.Security.Permissions;
+    using global::System;
+    using global::System.Globalization;
+    using global::System.IO;
+    using global::System.Linq;
+    using global::System.Security;
+    using global::System.Security.Permissions;
 
-    using static System.FormattableString;
+    using static global::System.FormattableString;
 
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     internal
 #else
     public

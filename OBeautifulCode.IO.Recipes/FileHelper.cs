@@ -9,12 +9,12 @@
 
 namespace OBeautifulCode.IO.Recipes
 {
-    using System.Collections.Generic;
+    using global::System.Collections.Generic;
 
     /// <summary>
     /// Provides various convenience methods for dealing with files.
     /// </summary>
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO.Recipes", "See package version number")]
     internal

@@ -12,7 +12,7 @@ namespace OBeautifulCode.IO.Recipes
     /// <summary>
     /// Determines what to do with the header line of the bottom file when merging two files.
     /// </summary>
-#if !OBeautifulCodeIORecipesProject
+#if !OBeautifulCodeIOSolution
     [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO.Recipes", "See package version number")]
     internal
 #else
