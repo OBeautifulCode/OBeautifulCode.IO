@@ -24,8 +24,8 @@ namespace OBeautifulCode.IO.Recipes
     /// Provides various convenience methods for dealing with directories.
     /// </summary>
 #if !OBeautifulCodeIOSolution
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO.Recipes", "See package version number")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [global::System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.IO.Recipes", "See package version number")]
     internal
 #else
     public
