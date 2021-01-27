@@ -17,8 +17,8 @@ namespace OBeautifulCode.Math.Recipes
     /// Supports various mathematical and numerical methods.
     /// </summary>
 #if !OBeautifulCodeMathSolution
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-    [System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Math.Recipes", "See package version number")]
+    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    [global::System.CodeDom.Compiler.GeneratedCode("OBeautifulCode.Math.Recipes", "See package version number")]
     internal
 #else
     public
