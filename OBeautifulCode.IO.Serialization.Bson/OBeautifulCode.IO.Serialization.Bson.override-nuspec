@@ -3,6 +3,6 @@
   <metadata>
     <description>BSON Serialization Configuration for types in OBeautifulCode.IO</description>
     <tags>bson serialization configuration IO</tags>
-    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/main/OBeautifulCode.IO.Serialization.Bson/nuget-icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO.Serialization.Bson/nuget-icon.png</iconUrl>
   </metadata>
 </package>

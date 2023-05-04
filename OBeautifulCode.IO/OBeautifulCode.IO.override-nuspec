@@ -3,6 +3,6 @@
   <metadata>
     <description>Shared types (models and utilities) for IO</description>
     <tags>models modelobject utilities IO</tags>
-    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/main/OBeautifulCode.IO/nuget-icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO/nuget-icon.png</iconUrl>
   </metadata>
 </package>
