@@ -16,6 +16,7 @@ namespace OBeautifulCode.Assertion.Recipes
     using global::System.Linq;
     using global::System.Text.RegularExpressions;
 
+    using OBeautifulCode.Equality.Recipes;
     using OBeautifulCode.Type.Recipes;
 
     using static global::System.FormattableString;
@@ -54,7 +55,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeNullInternal,
                 Name = nameof(BeNull),
-                TypeValidations = MustBeAssignableToNullTypeValidations,
+                TypeValidations = VerifiableItemMustBeAssignableToNullTypeValidations,
                 Data = data,
             };
 
@@ -85,7 +86,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeNullInternal,
                 Name = nameof(NotBeNull),
-                TypeValidations = MustBeAssignableToNullTypeValidations,
+                TypeValidations = VerifiableItemMustBeAssignableToNullTypeValidations,
                 Data = data,
             };
 
@@ -116,7 +117,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeTrueInternal,
                 Name = nameof(BeTrue),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -147,7 +148,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeTrueInternal,
                 Name = nameof(NotBeTrue),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -178,7 +179,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeFalseInternal,
                 Name = nameof(BeFalse),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -209,7 +210,135 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeFalseInternal,
                 Name = nameof(NotBeFalse),
-                TypeValidations = MustBeBooleanOrNullableBooleanTypeValidations,
+                TypeValidations = VerifiableItemMustBeBooleanOrNullableBooleanTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+        
+        /// <summary>
+        /// Verifies that the bool? subject is true, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeTrueWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeTrueWhenNotNullInternal,
+                Name = nameof(BeTrueWhenNotNull),
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the bool? subject is not true, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeTrueWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeTrueWhenNotNullInternal,
+                Name = nameof(NotBeTrueWhenNotNull),
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the bool? subject is false, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeFalseWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeFalseWhenNotNullInternal,
+                Name = nameof(BeFalseWhenNotNull),
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the bool? subject is not false, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeFalseWhenNotNull(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeFalseWhenNotNullInternal,
+                Name = nameof(NotBeFalseWhenNotNull),
+                TypeValidations = VerifiableItemMustBeNullableBooleanTypeValidations,
                 Data = data,
             };
 
@@ -240,7 +369,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeNullNorWhiteSpaceInternal,
                 Name = nameof(NotBeNullNorWhiteSpace),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -271,7 +400,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeNullOrNotWhiteSpaceInternal,
                 Name = nameof(BeNullOrNotWhiteSpace),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -302,7 +431,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyGuidInternal,
                 Name = nameof(BeEmptyGuid),
-                TypeValidations = MustBeGuidOrNullableGuidTypeValidations,
+                TypeValidations = VerifiableItemMustBeGuidOrNullableGuidTypeValidations,
                 Data = data,
             };
 
@@ -333,7 +462,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyGuidInternal,
                 Name = nameof(NotBeEmptyGuid),
-                TypeValidations = MustBeGuidOrNullableGuidTypeValidations,
+                TypeValidations = VerifiableItemMustBeGuidOrNullableGuidTypeValidations,
                 Data = data,
             };
 
@@ -364,7 +493,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyStringInternal,
                 Name = nameof(BeEmptyString),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -395,7 +524,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyStringInternal,
                 Name = nameof(NotBeEmptyString),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -426,7 +555,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyEnumerableInternal,
                 Name = nameof(BeEmptyEnumerable),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -457,7 +586,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyEnumerableInternal,
                 Name = nameof(NotBeEmptyEnumerable),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -488,7 +617,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeEmptyDictionaryInternal,
                 Name = nameof(BeEmptyDictionary),
-                TypeValidations = MustBeDictionaryTypeValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryTypeValidations,
                 Data = data,
             };
 
@@ -519,7 +648,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyDictionaryInternal,
                 Name = nameof(NotBeEmptyDictionary),
-                TypeValidations = MustBeDictionaryTypeValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryTypeValidations,
                 Data = data,
             };
 
@@ -550,7 +679,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainSomeNullElementsInternal,
                 Name = nameof(ContainSomeNullElements),
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -581,7 +710,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotContainAnyNullElementsInternal,
                 Name = nameof(NotContainAnyNullElements),
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -613,7 +742,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotContainAnyNullElementsWhenNotNullInternal,
                 Name = nameof(NotContainAnyNullElementsWhenNotNull),
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -644,7 +773,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainSomeKeyValuePairsWithNullValueInternal,
                 Name = nameof(ContainSomeKeyValuePairsWithNullValue),
-                TypeValidations = MustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
                 Data = data,
             };
 
@@ -675,7 +804,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotContainAnyKeyValuePairsWithNullValueInternal,
                 Name = nameof(NotContainAnyKeyValuePairsWithNullValue),
-                TypeValidations = MustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
                 Data = data,
             };
 
@@ -707,7 +836,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainKey), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -725,7 +854,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -757,7 +886,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainKey), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -775,7 +904,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -808,7 +937,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainKeyWhenNotNull), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -826,7 +955,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -859,7 +988,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainKeyWhenNotNull), nameof(keyToSearchFor));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -877,7 +1006,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = DictionaryKeyContainmentTypeValidations,
+                TypeValidations = VerifiableItemDictionaryKeyTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -911,7 +1040,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyEnumerableInternal,
                 Name = nameof(NotBeNullNorEmptyEnumerable),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -944,7 +1073,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyEnumerableInternal,
                 Name = verificationName,
-                TypeValidations = MustBeEnumerableWhoseElementTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeAssignableToNullValidations,
                 Data = data,
             };
 
@@ -987,7 +1116,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyDictionaryInternal,
                 Name = verificationName,
-                TypeValidations = MustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryWhoseValueTypeCanBeAssignedToNullValidations,
                 Data = data,
             };
 
@@ -1031,7 +1160,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeEmptyDictionaryInternal,
                 Name = nameof(NotBeNullNorEmptyDictionary),
-                TypeValidations = MustBeDictionaryTypeValidations,
+                TypeValidations = VerifiableItemMustBeDictionaryTypeValidations,
                 Data = data,
             };
 
@@ -1136,7 +1265,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1179,7 +1308,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1222,7 +1351,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1265,7 +1394,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1308,7 +1437,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1351,7 +1480,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1394,7 +1523,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1437,7 +1566,359 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is less than some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeLessThanWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeLessThanWhenNotNullInternal,
+                Name = nameof(BeLessThanWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is not less than some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeLessThanWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeLessThanWhenNotNullInternal,
+                Name = nameof(NotBeLessThanWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is greater than some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeGreaterThanWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeGreaterThanWhenNotNullInternal,
+                Name = nameof(BeGreaterThanWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is not greater than some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeGreaterThanWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeGreaterThanWhenNotNullInternal,
+                Name = nameof(NotBeGreaterThanWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is less than or equal to some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeLessThanOrEqualToWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeLessThanOrEqualToWhenNotNullInternal,
+                Name = nameof(BeLessThanOrEqualToWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is not less or equal to some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeLessThanOrEqualToWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeLessThanOrEqualToWhenNotNullInternal,
+                Name = nameof(NotBeLessThanOrEqualToWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is greater than or equal to some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeGreaterThanOrEqualToWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeGreaterThanOrEqualToWhenNotNullInternal,
+                Name = nameof(BeGreaterThanOrEqualToWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IComparable or IComparable{T} subject is not greater than or equal to some specified value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="T">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeGreaterThanOrEqualToWhenNotNull<T>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            T comparisonValue,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeGreaterThanOrEqualToWhenNotNullInternal,
+                Name = nameof(NotBeGreaterThanOrEqualToWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(T),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToNullAndInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1480,7 +1961,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1523,7 +2004,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1567,7 +2048,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1611,7 +2092,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = EqualsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1621,7 +2102,213 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is equal to any of the specified values.
+        /// Verifies that the IEnumerable subject has the same elements in the same order as a specified IEnumerable value.
+        /// </summary>
+        /// <typeparam name="TElement">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="elementComparer">Optional equality comparer to use to compare the elements.  Default is to use the result of <see cref="EqualityComparerHelper.GetEqualityComparerToUse{T}(IEqualityComparer{T})"/>.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeSequenceEqualTo<TElement>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            IEnumerable<TElement> comparisonValue,
+            IEqualityComparer<TElement> elementComparer = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeSequenceEqualToInternal,
+                Name = nameof(BeSequenceEqualTo),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(IEnumerable<TElement>),
+                    },
+                    new VerificationParameter
+                    {
+                        Name = nameof(elementComparer),
+                        Value = elementComparer,
+                        ParameterType = typeof(IEqualityComparer<TElement>),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToFirstVerificationParameterType,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IEnumerable subject does not have the same elements in the same order as a specified IEnumerable value.
+        /// </summary>
+        /// <typeparam name="TElement">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="elementComparer">Optional equality comparer to use to compare the elements.  Default is to use the result of <see cref="EqualityComparerHelper.GetEqualityComparerToUse{T}(IEqualityComparer{T})"/>.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeSequenceEqualTo<TElement>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            IEnumerable<TElement> comparisonValue,
+            IEqualityComparer<TElement> elementComparer = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeSequenceEqualToInternal,
+                Name = nameof(NotBeSequenceEqualTo),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(IEnumerable<TElement>),
+                    },
+                    new VerificationParameter
+                    {
+                        Name = nameof(elementComparer),
+                        Value = elementComparer,
+                        ParameterType = typeof(IEqualityComparer<TElement>),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToFirstVerificationParameterType,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IEnumerable subject has the same elements in the same order as a specified IEnumerable value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="TElement">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="elementComparer">Optional equality comparer to use to compare the elements.  Default is to use the result of <see cref="EqualityComparerHelper.GetEqualityComparerToUse{T}(IEqualityComparer{T})"/>.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker BeSequenceEqualToWhenNotNull<TElement>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            IEnumerable<TElement> comparisonValue,
+            IEqualityComparer<TElement> elementComparer = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = BeSequenceEqualToWhenNotNullInternal,
+                Name = nameof(BeSequenceEqualToWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(IEnumerable<TElement>),
+                    },
+                    new VerificationParameter
+                    {
+                        Name = nameof(elementComparer),
+                        Value = elementComparer,
+                        ParameterType = typeof(IEqualityComparer<TElement>),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToFirstVerificationParameterType,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the IEnumerable subject does not have the same elements in the same order as a specified IEnumerable value, when not null.
+        /// If null, no exception is thrown.
+        /// </summary>
+        /// <typeparam name="TElement">The type of the comparison value.</typeparam>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The value to compare the subject value to.</param>
+        /// <param name="elementComparer">Optional equality comparer to use to compare the elements.  Default is to use the result of <see cref="EqualityComparerHelper.GetEqualityComparerToUse{T}(IEqualityComparer{T})"/>.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotBeSequenceEqualToWhenNotNull<TElement>(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            IEnumerable<TElement> comparisonValue,
+            IEqualityComparer<TElement> elementComparer = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotBeSequenceEqualToWhenNotNullInternal,
+                Name = nameof(NotBeSequenceEqualToWhenNotNull),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(IEnumerable<TElement>),
+                    },
+                    new VerificationParameter
+                    {
+                        Name = nameof(elementComparer),
+                        Value = elementComparer,
+                        ParameterType = typeof(IEqualityComparer<TElement>),
+                    },
+                },
+                TypeValidations = VerifiableItemTypeMustBeAssignableToFirstVerificationParameterType,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the subject is an element of the specified collection.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
@@ -1632,7 +2319,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker BeEqualToAnyOf<T>(
+        public static AssertionTracker BeElementIn<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1641,17 +2328,17 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeEqualToAnyOf), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeElementIn), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = BeEqualToAnyOfInternal,
-                Name = nameof(BeEqualToAnyOf),
+                Handler = BeElementInInternal,
+                Name = nameof(BeElementIn),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1662,7 +2349,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -1672,7 +2359,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is not equal to any of the specified values.
+        /// Verifies that the subject is not an element of the specified collection.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
         /// <param name="assertionTracker">The assertion tracker.</param>
@@ -1683,7 +2370,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker NotBeEqualToAnyOf<T>(
+        public static AssertionTracker NotBeElementIn<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1692,17 +2379,17 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeEqualToAnyOf), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeElementIn), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = NotBeEqualToAnyOfInternal,
-                Name = nameof(NotBeEqualToAnyOf),
+                Handler = NotBeElementInInternal,
+                Name = nameof(NotBeElementIn),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1713,7 +2400,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -1723,7 +2410,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is equal to any of the specified values, when not null.
+        /// Verifies that the subject is an element of the specified collection, when not null.
         /// If null, no exception is thrown.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
@@ -1735,7 +2422,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker BeEqualToAnyOfWhenNotNull<T>(
+        public static AssertionTracker BeElementInWhenNotNull<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1744,17 +2431,17 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeEqualToAnyOfWhenNotNull), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeElementInWhenNotNull), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = BeEqualToAnyOfWhenNotNullInternal,
-                Name = nameof(BeEqualToAnyOfWhenNotNull),
+                Handler = BeElementInWhenNotNullInternal,
+                Name = nameof(BeElementInWhenNotNull),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1765,7 +2452,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -1775,7 +2462,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the subject is not equal to any of the specified values, when not null.
+        /// Verifies that the subject is not an element of the specified collection, when not null.
         /// If null, no exception is thrown.
         /// </summary>
         /// <typeparam name="T">The type of the comparison values.</typeparam>
@@ -1787,7 +2474,7 @@ namespace OBeautifulCode.Assertion.Recipes
         /// <returns>
         /// The assertion tracker.
         /// </returns>
-        public static AssertionTracker NotBeEqualToAnyOfWhenNotNull<T>(
+        public static AssertionTracker NotBeElementInWhenNotNull<T>(
             [ValidatedNotNull] this AssertionTracker assertionTracker,
             IReadOnlyCollection<T> comparisonValues,
             string because = null,
@@ -1796,17 +2483,17 @@ namespace OBeautifulCode.Assertion.Recipes
         {
             if (comparisonValues == null)
             {
-                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeEqualToAnyOfWhenNotNull), nameof(comparisonValues));
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeElementInWhenNotNull), nameof(comparisonValues));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
             {
                 Because = because,
                 ApplyBecause = applyBecause,
-                Handler = NotBeEqualToAnyOfWhenNotNullInternal,
-                Name = nameof(NotBeEqualToAnyOfWhenNotNull),
+                Handler = NotBeElementInWhenNotNullInternal,
+                Name = nameof(NotBeElementInWhenNotNull),
                 VerificationParameters = new[]
                 {
                     new VerificationParameter
@@ -1817,7 +2504,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = () => comparisonValues.BuildReadOnlyCollectionVerificationParameterToString(BuildReadOnlyCollectionVerificationParameterToStringMaxItems),
                     },
                 },
-                TypeValidations = EqualsAnyOfTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeEqualToAllVerificationParameterEnumerableElementTypesValidations,
                 Data = data,
             };
 
@@ -1875,7 +2562,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1933,7 +2620,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = InequalityTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeInequalityComparableToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -1976,7 +2663,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2019,7 +2706,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2063,7 +2750,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2107,7 +2794,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = ContainmentTypeValidations,
+                TypeValidations = VerifiableItemEnumerableElementTypeMustBeEqualToAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2138,7 +2825,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainOnlyDistinctElementsInternal,
                 Name = nameof(ContainOnlyDistinctElements),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -2170,7 +2857,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = ContainOnlyDistinctElementsWhenNotNullInternal,
                 Name = nameof(ContainOnlyDistinctElementsWhenNotNull),
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -2235,7 +2922,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         },
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2300,7 +2987,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         },
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2345,7 +3032,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(bool),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2376,7 +3063,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeMatchedByRegex), nameof(regex));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2397,7 +3084,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = regex.ToString,
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2428,7 +3115,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeMatchedByRegex), nameof(regex));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2449,7 +3136,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ValueToStringFunc = regex.ToString,
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2482,7 +3169,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(StartWith), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2506,7 +3193,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(StringComparison),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2516,7 +3203,7 @@ namespace OBeautifulCode.Assertion.Recipes
         }
 
         /// <summary>
-        /// Verifies that the string subject does not starts with a specified string.
+        /// Verifies that the string subject does not start with a specified string.
         /// </summary>
         /// <param name="assertionTracker">The assertion tracker.</param>
         /// <param name="comparisonValue">The string value to find.</param>
@@ -2539,7 +3226,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotStartWith), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2563,7 +3250,121 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(StringComparison),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the string subject ends with a specified string.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The string value to find.</param>
+        /// <param name="comparisonType">Optional value that determines how the string subject and <paramref name="comparisonValue"/> are compared.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker EndWith(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string comparisonValue,
+            StringComparison? comparisonType = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            if (comparisonValue == null)
+            {
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(EndWith), nameof(comparisonValue));
+
+                ThrowImproperUseOfFramework(errorMessage);
+            }
+
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = EndWithInternal,
+                Name = nameof(EndWith),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(string),
+                    },
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonType),
+                        Value = comparisonType,
+                        ParameterType = typeof(StringComparison),
+                    },
+                },
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
+                Data = data,
+            };
+
+            assertionTracker.ExecuteVerification(verification);
+
+            return assertionTracker;
+        }
+
+        /// <summary>
+        /// Verifies that the string subject does not end with a specified string.
+        /// </summary>
+        /// <param name="assertionTracker">The assertion tracker.</param>
+        /// <param name="comparisonValue">The string value to find.</param>
+        /// <param name="comparisonType">Optional value that determines how the string subject and <paramref name="comparisonValue"/> are compared.</param>
+        /// <param name="because">Optional rationale for the verification, used in the exception message if the subject fails this verification.  The default is use the framework-generated exception message as-is.</param>
+        /// <param name="applyBecause">Optional value that determines how to apply the <paramref name="because"/>, when specified.  The default is to prefix the framework-generated exception message with <paramref name="because"/>.</param>
+        /// <param name="data">Optional collection of key/value pairs that provide additional user-defined information that is added to the exception's <see cref="Exception.Data"/> property, if thrown.  The default is no user-defined information.</param>
+        /// <returns>
+        /// The assertion tracker.
+        /// </returns>
+        public static AssertionTracker NotEndWith(
+            [ValidatedNotNull] this AssertionTracker assertionTracker,
+            string comparisonValue,
+            StringComparison? comparisonType = null,
+            string because = null,
+            ApplyBecause applyBecause = ApplyBecause.PrefixedToDefaultMessage,
+            IDictionary data = null)
+        {
+            if (comparisonValue == null)
+            {
+                var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotEndWith), nameof(comparisonValue));
+
+                ThrowImproperUseOfFramework(errorMessage);
+            }
+
+            var verification = new Verification
+            {
+                Because = because,
+                ApplyBecause = applyBecause,
+                Handler = NotEndWithInternal,
+                Name = nameof(NotEndWith),
+                VerificationParameters = new[]
+                {
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonValue),
+                        Value = comparisonValue,
+                        ParameterType = typeof(string),
+                    },
+                    new VerificationParameter
+                    {
+                        Name = nameof(comparisonType),
+                        Value = comparisonType,
+                        ParameterType = typeof(StringComparison),
+                    },
+                },
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2610,7 +3411,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = BeSameReferenceAsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeSameReferenceAsAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2657,7 +3458,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(T),
                     },
                 },
-                TypeValidations = BeSameReferenceAsTypeValidations,
+                TypeValidations = VerifiableItemTypeMustBeSameReferenceAsAllVerificationParameterTypesValidations,
                 Data = data,
             };
 
@@ -2688,7 +3489,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(ContainString), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2706,7 +3507,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(string),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2737,7 +3538,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotContainString), nameof(comparisonValue));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2755,7 +3556,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(string),
                     },
                 },
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -2786,7 +3587,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsLessThanZeroErrorMessage, nameof(HaveCount), nameof(expectedCount), expectedCount);
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2804,7 +3605,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(int),
                     },
                 },
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -2835,7 +3636,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsLessThanZeroErrorMessage, nameof(NotHaveCount), nameof(unexpectedCount), unexpectedCount);
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -2853,7 +3654,7 @@ namespace OBeautifulCode.Assertion.Recipes
                         ParameterType = typeof(int),
                     },
                 },
-                TypeValidations = MustBeEnumerableTypeValidations,
+                TypeValidations = VerifiableItemMustBeEnumerableTypeValidations,
                 Data = data,
             };
 
@@ -2966,7 +3767,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeOfType), nameof(expectedType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3015,7 +3816,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeOfType), nameof(unexpectedType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3148,7 +3949,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(BeAssignableToType), nameof(assignableType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3205,7 +4006,7 @@ namespace OBeautifulCode.Assertion.Recipes
             {
                 var errorMessage = string.Format(CultureInfo.InvariantCulture, VerificationParameterIsNullErrorMessage, nameof(NotBeAssignableToType), nameof(unassignableType));
 
-                WorkflowExtensions.ThrowImproperUseOfFramework(errorMessage);
+                ThrowImproperUseOfFramework(errorMessage);
             }
 
             var verification = new Verification
@@ -3260,7 +4061,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeValidEmailAddressInternal,
                 Name = nameof(BeValidEmailAddress),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3291,7 +4092,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = NotBeValidEmailAddressInternal,
                 Name = nameof(NotBeValidEmailAddress),
-                TypeValidations = MustBeStringTypeValidations,
+                TypeValidations = VerifiableItemMustBeStringTypeValidations,
                 Data = data,
             };
 
@@ -3322,7 +4123,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeUtcDateTimeInternal,
                 Name = nameof(BeUtcDateTime),
-                TypeValidations = MustBeDateTimeOrNullableDateTimeTypeValidations,
+                TypeValidations = VerifiableItemMustBeDateTimeOrNullableDateTimeTypeValidations,
                 Data = data,
             };
 
@@ -3354,7 +4155,7 @@ namespace OBeautifulCode.Assertion.Recipes
                 ApplyBecause = applyBecause,
                 Handler = BeUtcDateTimeWhenNotNullInternal,
                 Name = nameof(BeUtcDateTimeWhenNotNull),
-                TypeValidations = MustBeNullableDateTimeTypeValidations,
+                TypeValidations = VerifiableItemMustBeNullableDateTimeTypeValidations,
                 Data = data,
             };
 
