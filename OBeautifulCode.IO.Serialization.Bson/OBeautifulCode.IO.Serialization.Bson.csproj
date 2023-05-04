@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".analyzers\dictionary.xml" />
+    <None Include="nuget-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OBeautifulCode.IO\OBeautifulCode.IO.csproj">

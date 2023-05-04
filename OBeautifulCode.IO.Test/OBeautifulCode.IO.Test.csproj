@@ -222,6 +222,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".analyzers\dictionary.xml" />
+    <None Include="nuget-icon.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OBeautifulCode.IO.Serialization.Bson\OBeautifulCode.IO.Serialization.Bson.csproj">
