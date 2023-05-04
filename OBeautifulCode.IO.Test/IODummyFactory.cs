@@ -30,6 +30,7 @@ namespace OBeautifulCode.IO.Test
         public IODummyFactory()
         {
             /* Add any overriding or custom registrations here. */
+            AutoFixtureBackedDummyFactory.ConstrainDummyToExclude(FileFormat.Unspecified);
         }
     }
 }
