@@ -68,6 +68,10 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="Models\Classes\File.cs" />
+    <Compile Include="Models\Classes\File.designer.cs">
+      <DependentUpon>File.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\Enums\FileFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalSuppressions.cs" />
