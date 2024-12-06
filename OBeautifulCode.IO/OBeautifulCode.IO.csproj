@@ -68,6 +68,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="Logic\FileFormatExtensions.cs" />
     <Compile Include="Models\Classes\File.cs" />
     <Compile Include="Models\Classes\File.designer.cs">
       <DependentUpon>File.cs</DependentUpon>
