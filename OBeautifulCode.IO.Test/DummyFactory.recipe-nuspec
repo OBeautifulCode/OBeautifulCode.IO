@@ -7,7 +7,7 @@
     <iconUrl>https://raw.githubusercontent.com/OBeautifulCode/OBeautifulCode.IO/master/OBeautifulCode.IO.Test/nuget-icon.png</iconUrl>
     <dependencies>
       <dependency id="OBeautifulCode.IO" version="$version$" />
-      <dependency id="OBeautifulCode.AutoFakeItEasy" version="1.0.140" />
+      <dependency id="OBeautifulCode.AutoFakeItEasy" version="1.0.141" />
       <dependency id="OBeautifulCode.CodeAnalysis.Recipes.SuppressBecause" version="1.0.19" />
     </dependencies>
   </metadata>
