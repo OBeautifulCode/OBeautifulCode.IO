@@ -70,6 +70,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
     <Compile Include="Logic\FileFormatExtensions.cs" />
     <Compile Include="Logic\MediaTypeExtensions.cs" />
+    <Compile Include="Logic\TagNames.cs" />
     <Compile Include="Models\Classes\File.cs" />
     <Compile Include="Models\Classes\File.designer.cs">
       <DependentUpon>File.cs</DependentUpon>
