@@ -8,6 +8,8 @@ namespace OBeautifulCode.IO
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
     using static System.FormattableString;
 
     /// <summary>
@@ -140,6 +142,13 @@ namespace OBeautifulCode.IO
                     { FileFormat.Yaml, new[] { ".yaml", ".yml" } },
                     { FileFormat.Zip, new[] { ".zip" } },
                 };
+
+        private static readonly IReadOnlyDictionary<string, FileFormat> UpperCaseExtensionToFileFormatMap =
+            FileFormatToFileExtensionsMap
+                .SelectMany(_ => _.Value.Select(ext => new { Extension = ext.ToUpperInvariant(), FileFormat = _.Key }))
+                .Where(_ => !string.IsNullOrWhiteSpace(_.Extension))
+                .Where(_ => !((_.FileFormat == FileFormat.Matlab) && (_.Extension == ".M"))) // prefer Obj-C over MatLab
+                .ToDictionary(_ => _.Extension, _ => _.FileFormat);
 
         private static readonly IReadOnlyDictionary<FileFormat, MediaType>
             FileFormatToMediaTypeMap = new Dictionary<FileFormat, MediaType>
@@ -284,6 +293,53 @@ namespace OBeautifulCode.IO
 
             // Note that a unit test guarantees that all FileFormat values are in the dictionary.
             var result = FileFormatToFileExtensionsMap[fileFormat];
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a possible <see cref="FileFormat"/> for the specified file name.
+        /// </summary>
+        /// <remarks>
+        /// We say "possible" here because we use the file extension to determine the file format
+        /// and sometimes the same extension is used for different file formats.  In that case,
+        /// this library maps only the one that is more commonly used and that one is returned.
+        /// </remarks>
+        /// <param name="fileNameWithExtension">The name of the file with it's extension.</param>
+        /// <returns>
+        /// A possible <see cref="FileFormat"/> for the specified file name or <see cref="FileFormat.Unspecified"/>
+        /// if the extension is not known.
+        /// </returns>
+        public static FileFormat GetPossibleFileFormat(
+            this string fileNameWithExtension)
+        {
+            if (fileNameWithExtension == null)
+            {
+                throw new ArgumentNullException(nameof(fileNameWithExtension));
+            }
+
+            if (string.IsNullOrWhiteSpace(fileNameWithExtension))
+            {
+                throw new ArgumentException(Invariant($"{nameof(fileNameWithExtension)} is white space."));
+            }
+
+            var extension = Path.GetExtension(fileNameWithExtension);
+
+            FileFormat result;
+
+            if (string.IsNullOrWhiteSpace(extension))
+            {
+                result = FileFormat.Unspecified;
+            }
+            else
+            {
+                extension = extension.ToUpperInvariant();
+
+                if (!UpperCaseExtensionToFileFormatMap.TryGetValue(extension, out result))
+                {
+                    result = FileFormat.Unspecified;
+                }
+            }
 
             return result;
         }
