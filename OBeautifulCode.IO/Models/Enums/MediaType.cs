@@ -20,6 +20,16 @@ namespace OBeautifulCode.IO
         ApplicationOctet,
 
         /// <summary>
+        /// The application data is Android Package Kit format.
+        /// </summary>
+        ApplicationAndroidPackageArchive,
+
+        /// <summary>
+        /// The application data is in EPUB format.
+        /// </summary>
+        ApplicationEpub,
+
+        /// <summary>
         /// The application data is in Google Docs format.
         /// </summary>
         ApplicationGoogleDocs,
@@ -50,39 +60,89 @@ namespace OBeautifulCode.IO
         ApplicationJson,
 
         /// <summary>
-        /// Thea application data is in Microsoft Office PowerPoint (ppt) format.
+        /// The application data is in Microsoft Office PowerPoint (ppt) format.
         /// </summary>
         ApplicationMicrosoftOfficePowerPoint,
 
         /// <summary>
-        /// Thea application data is in Microsoft Office OOXML PowerPoint (pptx) format.
+        /// The application data is in Microsoft Office OOXML PowerPoint (pptx) format.
         /// </summary>
         ApplicationMicrosoftOfficeOoxmlPowerPoint,
 
         /// <summary>
-        /// Thea application data is in Microsoft Office Excel (xls) format.
+        /// The application data is in Microsoft Office Excel (xls) format.
         /// </summary>
         ApplicationMicrosoftOfficeExcel,
 
         /// <summary>
-        /// Thea application data is in Microsoft Office OOXML Excel (xlsx) format.
+        /// The application data is in Microsoft Office Excel Binary (xlsb) format.
+        /// </summary>
+        ApplicationMicrosoftOfficeExcelBinary,
+
+        /// <summary>
+        /// The application data is in Microsoft Office Excel Macro Enabled (xlsm) format.
+        /// </summary>
+        ApplicationMicrosoftOfficeExcelMacroEnabled,
+
+        /// <summary>
+        /// The application data is in Microsoft Office OOXML Excel (xlsx) format.
         /// </summary>
         ApplicationMicrosoftOfficeOoxmlExcel,
 
         /// <summary>
-        /// Thea application data is in Microsoft Office Word (doc) format.
+        /// The application data is in Microsoft Office OOXML Excel Template (xltx) format.
+        /// </summary>
+        ApplicationMicrosoftOfficeOoxmlExcelTemplate,
+
+        /// <summary>
+        /// The application data is in Microsoft Office Word (doc) format.
         /// </summary>
         ApplicationMicrosoftOfficeWord,
 
         /// <summary>
-        /// Thea application data is in Microsoft Office OOXML Word (docx) format.
+        /// The application data is in Microsoft Office OOXML Word (docx) format.
         /// </summary>
         ApplicationMicrosoftOfficeOoxmlWord,
+
+        /// <summary>
+        /// The application data is in Microsoft Office OOXML Word Template (dotx) format.
+        /// </summary>
+        ApplicationMicrosoftOfficeOoxmlWordTemplate,
+
+        /// <summary>
+        /// The application data is in OASIS OpenDocument Graphics format.
+        /// </summary>
+        ApplicationOpenDocumentGraphics,
+
+        /// <summary>
+        /// The application data is in OASIS OpenDocument Image format.
+        /// </summary>
+        ApplicationOpenDocumentImage,
+
+        /// <summary>
+        /// The application data is in OASIS OpenDocument Presentation format.
+        /// </summary>
+        ApplicationOpenDocumentPresentation,
+
+        /// <summary>
+        /// The application data is in OASIS OpenDocument Spreadsheet format.
+        /// </summary>
+        ApplicationOpenDocumentSpreadsheet,
+
+        /// <summary>
+        /// The application data is in OASIS OpenDocument Text format.
+        /// </summary>
+        ApplicationOpenDocumentText,
 
         /// <summary>
         /// The application data is in Portable Document Format (PDF).
         /// </summary>
         ApplicationPdf,
+
+        /// <summary>
+        /// The application is in PERL format.
+        /// </summary>
+        ApplicationPerl,
 
         /// <summary>
         /// The application data is in Encapsulated PostScript (EPS) format.
@@ -95,6 +155,16 @@ namespace OBeautifulCode.IO
         ApplicationRtf,
 
         /// <summary>
+        /// The application data is in Bourne shell script format.
+        /// </summary>
+        ApplicationShellScript,
+
+        /// <summary>
+        /// The application data is in Shockwave Flash (SWF) format.
+        /// </summary>
+        ApplicationShockwaveFlash,
+
+        /// <summary>
         /// The application data is a SOAP document.
         /// </summary>
         ApplicationSoap,
@@ -103,6 +173,16 @@ namespace OBeautifulCode.IO
         /// The application data is in SQL format.
         /// </summary>
         ApplicationSql,
+
+        /// <summary>
+        /// The application data is in TAR format.
+        /// </summary>
+        ApplicationTar,
+
+        /// <summary>
+        /// The application data is in TeX format.
+        /// </summary>
+        ApplicationTex,
 
         /// <summary>
         /// The application data is compressed in ZIP format.
@@ -118,6 +198,11 @@ namespace OBeautifulCode.IO
         /// The audio data is in MP3 format.
         /// </summary>
         AudioMpeg,
+
+        /// <summary>
+        /// The audio data is in OGG format.
+        /// </summary>
+        AudioOgg,
 
         /// <summary>
         /// The audio data is in Waveform Audio Format (WAV).
@@ -165,6 +250,21 @@ namespace OBeautifulCode.IO
         MessageEmail,
 
         /// <summary>
+        /// Bundles several independent pieces of content into one message.
+        /// </summary>
+        MultipartRelated,
+
+        /// <summary>
+        /// The text data is in C/C++ format (.c, .cc, .cpp, .cxx, .dic, .h, .hh)
+        /// </summary>
+        TextC,
+
+        /// <summary>
+        /// The text data is in C-Sharp C# format (CS).
+        /// </summary>
+        TextCSharp,
+
+        /// <summary>
         /// The text data is in Cascading Style Sheets (CSS) format.
         /// </summary>
         TextCss,
@@ -175,9 +275,19 @@ namespace OBeautifulCode.IO
         TextCsv,
 
         /// <summary>
+        /// The text data is in Fortran format.
+        /// </summary>
+        TextFortran,
+
+        /// <summary>
         /// The text data is in HTML format.
         /// </summary>
         TextHtml,
+
+        /// <summary>
+        /// The text data is in Java format.
+        /// </summary>
+        TextJava,
 
         /// <summary>
         /// The text data is in JavaScript format.
@@ -195,9 +305,19 @@ namespace OBeautifulCode.IO
         TextPlain,
 
         /// <summary>
+        /// The text data is in Python format.
+        /// </summary>
+        TextPython,
+
+        /// <summary>
         /// The text data is in Rich Text Format (RTF).
         /// </summary>
         TextRichText,
+
+        /// <summary>
+        /// The text is in tab-separated values (TSV) format.
+        /// </summary>
+        TextTsv,
 
         /// <summary>
         /// The text data is in vCard (also known as VCF) format.
@@ -215,6 +335,11 @@ namespace OBeautifulCode.IO
         TextYaml,
 
         /// <summary>
+        /// The video data is in Flash format.
+        /// </summary>
+        VideoFlash,
+
+        /// <summary>
         /// The video data is in MPEG format.
         /// </summary>
         VideoMpeg,
@@ -225,9 +350,24 @@ namespace OBeautifulCode.IO
         VideoMpeg4,
 
         /// <summary>
+        /// /The video is in Matroska (mkv) format.
+        /// </summary>
+        VideoMkv,
+
+        /// <summary>
+        /// The video data is in OGG format.
+        /// </summary>
+        VideoOgg,
+
+        /// <summary>
         /// The video data is in QuickTime format (mov) format.
         /// </summary>
         VideoQuickTime,
+
+        /// <summary>
+        /// The video data is in WebM format.
+        /// </summary>
+        VideoWebm,
 
         /// <summary>
         /// The video data is in Windows Media Video (WMV) format.

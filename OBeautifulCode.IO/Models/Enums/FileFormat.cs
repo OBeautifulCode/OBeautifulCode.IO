@@ -240,9 +240,14 @@ namespace OBeautifulCode.IO
         Java,
 
         /// <summary>
-        /// JavaScript/JSON.
+        /// JavaScript
         /// </summary>
         JavaScript,
+
+        /// <summary>
+        /// JSON
+        /// </summary>
+        Json,
 
         /// <summary>
         /// JPEG.
@@ -318,11 +323,6 @@ namespace OBeautifulCode.IO
         /// MPEG video.
         /// </summary>
         Mpg,
-
-        /// <summary>
-        /// MUMPS.
-        /// </summary>
-        Mumps,
 
         /// <summary>
         /// Numbers Document.
