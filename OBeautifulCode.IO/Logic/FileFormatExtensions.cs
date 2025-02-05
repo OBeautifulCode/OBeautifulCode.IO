@@ -156,6 +156,7 @@ namespace OBeautifulCode.IO
                 throw new ArgumentOutOfRangeException(Invariant($"{nameof(fileFormat)} is {nameof(FileFormat.Unspecified)}."));
             }
 
+            // Note that a unit test guarantees that all FileFormat values are in the dictionary.
             var result = FileFormatToFileExtensionsMap[fileFormat];
 
             return result;

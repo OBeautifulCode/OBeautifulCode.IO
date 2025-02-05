@@ -18,7 +18,7 @@ namespace OBeautifulCode.IO.Test
         public static void GetTypicalFileExtensions___Should_throw_ArgumentOutOfRangeException___When_parameter_fileFormat_is_Unspecified()
         {
             // Arrange, Act
-            var actual = Record.Exception(() => FileFormatExtensions.GetTypicalFileExtensions(FileFormat.Unspecified));
+            var actual = Record.Exception(() => FileFormat.Unspecified.GetTypicalFileExtensions());
 
             // Assert
             actual.AsTest().Must().BeOfType<ArgumentOutOfRangeException>();

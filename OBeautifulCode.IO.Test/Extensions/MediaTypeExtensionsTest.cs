@@ -6,7 +6,6 @@
 
 namespace OBeautifulCode.IO.Test
 {
-    using System;
     using System.Linq;
     using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Enum.Recipes;
