@@ -44,5 +44,19 @@ namespace OBeautifulCode.IO.Test
                 fileFormatExtensions.AsTest().Must().Each().StartWith(".");
             }
         }
+
+        [Fact]
+        public static void ToMediaType___Should_return_MediaType_for_all_FileFormat_values___When_called()
+        {
+            // Arrange
+            var filesFormats = EnumExtensions.GetAllPossibleEnumValues<FileFormat>().ToList();
+
+            // Act
+            var mediaTypes = filesFormats.Select(_ => _.ToMediaType()).ToList();
+
+            // Assert
+            // need some kind of assertion so that compiler doesn't complain about unused calls.
+            mediaTypes.AsArg().Must().HaveCount(filesFormats.Count);
+        }
     }
 }

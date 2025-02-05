@@ -141,6 +141,132 @@ namespace OBeautifulCode.IO
                     { FileFormat.Zip, new[] { ".zip" } },
                 };
 
+        private static readonly IReadOnlyDictionary<FileFormat, MediaType>
+            FileFormatToMediaTypeMap = new Dictionary<FileFormat, MediaType>
+            {
+                { FileFormat.Unspecified, MediaType.ApplicationOctet },
+                { FileFormat.Text, MediaType.TextPlain },
+                { FileFormat.Ai, MediaType.ApplicationOctet },
+                { FileFormat.Apk, MediaType.ApplicationAndroidPackageArchive },
+                { FileFormat.AppleScript, MediaType.TextPlain },
+                { FileFormat.Binary, MediaType.ApplicationOctet },
+                { FileFormat.Bmp, MediaType.ImageBmp },
+                { FileFormat.BoxNote, MediaType.ApplicationOctet },
+                { FileFormat.C, MediaType.TextC },
+                { FileFormat.CSharp, MediaType.TextCSharp },
+                { FileFormat.Cpp, MediaType.TextC },
+                { FileFormat.Css, MediaType.TextCss },
+                { FileFormat.Csv, MediaType.TextCsv },
+                { FileFormat.Clojure, MediaType.TextPlain },
+                { FileFormat.CoffeeScript, MediaType.TextPlain },
+                { FileFormat.Cfm, MediaType.TextPlain },
+                { FileFormat.D, MediaType.TextPlain },
+                { FileFormat.Dart, MediaType.TextPlain },
+                { FileFormat.Diff, MediaType.TextPlain },
+                { FileFormat.Doc, MediaType.ApplicationMicrosoftOfficeWord },
+                { FileFormat.Docx, MediaType.ApplicationMicrosoftOfficeOoxmlWord },
+                { FileFormat.DockerFile, MediaType.TextPlain },
+                { FileFormat.Dotx, MediaType.ApplicationMicrosoftOfficeOoxmlWordTemplate },
+                { FileFormat.Email, MediaType.MessageEmail },
+                { FileFormat.Eps, MediaType.ApplicationPostscript },
+                { FileFormat.Epub, MediaType.ApplicationEpub },
+                { FileFormat.Erlang, MediaType.TextPlain },
+                { FileFormat.Fla, MediaType.ApplicationOctet },
+                { FileFormat.Flv, MediaType.VideoFlash },
+                { FileFormat.FSharp, MediaType.TextPlain },
+                { FileFormat.Fortran, MediaType.TextFortran },
+                { FileFormat.GDoc, MediaType.ApplicationGoogleDocs },
+                { FileFormat.GDraw, MediaType.ApplicationGoogleDrawing },
+                { FileFormat.Gif, MediaType.ImageGif },
+                { FileFormat.Go, MediaType.TextPlain },
+                { FileFormat.GPres, MediaType.ApplicationGoogleSlides },
+                { FileFormat.Groovy, MediaType.TextPlain },
+                { FileFormat.GSheet, MediaType.ApplicationGoogleSheets },
+                { FileFormat.GZip, MediaType.ApplicationGzip },
+                { FileFormat.Html, MediaType.TextHtml },
+                { FileFormat.Handlebars, MediaType.TextPlain },
+                { FileFormat.Haskell, MediaType.TextPlain },
+                { FileFormat.Haxe, MediaType.TextPlain },
+                { FileFormat.Indd, MediaType.ApplicationOctet },
+                { FileFormat.Java, MediaType.TextJava },
+                { FileFormat.JavaScript, MediaType.ApplicationJson },
+                { FileFormat.Json, MediaType.TextJavaScript },
+                { FileFormat.Jpg, MediaType.ImageJpeg },
+                { FileFormat.Keynote, MediaType.ApplicationOctet },
+                { FileFormat.Kotlin, MediaType.TextPlain },
+                { FileFormat.Latex, MediaType.TextPlain },
+                { FileFormat.Lisp, MediaType.TextPlain },
+                { FileFormat.Lua, MediaType.TextPlain },
+                { FileFormat.M4a, MediaType.AudioMpeg4 },
+                { FileFormat.Markdown, MediaType.TextMarkdown },
+                { FileFormat.Matlab, MediaType.TextPlain },
+                { FileFormat.MHtml, MediaType.MultipartRelated },
+                { FileFormat.Mkv, MediaType.VideoMkv },
+                { FileFormat.Mov, MediaType.VideoQuickTime },
+                { FileFormat.Mp3, MediaType.AudioMpeg },
+                { FileFormat.Mp4, MediaType.VideoMpeg4 },
+                { FileFormat.Mpg, MediaType.VideoMpeg },
+                { FileFormat.Numbers, MediaType.ApplicationOctet },
+                { FileFormat.Nzb, MediaType.TextXml },
+                { FileFormat.ObjC, MediaType.TextPlain },
+                { FileFormat.OCaml, MediaType.TextPlain },
+                { FileFormat.Odg, MediaType.ApplicationOpenDocumentGraphics },
+                { FileFormat.Odi, MediaType.ApplicationOpenDocumentImage },
+                { FileFormat.Odp, MediaType.ApplicationOpenDocumentPresentation },
+                { FileFormat.Ods, MediaType.ApplicationOpenDocumentSpreadsheet },
+                { FileFormat.Odt, MediaType.ApplicationOpenDocumentText },
+                { FileFormat.Ogg, MediaType.AudioOgg },
+                { FileFormat.Ogv, MediaType.VideoOgg },
+                { FileFormat.Pages, MediaType.ApplicationOctet },
+                { FileFormat.Pascal, MediaType.TextPlain },
+                { FileFormat.Pdf, MediaType.ApplicationPdf },
+                { FileFormat.Perl, MediaType.ApplicationPerl },
+                { FileFormat.Php, MediaType.TextPlain },
+                { FileFormat.Pig, MediaType.TextPlain },
+                { FileFormat.Png, MediaType.ImagePng },
+                { FileFormat.Post, MediaType.ApplicationOctet },
+                { FileFormat.PowerShell, MediaType.TextPlain },
+                { FileFormat.Ppt, MediaType.ApplicationMicrosoftOfficePowerPoint },
+                { FileFormat.Pptx, MediaType.ApplicationMicrosoftOfficeOoxmlPowerPoint },
+                { FileFormat.Psd, MediaType.ImagePhotoshop },
+                { FileFormat.Puppet, MediaType.TextPlain },
+                { FileFormat.Python, MediaType.TextPython },
+                { FileFormat.Qtz, MediaType.ApplicationOctet },
+                { FileFormat.R, MediaType.TextPlain },
+                { FileFormat.Rtf, MediaType.ApplicationRtf },
+                { FileFormat.Ruby, MediaType.TextPlain },
+                { FileFormat.Rust, MediaType.TextPlain },
+                { FileFormat.Sql, MediaType.ApplicationSql },
+                { FileFormat.Sass, MediaType.TextCss },
+                { FileFormat.Scala, MediaType.TextPlain },
+                { FileFormat.Scheme, MediaType.TextPlain },
+                { FileFormat.Sketch, MediaType.ApplicationZip },
+                { FileFormat.Shell, MediaType.ApplicationShellScript },
+                { FileFormat.Smalltalk, MediaType.TextPlain },
+                { FileFormat.Svg, MediaType.ImageSvg },
+                { FileFormat.Swf, MediaType.ApplicationShockwaveFlash },
+                { FileFormat.Swift, MediaType.TextPlain },
+                { FileFormat.Tar, MediaType.ApplicationTar },
+                { FileFormat.Tiff, MediaType.ImageTiff },
+                { FileFormat.Tsv, MediaType.TextTsv },
+                { FileFormat.Vb, MediaType.TextPlain },
+                { FileFormat.VbScript, MediaType.TextPlain },
+                { FileFormat.VCard, MediaType.TextVcard },
+                { FileFormat.Velocity, MediaType.TextPlain },
+                { FileFormat.Verilog, MediaType.TextPlain },
+                { FileFormat.Wav, MediaType.AudioWav },
+                { FileFormat.WebM, MediaType.VideoWebm },
+                { FileFormat.Wmv, MediaType.VideoWmv },
+                { FileFormat.Xls, MediaType.ApplicationMicrosoftOfficeExcel },
+                { FileFormat.Xlsx, MediaType.ApplicationMicrosoftOfficeOoxmlExcel },
+                { FileFormat.Xlsb, MediaType.ApplicationMicrosoftOfficeExcelBinary },
+                { FileFormat.Xlsm, MediaType.ApplicationMicrosoftOfficeExcelMacroEnabled },
+                { FileFormat.Xltx, MediaType.ApplicationMicrosoftOfficeOoxmlExcelTemplate },
+                { FileFormat.Xml, MediaType.TextXml },
+                { FileFormat.Yaml, MediaType.TextYaml },
+                { FileFormat.Zip, MediaType.ApplicationZip },
+            };
+
         /// <summary>
         /// Gets the typically used file extensions for a specified file format.
         /// </summary>
@@ -158,6 +284,24 @@ namespace OBeautifulCode.IO
 
             // Note that a unit test guarantees that all FileFormat values are in the dictionary.
             var result = FileFormatToFileExtensionsMap[fileFormat];
+
+            return result;
+        }
+
+        /// <summary>
+        /// Converts a <see cref="FileFormat"/> to a <see cref="MediaType"/>.
+        /// </summary>
+        /// <param name="fileFormat">The file format.</param>
+        /// <returns>
+        /// The <see cref="MediaType"/> converted from a <see cref="FileFormat"/>.
+        /// </returns>
+        public static MediaType ToMediaType(
+            this FileFormat fileFormat)
+        {
+            // Note that a unit test guarantees that all FileFormat values are in the dictionary.
+            var result = fileFormat == FileFormat.Unspecified
+                ? MediaType.ApplicationOctet
+                : FileFormatToMediaTypeMap[fileFormat];
 
             return result;
         }
