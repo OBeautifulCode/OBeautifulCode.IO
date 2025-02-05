@@ -21,7 +21,7 @@ namespace OBeautifulCode.IO
         public const string MediaType = "media-type";
 
         /// <summary>
-        /// The tag name for a malware scan result.
+        /// The tag name for a <see cref="IO.MalwareScanResult"/>.
         /// </summary>
         public const string MalwareScanResult = "malware-scan-result";
     }

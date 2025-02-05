@@ -76,6 +76,7 @@
       <DependentUpon>File.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Enums\FileFormat.cs" />
+    <Compile Include="Models\Enums\MalwareScanResult.cs" />
     <Compile Include="Models\Enums\MediaType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\GlobalSuppressions.cs" />
