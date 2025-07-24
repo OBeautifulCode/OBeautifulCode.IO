@@ -197,6 +197,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="Extensions\CompressionKindExtensionsTest.cs" />
     <Compile Include="Extensions\MediaTypeExtensionsTest.cs" />
     <Compile Include="Extensions\FileFormatExtensionsTest.cs" />
     <Compile Include="Models\Classes\FileTest.cs" />
